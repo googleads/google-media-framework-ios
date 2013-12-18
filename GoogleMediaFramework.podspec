@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "GoogleMediaFramework"
-  s.version      = "0.1.0"
+  s.version      = "0.1.1"
   s.summary      = "A video player framework for playing videos. Integrates easily with the Google IMA SDK for including advertising on your videos."
   s.homepage     = "https://github.com/googleads/Google-Media-Framework-iOS"
   s.screenshots  = "www.example.com/screenshots_1", "www.example.com/screenshots_2"

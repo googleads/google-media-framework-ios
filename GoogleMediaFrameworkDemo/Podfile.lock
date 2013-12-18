@@ -1,0 +1,17 @@
+PODS:
+  - GoogleAds-IMA-iOS-SDK (3.0.beta.4)
+  - GoogleMediaFramework (0.1.0)
+
+DEPENDENCIES:
+  - GoogleAds-IMA-iOS-SDK (~> 3.0.beta.4)
+  - GoogleMediaFramework (from `../`)
+
+EXTERNAL SOURCES:
+  GoogleMediaFramework:
+    :path: ../
+
+SPEC CHECKSUMS:
+  GoogleAds-IMA-iOS-SDK: e1c3ea14aaa20e58e23a66ff43e9d29b8ade1d31
+  GoogleMediaFramework: 77ae270aab43d0a84508079aee8af008fef43fb4
+
+COCOAPODS: 0.28.0

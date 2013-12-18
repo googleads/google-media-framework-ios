@@ -1,0 +1,5 @@
+platform :ios, "5.0"
+
+pod "GoogleMediaFramework", :path => "../"
+# Demo app shows how to integrate with the Google IMA SDK, but this is optional.
+pod "GoogleAds-IMA-iOS-SDK", "~> 3.0.beta.4"

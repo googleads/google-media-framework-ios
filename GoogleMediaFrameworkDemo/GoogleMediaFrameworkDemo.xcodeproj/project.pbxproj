@@ -72,7 +72,7 @@
 		4CAD3F7217BD4703008C6D28 /* GoogleMediaFrameworkDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleMediaFrameworkDemo-Info.plist"; sourceTree = "<group>"; };
 		4CAD3F7417BD4703008C6D28 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4CAD3F7617BD4703008C6D28 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		4CAD3F7817BD4703008C6D28 /* GMFVideoPlayerSDKExamples-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GMFVideoPlayerSDKExamples-Prefix.pch"; sourceTree = "<group>"; };
+		4CAD3F7817BD4703008C6D28 /* GoogleMediaFrameworkDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GoogleMediaFrameworkDemo-Prefix.pch"; sourceTree = "<group>"; };
 		4CAD3F7917BD4703008C6D28 /* GMFAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GMFAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4CAD3F7A17BD4703008C6D28 /* GMFAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GMFAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4CAD3F7C17BD4703008C6D28 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -174,17 +174,17 @@
 		4CAD3F7017BD4703008C6D28 /* GoogleMediaFrameworkDemo */ = {
 			isa = PBXGroup;
 			children = (
+				4CAD3F7117BD4703008C6D28 /* Supporting Files */,
 				4CAD3F7917BD4703008C6D28 /* GMFAppDelegate.h */,
 				4CAD3F7A17BD4703008C6D28 /* GMFAppDelegate.m */,
-				4C00AF3417F2081700167389 /* GMFIMASDKAdService.h */,
-				4C00AF3517F2081700167389 /* GMFIMASDKAdService.m */,
-				4CAD3F7117BD4703008C6D28 /* Supporting Files */,
-				4CD7815017EC9E9B00930F92 /* VideoListViewController.h */,
-				4CD7815117EC9E9B00930F92 /* VideoListViewController.m */,
 				4CD0246C185CCE5300793419 /* GMFContentPlayhead.h */,
 				4CD0246D185CCE5300793419 /* GMFContentPlayhead.m */,
+				4C00AF3417F2081700167389 /* GMFIMASDKAdService.h */,
+				4C00AF3517F2081700167389 /* GMFIMASDKAdService.m */,
 				4CF77DE818567DAD00F98F76 /* VideoData.h */,
 				4CF77DE918567DAD00F98F76 /* VideoData.m */,
+				4CD7815017EC9E9B00930F92 /* VideoListViewController.h */,
+				4CD7815117EC9E9B00930F92 /* VideoListViewController.m */,
 			);
 			path = GoogleMediaFrameworkDemo;
 			sourceTree = "<group>";
@@ -192,13 +192,13 @@
 		4CAD3F7117BD4703008C6D28 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				4CAD3F7217BD4703008C6D28 /* GoogleMediaFrameworkDemo-Info.plist */,
-				4CAD3F7317BD4703008C6D28 /* InfoPlist.strings */,
-				4CAD3F7617BD4703008C6D28 /* main.m */,
-				4CAD3F7817BD4703008C6D28 /* GMFVideoPlayerSDKExamples-Prefix.pch */,
+				4CAD3F8017BD4703008C6D28 /* Default-568h@2x.png */,
 				4CAD3F7C17BD4703008C6D28 /* Default.png */,
 				4CAD3F7E17BD4703008C6D28 /* Default@2x.png */,
-				4CAD3F8017BD4703008C6D28 /* Default-568h@2x.png */,
+				4CAD3F7217BD4703008C6D28 /* GoogleMediaFrameworkDemo-Info.plist */,
+				4CAD3F7817BD4703008C6D28 /* GoogleMediaFrameworkDemo-Prefix.pch */,
+				4CAD3F7317BD4703008C6D28 /* InfoPlist.strings */,
+				4CAD3F7617BD4703008C6D28 /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";

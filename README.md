@@ -20,7 +20,7 @@ Then run
 ```
 $ pod install
 ```
-Then open the new xcworkspace that Cococapods just created:
+Then close your project in xcode and open the new xcworkspace that Cococapods just created:
 ```
 $ open YourProjectName.xcworkspace
 ```

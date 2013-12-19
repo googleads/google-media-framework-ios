@@ -14,7 +14,7 @@ The easiest way to get started is by using [Cocoapods](http://cocoapods.org).
 
 Create a new single view xcode project, then add the following line to your ```Podfile```:
 ```
-pod "GoogleMediaFramwork", "~> 0.1.0"
+pod "GoogleMediaFramework", "~> 0.1.0"
 ```
 Then run
 ```

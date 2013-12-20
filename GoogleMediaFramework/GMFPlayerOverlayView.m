@@ -17,7 +17,6 @@
 #endif
 
 #import "GMFPlayerOverlayView.h"
-#import "UIView+GMFPositioning.m"
 
 @implementation GMFPlayerOverlayView {
   UIActivityIndicatorView *_spinner;
@@ -37,21 +36,61 @@
     _playerControlsView = [[GMFPlayerControlsView alloc] init];
     [self setSeekbarTrackColorDefault];
     [self addSubview:_playerControlsView];
+
+    [self setupLayoutConstraints];
   }
   return self;
 }
 
-- (void)layoutSubviews {
-  [super layoutSubviews];
+- (void)setupLayoutConstraints {
+  //[self setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [_spinner setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [_playerControlsView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
-  [_spinner setCenter:CGPointMake(self.frame.size.width / 2.0, self.frame.size.height / 2.0)];
+  NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_spinner, _playerControlsView);
 
-  [_playerControlsView GMF_setSize:CGSizeMake(CGRectGetWidth(self.frame),
-                                              [_playerControlsView preferredHeight])];
-  // Align to bottom edge
-  // TODO(tensafefrogs): Use springs/struts here to align UI elements
-  [_playerControlsView GMF_setOrigin:CGPointMake(0,
-       self.frame.size.height - [_playerControlsView preferredHeight])];
+  // Align spinner to the center X and Y.
+  NSArray *constraints =
+     [NSLayoutConstraint constraintsWithVisualFormat:@"|[_spinner]|"
+                                             options:NSLayoutFormatAlignAllCenterX
+                                             metrics:nil
+                                               views:viewsDictionary];
+  // Technically this works with just the Y alignment, but xcode will complain about missing
+  // constraints, so we add the X as well.
+  constraints = [constraints arrayByAddingObject:
+      [NSLayoutConstraint constraintWithItem:_spinner
+                                   attribute:NSLayoutAttributeCenterY
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:_spinner.superview
+                                   attribute:NSLayoutAttributeCenterY
+                                  multiplier:1.0f
+                                    constant:0]];
+  constraints = [constraints arrayByAddingObject:
+      [NSLayoutConstraint constraintWithItem:_spinner
+                                   attribute:NSLayoutAttributeCenterX
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:_spinner.superview
+                                   attribute:NSLayoutAttributeCenterX
+                                  multiplier:1.0f
+                                    constant:0]];
+
+
+  // Align controlbar to the center bottom.
+  NSDictionary *metrics = @{
+      @"controlsHeight": @([_playerControlsView preferredHeight])
+  };
+  constraints = [constraints arrayByAddingObjectsFromArray:
+      [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_playerControlsView(controlsHeight)]|"
+                                              options:NSLayoutFormatAlignAllBottom
+                                              metrics:metrics
+                                                views:viewsDictionary]];
+  constraints = [constraints arrayByAddingObjectsFromArray:
+      [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_playerControlsView]|"
+                                              options:NSLayoutFormatAlignAllBottom
+                                              metrics:nil
+                                                views:viewsDictionary]];
+
+  [self addConstraints:constraints];
 }
 
 - (void)setDelegate:(id<GMFPlayerControlsViewDelegate>)delegate {

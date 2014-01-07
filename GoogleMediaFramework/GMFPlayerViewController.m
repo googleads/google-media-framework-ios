@@ -119,8 +119,8 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 
   // Listen to tap events that fall through the overlay views
   _tapRecognizer = [[UITapGestureRecognizer alloc]
-                    initWithTarget:self
-                    action:@selector(didTapGestureCapturingView:)];
+      initWithTarget:self
+              action:@selector(didTapGestureCapturingView:)];
   [_tapRecognizer setDelegate:self];
   [_playerView.gestureCapturingView addGestureRecognizer:_tapRecognizer];
 
@@ -166,11 +166,11 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 }
 
 - (void)playerStateDidChangeToPlaying {
-  NSLog(@"State changed to playing");
+  // NSLog(@"State changed to playing");
 }
 
 - (void)playerStateDidChangeToPaused {
-  NSLog(@"State changed to paused");
+  // NSLog(@"State changed to paused");
 }
 
 // Broadcast just before the player ends to allow any ads or other provider that wants to perform
@@ -187,7 +187,6 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 }
 
 - (void)playerStateDidChangeToFinished {
-  NSLog(@"State changed to finished");
   NSDictionary *userInfo = @{
                              kGMFPlayerPlaybackDidFinishReasonUserInfoKey:
                                [NSNumber numberWithInt:GMFPlayerFinishReasonPlaybackEnded]
@@ -220,24 +219,19 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
       [self playerStateDidChangeToFinished];
       break;
     case kGMFPlayerStateBuffering:
-      NSLog(@"BUFFERING");
       // Video is buffering
       break;
     case kGMFPlayerStateSeeking:
-      NSLog(@"SEEKING");
       // Seeking
       break;
     case kGMFPlayerStateLoadingContent:
-      NSLog(@"LOADING_CONTENT");
       // Loading content
       break;
     case kGMFPlayerStateEmpty:
-      NSLog(@"EMPTY");
-      // ???
+      // Player was reset
       break;
     case kGMFPlayerStateError:
-      NSLog(@"ERROR");
-      // Do something with error state.
+      // TODO(tensafefrogs): Do something with error state.
       break;
   }
   [[NSNotificationCenter defaultCenter]
@@ -252,8 +246,7 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 }
 
 - (void)videoPlayer:(GMFVideoPlayer *)videoPlayer
-    bufferedMediaTimeDidChangeToTime:(NSTimeInterval)time {
-  NSLog(@"Buffered media time: %f", time);
+  bufferedMediaTimeDidChangeToTime:(NSTimeInterval)time {
 }
 
 #pragma mark YTPlayerOverlayViewDelegate

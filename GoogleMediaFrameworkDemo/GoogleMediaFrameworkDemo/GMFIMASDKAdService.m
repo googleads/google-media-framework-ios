@@ -139,9 +139,8 @@
     case kIMAAdEvent_ALL_ADS_COMPLETED:
       // When all ads are done, give control back to the video player.
       [self relinquishControlToVideoPlayer];
-      NSLog(@"destroying ads manager");
       [self.adsManager destroy];
-      // TODO: destroy loader (pending IMA SDK bug)
+      // TODO: destroy loader (pending IMA SDK bugfix)
       //[self.adsLoader destroy];
       break;
     default:
@@ -152,7 +151,6 @@
 // Process ad playing errors.
 - (void)adsManager:(IMAAdsManager *)adsManager didReceiveAdError:(IMAAdError *)error {
   // There was an error while playing the ad.
-  NSLog(@"Error during ad playback: %@", error);
   [self relinquishControlToVideoPlayer];
   [self.videoPlayerController play];
 }

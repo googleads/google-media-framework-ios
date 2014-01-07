@@ -207,7 +207,6 @@ void GMFAudioRouteChangeListenerCallback(void *inClientData,
 }
 
 - (void)loadStreamWithURL:(NSURL *)URL {
-  NSLog(@"Playing URL %@", [URL absoluteString]);
   [self setState:kGMFPlayerStateLoadingContent];
   AVAsset *asset = [AVAsset assetWithURL:URL];
   [self handlePlayableAsset:asset];

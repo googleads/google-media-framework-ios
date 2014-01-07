@@ -33,7 +33,7 @@ int DEFAULT_TIMEOUT = 30;
 - (void)tearDown {
   _player = nil;
   _eventList = nil;
-  
+
   [super tearDown];
 }
 
@@ -225,12 +225,12 @@ BOOL WaitFor(BOOL (^block)(void), NSTimeInterval seconds) {
 }
 
 - (void) videoPlayer:(GMFVideoPlayer *)videoPlayer
-currentMediaTimeDidChangeToTime:(NSTimeInterval)time {
+    currentMediaTimeDidChangeToTime:(NSTimeInterval)time {
   // no-op
 }
 
 - (void)videoPlayer:(GMFVideoPlayer *)videoPlayer
-bufferedMediaTimeDidChangeToTime:(NSTimeInterval)time {
+    bufferedMediaTimeDidChangeToTime:(NSTimeInterval)time {
   // no-op
 }
 

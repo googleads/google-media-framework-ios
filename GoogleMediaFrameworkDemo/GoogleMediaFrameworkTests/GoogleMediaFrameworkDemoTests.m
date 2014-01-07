@@ -13,12 +13,12 @@
 // limitations under the License.
 
 #import "GoogleMediaFrameworkDemoTests.h"
-#import "GMFPlayerState.h"
 
 NSString *CONTENT_URL = @"http://rmcdn.2mdn.net/Demo/html5/output.mp4";
+int DEFAULT_TIMEOUT = 30;
 
 @implementation GoogleMediaFrameworkDemoTests {
- @private
+@private
   GMFVideoPlayer *_player;
   NSMutableArray *_eventList;
 }
@@ -33,28 +33,146 @@ NSString *CONTENT_URL = @"http://rmcdn.2mdn.net/Demo/html5/output.mp4";
 - (void)tearDown {
   _player = nil;
   _eventList = nil;
-
+  
   [super tearDown];
 }
 
 - (void)testPlay {
-  // Load URL
-  [_player loadStreamWithURL:[NSURL URLWithString:CONTENT_URL]];
-  [self waitForState:kGMFPlayerStateLoadingContent withTimeout:10];
-  [self waitForState:kGMFPlayerStateReadyToPlay withTimeout:10];
-  [self waitForState:kGMFPlayerStatePaused withTimeout:10];
-
+  [self loadContentURL];
+  
   // Play stream
   [_player play];
-  [self waitForState:kGMFPlayerStatePlaying withTimeout:10];
+  [self waitForState:kGMFPlayerStatePlaying];
+  
+  // Pause stream
+  [_player pause];
+  [self waitForState:kGMFPlayerStatePaused];
+  [self assertPlaybackDoesNotProgress];
+  
+  // Seek
+  [_player seekToTime:[_player totalMediaTime] - 1];
+  [self waitForState:kGMFPlayerStateSeeking];
+  [self waitForState:kGMFPlayerStatePaused];
+  
+  // Play after seeking
+  [_player play];
+  [self waitForState:kGMFPlayerStatePlaying];
+  [self assertPlaybackDoesProgress];
+  
+  // Play until the end of the movie.
+  [self waitForState:kGMFPlayerStateFinished];
+  
+  [self assertNoOtherStateChange];
+}
 
+- (void)testReplay {
+  [self loadContentURL];
+  
+  // Seek to the end and wait for the end of the movie.
+  [_player seekToTime:[_player totalMediaTime] - 1];
+  [_player play];
+  [self waitForState:kGMFPlayerStateSeeking];
+  [self waitForState:kGMFPlayerStatePlaying];
+  [self waitForState:kGMFPlayerStateFinished];
+  
+  // Replay and verify that the player starts from the beginning.
+  [_player replay];
+  [self waitForState:kGMFPlayerStateSeeking];
+  [self waitForState:kGMFPlayerStatePlaying];
+  STAssertTrue([_player currentMediaTime] < 0.25,
+               @"Player media time should be near the beginning of the movie, but it is %f.", [_player currentMediaTime]);
+  [self assertPlaybackDoesProgress];
+  
+  [self assertNoOtherStateChange];
+  
+}
+
+- (void)testSeekingAndPlay {
+  [self loadContentURL];
+  
+  [_player seekToTime:[_player totalMediaTime] / 2];
+  [_player play];
+  [self waitForState:kGMFPlayerStateSeeking];
+  [self waitForState:kGMFPlayerStatePlaying];
+  
+  [self assertNoOtherStateChange];
+}
+
+- (void)testSeekingToImpossibleTimes {
+  [self loadContentURL];
+  NSTimeInterval totalMediaTime = [_player totalMediaTime];
+  
+  // Seek to the middle.
+  [_player seekToTime:totalMediaTime / 2];
+  [self waitForState:kGMFPlayerStateSeeking];
+  [self waitForState:kGMFPlayerStatePaused];
+  
+  // Seek before the beginning.
+  [_player seekToTime:-totalMediaTime];
+  [self waitForState:kGMFPlayerStateSeeking];
+  [self waitForState:kGMFPlayerStatePaused];
+  STAssertTrue([_player currentMediaTime] == 0,
+               @"Current media time should be 0 for seeks before the beginning.");
+  
+  // Seek after the end.
+  [_player seekToTime:totalMediaTime * 2];
+  [_player play];
+  [self waitForState:kGMFPlayerStateSeeking];
+  [self waitForState:kGMFPlayerStatePlaying];
+  [self waitForState:kGMFPlayerStateFinished];
+  
+  [self assertNoOtherStateChange];
+}
+
+- (void)testPlayerSetStreamURLAgain {
+  // State changes: [testPlay] -> Paused -> Empty -> Loading content ->
+  // Ready to play -> Playing.
+  [self loadContentURL];
+  [self loadContentURL];
+  [self assertNoOtherStateChange];
+}
+
+- (void)testResetContent {
+  [self loadContentURL];
+  [_player reset];
+  [self waitForState:kGMFPlayerStateEmpty];
+  [self assertNoOtherStateChange];
+}
+
+- (void)testPlayerIgnoresDoublePlaybackCommands {
+  // State changes: [testPlay] -> Paused -> Play.
+  [self loadContentURL];
+  [_player play];
+  [_player play];
+  [self waitForState:kGMFPlayerStatePlaying];
+  [_player pause];
+  [_player pause];
+  [self waitForState:kGMFPlayerStatePaused];
+  [self assertNoOtherStateChange];
+}
+
+- (void)loadContentURL {
+  [_player loadStreamWithURL:[NSURL URLWithString:CONTENT_URL]];
+  [self waitForState:kGMFPlayerStateLoadingContent];
+  [self waitForState:kGMFPlayerStateReadyToPlay];
+  [self waitForState:kGMFPlayerStatePaused];
+}
+
+- (void)assertNoOtherStateChange {
   STAssertFalse(_eventList.count, @"Unexpected events %@", _eventList);
+}
+
+- (void) waitForState:(GMFPlayerState)state {
+  [self waitForState:state withTimeout:DEFAULT_TIMEOUT];
 }
 
 - (void) waitForState:(GMFPlayerState)state withTimeout:(NSInteger)timeout {
   STAssertTrue(WaitFor(^BOOL {
-      return (([_eventList count] > 0) && (_eventList[0] == [NSNumber numberWithInt:state]));
-  }, timeout), @"Failed while waiting for state %@", [GoogleMediaFrameworkDemoTests stringWithState:state]);
+    return (([_eventList count] > 0) &&
+            (_eventList[0] == [NSNumber numberWithInt:state]));
+  }, timeout),
+               @"Failed while waiting for state %@, eventList is %@",
+               [GoogleMediaFrameworkDemoTests stringWithState:state], _eventList);
   [self removeWaitingState:state];
 }
 
@@ -76,6 +194,27 @@ BOOL WaitFor(BOOL (^block)(void), NSTimeInterval seconds) {
   return -[date timeIntervalSinceNow];
 }
 
+- (void)assertPlaybackDoesProgress {
+  NSTimeInterval startMediaTime = [_player currentMediaTime];
+  [self waitForTimeInterval:1];
+  NSTimeInterval endMediaTime = [_player currentMediaTime];
+  STAssertTrue(startMediaTime != endMediaTime,
+               @"Playback progressed when it was not expected to");
+}
+
+- (void)assertPlaybackDoesNotProgress {
+  NSTimeInterval startMediaTime = [_player currentMediaTime];
+  [self waitForTimeInterval:1];
+  NSTimeInterval endMediaTime = [_player currentMediaTime];
+  STAssertTrue(startMediaTime == endMediaTime,
+               @"Playback progressed when it was not expected to");
+}
+
+- (void)waitForTimeInterval:(NSTimeInterval)timeInterval {
+  [[NSRunLoop currentRunLoop] runUntilDate:[NSDate
+                                            dateWithTimeIntervalSinceNow:timeInterval]];
+}
+
 - (void) videoPlayer:(GMFVideoPlayer *)videoPlayer
   stateDidChangeFrom:(GMFPlayerState)fromState
                   to:(GMFPlayerState)toState {
@@ -86,12 +225,12 @@ BOOL WaitFor(BOOL (^block)(void), NSTimeInterval seconds) {
 }
 
 - (void) videoPlayer:(GMFVideoPlayer *)videoPlayer
-    currentMediaTimeDidChangeToTime:(NSTimeInterval)time {
+currentMediaTimeDidChangeToTime:(NSTimeInterval)time {
   // no-op
 }
 
 - (void)videoPlayer:(GMFVideoPlayer *)videoPlayer
-    bufferedMediaTimeDidChangeToTime:(NSTimeInterval)time {
+bufferedMediaTimeDidChangeToTime:(NSTimeInterval)time {
   // no-op
 }
 

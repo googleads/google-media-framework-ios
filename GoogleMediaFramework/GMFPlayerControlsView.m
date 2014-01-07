@@ -19,9 +19,8 @@
 #import "GMFPlayerControlsView.h"
 #import "GMFResources.h"
 #import "UILabel+GMFLabels.h"
-#import "UIView+GMFPositioning.m"
 
-static const CGFloat kBarPaddingX = 4;
+static const CGFloat kGMFBarPaddingX = 4;
 
 @implementation GMFPlayerControlsView {
   UIImageView *_backgroundView;
@@ -44,8 +43,7 @@ static const CGFloat kBarPaddingX = 4;
 - (id)init {
   self = [super initWithFrame:CGRectZero];
   if (self) {
-    _backgroundView = [[UIImageView alloc]
-                       initWithImage:[GMFResources playerBarBackgroundImage]];
+    _backgroundView = [[UIImageView alloc] initWithImage:[GMFResources playerBarBackgroundImage]];
     [self addSubview:_backgroundView];
 
     _secondsPlayedLabel = [UILabel GMF_clearLabelForPlayerControls];
@@ -98,6 +96,7 @@ static const CGFloat kBarPaddingX = 4;
                                accessibilityLabel:@"Minimize"];
     [self addSubview:_minimizeButton];
 
+    [self setupLayoutConstraints];
     [self showPlayButton];
   }
   return self;
@@ -144,32 +143,80 @@ static const CGFloat kBarPaddingX = 4;
   [_replayButton setHidden:NO];
 }
 
-- (CGRect)progressBarRect {
-  CGFloat scrubberX = CGRectGetWidth(_playButton.frame) + kBarPaddingX;
-  CGFloat scrubberWidth = CGRectGetWidth(self.frame)
-      - (kBarPaddingX * 3)
-      - scrubberX
-      - [_minimizeButton GMF_visibleWidth];
-  CGRect scrubberRect = CGRectMake(scrubberX,
-                                   0,
-                                   scrubberWidth,
-                                   [self preferredHeight]);
-  return scrubberRect;
-}
+- (void)setupLayoutConstraints {
+  [_backgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [_playButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [_pauseButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [_replayButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [_scrubber setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [_minimizeButton setTranslatesAutoresizingMaskIntoConstraints:NO];
 
-- (void)layoutSubviews {
-  [super layoutSubviews];
-  [_backgroundView setFrame:[self bounds]];
+  NSDictionary *metrics = @{
+      @"buttonPadding": @(kGMFBarPaddingX)
+  };
 
-  [_playButton GMF_alignCenterLeftToCenterLeftOfView:self paddingX:kBarPaddingX];
-  [_pauseButton GMF_alignCenterLeftToCenterLeftOfView:self paddingX:kBarPaddingX];
-  [_replayButton GMF_alignCenterLeftToCenterLeftOfView:self paddingX:kBarPaddingX];
+  NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_backgroundView,
+                                                                 _playButton,
+                                                                 _pauseButton,
+                                                                 _replayButton,
+                                                                 _secondsPlayedLabel,
+                                                                 _scrubber,
+                                                                 _totalSecondsLabel,
+                                                                 _minimizeButton);
 
-  // TODO(tensafefrogs): Investigate using NSLayoutConstraint here.
-  CGFloat xPosition = CGRectGetWidth(self.frame) - (CGRectGetWidth(_minimizeButton.frame) / 2.0);
-  _minimizeButton.center = [UIView
-      GMF_pixelAlignedPoint:CGPointMake(xPosition - kBarPaddingX, (self.frame.size.height / 2.0))];
-  [_scrubber GMF_setPixelAlignedFrame:[self progressBarRect]];
+  // Align along Y center and set order, so scrubber stretches in the middle.
+  NSString *controlsVisualFormat =
+      @"|-buttonPadding-[_playButton]-[_scrubber]-[_minimizeButton]-buttonPadding-|";
+  NSArray *constraints = [NSLayoutConstraint
+      constraintsWithVisualFormat:controlsVisualFormat
+                          options:NSLayoutFormatAlignAllCenterY
+                          metrics:metrics
+                          views:viewsDictionary];
+
+  // Set alignment of pauseButton and replayButton
+  constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint
+      constraintsWithVisualFormat:@"|-buttonPadding-[_pauseButton]"
+                          options:NSLayoutFormatAlignAllCenterY
+                          metrics:metrics
+                          views:viewsDictionary]];
+  constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint
+      constraintsWithVisualFormat:@"|-buttonPadding-[_replayButton]"
+                          options:NSLayoutFormatAlignAllCenterY
+                          metrics:metrics
+                            views:viewsDictionary]];
+
+  // Not sure why using NSLayoutFormatAlignAllCenterY above doesn't center the buttons vertically,
+  // so we need another set of constraints to center them vertically.
+  constraints = [constraints arrayByAddingObject:
+      [NSLayoutConstraint constraintWithItem:_pauseButton
+                                   attribute:NSLayoutAttributeCenterY
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:_pauseButton.superview
+                                   attribute:NSLayoutAttributeCenterY
+                                  multiplier:1.0f
+                                    constant:0]];
+  constraints = [constraints arrayByAddingObject:
+      [NSLayoutConstraint constraintWithItem:_replayButton
+                                   attribute:NSLayoutAttributeCenterY
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:_replayButton.superview
+                                   attribute:NSLayoutAttributeCenterY
+                                  multiplier:1.0f
+                                    constant:0]];
+
+  // Make background fill the controlbar.
+  constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint
+      constraintsWithVisualFormat:@"V:|[_backgroundView]|"
+                          options:0
+                          metrics:nil
+                            views:viewsDictionary]];
+  constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint
+      constraintsWithVisualFormat:@"H:|[_backgroundView]|"
+                          options:0
+                          metrics:nil
+                            views:viewsDictionary]];
+
+  [self addConstraints:constraints];
 }
 
 - (void)setTotalTime:(NSTimeInterval)totalTime {
@@ -209,7 +256,8 @@ static const CGFloat kBarPaddingX = 4;
 #pragma mark Private Methods
 
 - (void)setSeekbarThumbToDefaultImage {
-  [_scrubber setThumbImage:[GMFResources playerBarScrubberThumbImage] forState:UIControlStateNormal];
+  [_scrubber setThumbImage:
+      [GMFResources playerBarScrubberThumbImage] forState:UIControlStateNormal];
 }
 
 - (void)didPressPlay:(id)sender {

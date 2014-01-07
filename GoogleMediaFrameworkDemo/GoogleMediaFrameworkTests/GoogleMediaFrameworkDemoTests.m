@@ -15,7 +15,7 @@
 #import "GoogleMediaFrameworkDemoTests.h"
 
 NSString *CONTENT_URL = @"http://rmcdn.2mdn.net/Demo/html5/output.mp4";
-int DEFAULT_TIMEOUT = 30;
+int DEFAULT_TIMEOUT = 10;
 
 @implementation GoogleMediaFrameworkDemoTests {
 @private

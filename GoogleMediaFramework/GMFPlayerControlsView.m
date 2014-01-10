@@ -148,6 +148,8 @@ static const CGFloat kGMFBarPaddingX = 4;
   [_playButton setTranslatesAutoresizingMaskIntoConstraints:NO];
   [_pauseButton setTranslatesAutoresizingMaskIntoConstraints:NO];
   [_replayButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [_secondsPlayedLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [_totalSecondsLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
   [_scrubber setTranslatesAutoresizingMaskIntoConstraints:NO];
   [_minimizeButton setTranslatesAutoresizingMaskIntoConstraints:NO];
 
@@ -164,9 +166,10 @@ static const CGFloat kGMFBarPaddingX = 4;
                                                                  _totalSecondsLabel,
                                                                  _minimizeButton);
 
-  // Align along Y center and set order, so scrubber stretches in the middle.
-  NSString *controlsVisualFormat =
-      @"|-buttonPadding-[_playButton]-[_scrubber]-[_minimizeButton]-buttonPadding-|";
+  // Align all to same Y, scrubber stretches in the middle.
+  NSString *controlsVisualFormat = [NSString stringWithFormat:@"%@%@",
+      @"|-buttonPadding-[_playButton]-[_secondsPlayedLabel]-[_scrubber]",
+      @"-[_totalSecondsLabel]-[_minimizeButton]-buttonPadding-|"];
   NSArray *constraints = [NSLayoutConstraint
       constraintsWithVisualFormat:controlsVisualFormat
                           options:NSLayoutFormatAlignAllCenterY
@@ -187,6 +190,14 @@ static const CGFloat kGMFBarPaddingX = 4;
 
   // Not sure why using NSLayoutFormatAlignAllCenterY above doesn't center the buttons vertically,
   // so we need another set of constraints to center them vertically.
+  constraints = [constraints arrayByAddingObject:
+      [NSLayoutConstraint constraintWithItem:_playButton
+                                   attribute:NSLayoutAttributeCenterY
+                                   relatedBy:NSLayoutRelationEqual
+                                      toItem:_playButton.superview
+                                   attribute:NSLayoutAttributeCenterY
+                                  multiplier:1.0f
+                                    constant:0]];
   constraints = [constraints arrayByAddingObject:
       [NSLayoutConstraint constraintWithItem:_pauseButton
                                    attribute:NSLayoutAttributeCenterY
@@ -242,6 +253,8 @@ static const CGFloat kGMFBarPaddingX = 4;
 - (void)updateScrubberAndTime {
   // TODO(tensafefrogs): Handle live streams
   [_scrubber setMaximumValue:_totalSeconds];
+  [_totalSecondsLabel setText:[self stringWithDurationSeconds:_totalSeconds]];
+  [_secondsPlayedLabel setText:[self stringWithDurationSeconds:_mediaTime]];
   if (_userScrubbing) {
     [self setMediaTime:[_scrubber value]];
     _userScrubbing = NO;
@@ -254,6 +267,19 @@ static const CGFloat kGMFBarPaddingX = 4;
 }
 
 #pragma mark Private Methods
+
+// Formats media time into a more readable format of HH:MM:SS.
+- (NSString *)stringWithDurationSeconds:(NSTimeInterval)durationSeconds {
+  NSInteger durationSecondsRounded = lround(durationSeconds);
+  NSInteger seconds = (durationSecondsRounded) % 60;
+  NSInteger minutes = (durationSecondsRounded / 60) % 60;
+  NSInteger hours = durationSecondsRounded / 3600;
+  if (hours) {
+    return [NSString stringWithFormat:@"%d:%02d:%02d", hours, minutes, seconds];
+  } else {
+    return [NSString stringWithFormat:@"%d:%02d", minutes, seconds];
+  }
+}
 
 - (void)setSeekbarThumbToDefaultImage {
   [_scrubber setThumbImage:

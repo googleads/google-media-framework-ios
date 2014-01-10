@@ -488,7 +488,7 @@
 				GCC_PREFIX_HEADER = "GoogleMediaFrameworkDemo/GoogleMediaFrameworkDemo-Prefix.pch";
 				INFOPLIST_FILE = "GoogleMediaFrameworkDemo/GoogleMediaFrameworkDemo-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lGoogleIMA3",
@@ -511,6 +511,7 @@
 				GCC_PREFIX_HEADER = "GoogleMediaFrameworkDemo/GoogleMediaFrameworkDemo-Prefix.pch";
 				INFOPLIST_FILE = "GoogleMediaFrameworkDemo/GoogleMediaFrameworkDemo-Info.plist";
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lGoogleIMA3",

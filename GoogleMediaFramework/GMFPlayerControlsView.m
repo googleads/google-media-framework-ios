@@ -57,23 +57,30 @@ static const CGFloat kGMFBarPaddingX = 4;
 
     _playButton = [self playerButtonWithImage:[GMFResources playerBarPlayButtonImage]
                                        action:@selector(didPressPlay:)
-                           accessibilityLabel:@"Play"];
+                           accessibilityLabel:NSLocalizedStringFromTable(@"Play",
+                                                                         @"GoogleMediaFramework",
+                                                                         nil)];
     [self addSubview:_playButton];
 
     _pauseButton = [self playerButtonWithImage:[GMFResources playerBarPauseButtonImage]
                                         action:@selector(didPressPause:)
-                            accessibilityLabel:@"Pause"];
+                            accessibilityLabel:NSLocalizedStringFromTable(@"Pause",
+                                                                          @"GoogleMediaFramework",
+                                                                          nil)];
     [self addSubview:_pauseButton];
 
     _replayButton = [self playerButtonWithImage:[GMFResources playerBarReplayButtonImage]
                                          action:@selector(didPressReplay:)
-                             accessibilityLabel:@"Replay"];
+                             accessibilityLabel:NSLocalizedStringFromTable(@"Replay",
+                                                                           @"GoogleMediaFramework",
+                                                                           nil)];
     [self addSubview:_replayButton];
 
     // Seekbar
     _scrubber = [[UISlider alloc] init];
     [_scrubber setMinimumValue:0.0];
-    [_scrubber setAccessibilityLabel:@"Seek bar"];
+    [_scrubber setAccessibilityLabel:
+        NSLocalizedStringFromTable(@"Seek bar", @"GoogleMediaFramework", nil)];
     [self setSeekbarThumbToDefaultImage];
     [_scrubber setMaximumTrackTintColor:[UIColor colorWithWhite:122/255.0 alpha:1.0]];
     [_scrubber addTarget:self
@@ -93,7 +100,10 @@ static const CGFloat kGMFBarPaddingX = 4;
 
     _minimizeButton = [self playerButtonWithImage:[GMFResources playerBarMinimizeButtonImage]
                                            action:@selector(didPressMinimize:)
-                               accessibilityLabel:@"Minimize"];
+                               accessibilityLabel:
+                                   NSLocalizedStringFromTable(@"Minimize",
+                                                              @"GoogleMediaFramework",
+                                                              nil)];
     [self addSubview:_minimizeButton];
 
     [self setupLayoutConstraints];

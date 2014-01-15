@@ -1,0 +1,11 @@
+language: objective-c
+
+before_install:
+  # Cocoapods isn't currently installed by default on
+  # Travis-CI, but may be in the near future.
+  - gem install cocoapods --no-document
+  - cd GoogleMediaFrameworkDemo
+
+script:
+  # TODO: Add 'test' flag here once tests work on travis-ci server.
+  - xctool build -workspace GoogleMediaFrameworkDemo.xcworkspace -scheme GoogleMediaFrameworkDemo -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO

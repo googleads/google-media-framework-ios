@@ -1,5 +1,10 @@
 # GoogleMediaFramework CHANGELOG
 
+## 0.1.1
+
+- Add current and total time display to controlbar
+- Update tests
+
 ## 0.1.0
 
 Initial release. We are looking for feedback and bug reports, please file an issue in the Github project page.

@@ -161,8 +161,6 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 
 - (void)playerStateDidChangeToReadyToPlay {
   [_playerView setVideoRenderingView:[_player renderingView]];
-  // TODO(tensafefrogs): Don't set this if an ad is playing / player doesn't have control delegate
-  [_videoPlayerOverlayViewController setTotalTime:[_player totalMediaTime]];
 }
 
 - (void)playerStateDidChangeToPlaying {

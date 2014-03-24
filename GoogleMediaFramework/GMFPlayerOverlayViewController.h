@@ -36,6 +36,9 @@
 
 @property(nonatomic, weak) id<GMFPlayerOverlayViewControllerDelegate>
     videoPlayerOverlayViewControllerDelegate;
+// Set this to YES when the user is scrubbing. This will cause the spinner to be shown regardless
+// of state.
+@property(nonatomic, assign, getter=isUserScrubbing) BOOL userScrubbing;
 
 - (void)setDelegate:(NSObject<GMFPlayerControlsViewDelegate> *)delegate;
 
@@ -59,5 +62,7 @@
 - (void)togglePlayerControlsVisibility;
 
 - (void)reset;
+
+- (void)resetAutoHideTimer;
 
 @end

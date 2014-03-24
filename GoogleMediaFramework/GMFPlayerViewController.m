@@ -273,11 +273,13 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
         playerState == kGMFPlayerStateBuffering;
   }
   _isUserScrubbing = YES;
+  [_videoPlayerOverlayViewController setUserScrubbing:_isUserScrubbing];
   [_player pause];
 }
 
 - (void)didEndScrubbing {
   _isUserScrubbing = NO;
+  [_videoPlayerOverlayViewController setUserScrubbing:_isUserScrubbing];
 }
 
 - (void)didPressReplay {

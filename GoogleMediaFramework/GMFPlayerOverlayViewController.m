@@ -33,6 +33,9 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
 // TODO(tensafefrogs): Figure out a nice way to display playback errors here.
 - (id)init {
   self = [super init];
+  if (self) {
+    _autoHideEnabled = YES;
+  }
   return self;
 }
 
@@ -62,9 +65,25 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
   return _playerOverlayView.playerControlsView;
 }
 
+- (void)setUserScrubbing:(BOOL)userScrubbing {
+  _userScrubbing = userScrubbing;
+  [self updateAutoHideEnabled];
+  if (_userScrubbing) {
+    [_playerOverlayView showSpinner];
+  } else {
+    // Refresh the state so the correct button is shown.
+    [self playerStateDidChangeToState:_playerState];
+  }
+}
+
 - (void)playerStateDidChangeToState:(GMFPlayerState)toState {
   _playerState = toState;
   [self updatePlayerBarViewButtonWithState:toState];
+  if (_userScrubbing) {
+    return;
+  }
+  [self updateAutoHideEnabled];
+  
   switch (toState) {
     case kGMFPlayerStateEmpty:
       break;
@@ -166,6 +185,20 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
   return (GMFPlayerOverlayView *)[self view];
 }
 
+- (void)updateAutoHideEnabled {
+  BOOL enabled = _playerState == (kGMFPlayerStatePlaying && ![self isUserScrubbing]);
+  if (_autoHideEnabled != enabled) {
+    _autoHideEnabled = enabled;
+    if (!enabled) {
+      [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    } else {
+      [self animatePlayerControlsToHidden:YES
+                        animationDuration:kAutoHideFadeAnimationDuration
+                               afterDelay:kAutoHideAnimationDelay];
+    }
+  }
+}
+
 - (void)animatePlayerControlsToHidden:(BOOL)hidden
                     animationDuration:(NSTimeInterval)duration
                            afterDelay:(NSTimeInterval)delay {
@@ -235,6 +268,16 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
   [self setTotalTime:0.0];
   [self setMediaTime:0.0];
   [self playerStateDidChangeToState:kGMFPlayerStateEmpty];
+}
+
+- (void)resetAutoHideTimer {
+  if (!_autoHideEnabled) {
+    return;
+  }
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
+  [self animatePlayerControlsToHidden:YES
+                    animationDuration:kAutoHideFadeAnimationDuration
+                           afterDelay:kAutoHideAnimationDelay];
 }
 
 @end

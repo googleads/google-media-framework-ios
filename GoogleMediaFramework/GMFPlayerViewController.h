@@ -60,7 +60,7 @@ extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 
 - (void)setABoveRenderingView:(UIView *)view;
 
-- (void)setControlsVisibility:(BOOL)visibile animated:(BOOL)animated;
+- (void)setControlsVisibility:(BOOL)visible animated:(BOOL)animated;
 
 - (void)setVideoPlayerOverlayDelegate:(id<GMFPlayerControlsViewDelegate>)delegate;
 

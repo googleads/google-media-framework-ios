@@ -61,8 +61,8 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
   return self;
 }
 
-- (void)setControlsVisibility:(BOOL)visibile animated:(BOOL)animated {
-  if (visibile) {
+- (void)setControlsVisibility:(BOOL)visible animated:(BOOL)animated {
+  if (visible) {
     [_videoPlayerOverlayViewController showPlayerControlsAnimated:animated];
   } else {
     [_videoPlayerOverlayViewController hidePlayerControlsAnimated:animated];

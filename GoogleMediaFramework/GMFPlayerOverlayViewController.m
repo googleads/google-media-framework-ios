@@ -186,7 +186,7 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
 }
 
 - (void)updateAutoHideEnabled {
-  BOOL enabled = _playerState == (kGMFPlayerStatePlaying && ![self isUserScrubbing]);
+  BOOL enabled = (_playerState == kGMFPlayerStatePlaying) && ![self isUserScrubbing];
   if (_autoHideEnabled != enabled) {
     _autoHideEnabled = enabled;
     if (!enabled) {

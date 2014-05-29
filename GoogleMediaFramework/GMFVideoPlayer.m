@@ -378,7 +378,7 @@ void GMFAudioRouteChangeListenerCallback(void *inClientData,
                         change:(NSDictionary *)change
                        context:(void *)context {
   if ([keyPath isEqualToString:kDurationKey]) {
-    //Update total duration of player...
+    // Update total duration of player
     NSTimeInterval currentTotalTime = [GMFVideoPlayer secondsWithCMTime:_playerItem.duration];
     [_delegate videoPlayer:self currentTotalTimeDidChangeToTime:currentTotalTime];
   } else if (context == kGMFPlayerItemStatusContext) {

@@ -25,6 +25,7 @@ static void *kGMFPlayerRateContext = &kGMFPlayerRateContext;
 
 static NSString * const kStatusKey = @"status";
 static NSString * const kRateKey = @"rate";
+static NSString * const kDurationKey = @"currentItem.duration";
 
 // Pause the video if user unplugs their headphones.
 void GMFAudioRouteChangeListenerCallback(void *inClientData,
@@ -296,6 +297,10 @@ void GMFAudioRouteChangeListenerCallback(void *inClientData,
               forKeyPath:kRateKey
                  options:0
                  context:kGMFPlayerRateContext];
+    [_player addObserver:self
+              forKeyPath:kDurationKey
+                 options:0
+                 context:nil];
     _renderingView = [[GMFPlayerLayerView alloc] init];
     [[_renderingView playerLayer] setVideoGravity:AVLayerVideoGravityResizeAspect];
     [[_renderingView playerLayer] setBackgroundColor:[[UIColor blackColor] CGColor]];
@@ -372,7 +377,11 @@ void GMFAudioRouteChangeListenerCallback(void *inClientData,
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-  if (context == kGMFPlayerItemStatusContext) {
+  if([keyPath isEqualToString:kDurationKey]){
+    //Update total duration of player...
+    NSTimeInterval currentTotalTime = [GMFVideoPlayer secondsWithCMTime:_playerItem.duration];
+    [_delegate videoPlayer:self currentTotalTimeDidChangeToTime:currentTotalTime];
+  }else if (context == kGMFPlayerItemStatusContext) {
     [self playerItemStatusDidChange];
   } else if (context == kGMFPlayerRateContext) {
     [self playerRateDidChange];

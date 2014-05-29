@@ -22,6 +22,8 @@
 
 NSString * const kGMFPlayerCurrentMediaTimeDidChangeNotification =
     @"kGMFPlayerCurrentMediaTimeDidChangeNotification";
+NSString * const kGMFPlayerCurrentTotalTimeDidChangeNotification =
+@"kGMFPlayerCurrentTotalTimeDidChangeNotification";
 NSString * const kGMFPlayerPlaybackStateDidChangeNotification =
     @"kGMFPlayerPlaybackStateDidChangeNotification";
 NSString * const kGMFPlayerStateDidChangeToFinishedNotification =
@@ -244,6 +246,12 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 }
 
 - (void)videoPlayer:(GMFVideoPlayer *)videoPlayer
+currentTotalTimeDidChangeToTime:(NSTimeInterval)time{
+    [_videoPlayerOverlayViewController setTotalTime:time];
+    [self notifyCurrenTotalTimeDidChange];
+}
+
+- (void)videoPlayer:(GMFVideoPlayer *)videoPlayer
   bufferedMediaTimeDidChangeToTime:(NSTimeInterval)time {
 }
 
@@ -327,6 +335,13 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
       postNotificationName:kGMFPlayerCurrentMediaTimeDidChangeNotification
                     object:self
                   userInfo:nil];
+}
+
+- (void)notifyCurrenTotalTimeDidChange {
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:kGMFPlayerCurrentTotalTimeDidChangeNotification
+     object:self
+     userInfo:nil];
 }
 
 #pragma mark -

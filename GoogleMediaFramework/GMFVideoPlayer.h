@@ -29,6 +29,10 @@
 - (void)videoPlayer:(GMFVideoPlayer *)videoPlayer
     currentMediaTimeDidChangeToTime:(NSTimeInterval)time;
 
+// Called when the total media time comes during playback
+- (void)videoPlayer:(GMFVideoPlayer *)videoPlayer
+currentTotalTimeDidChangeToTime:(NSTimeInterval)time;
+
 @optional
 // Called whenever buffered media time changes during playback or while loading or paused.
 - (void)videoPlayer:(GMFVideoPlayer *)videoPlayer

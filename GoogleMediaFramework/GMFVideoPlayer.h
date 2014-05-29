@@ -29,7 +29,7 @@
 - (void)videoPlayer:(GMFVideoPlayer *)videoPlayer
     currentMediaTimeDidChangeToTime:(NSTimeInterval)time;
 
-// Called when the total media time comes during playback
+// Called when the media duration changes during playback
 - (void)videoPlayer:(GMFVideoPlayer *)videoPlayer
 currentTotalTimeDidChangeToTime:(NSTimeInterval)time;
 

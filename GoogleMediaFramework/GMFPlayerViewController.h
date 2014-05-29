@@ -20,6 +20,7 @@
 @class GMFPlayerControlsViewDelegate;
 
 extern NSString * const kGMFPlayerCurrentMediaTimeDidChangeNotification;
+extern NSString * const kGMFPlayerCurrentTotalTimeDidChangeNotification;
 extern NSString * const kGMFPlayerDidMinimizeNotification;
 extern NSString * const kGMFPlayerPlaybackStateDidChangeNotification;
 extern NSString * const kGMFPlayerStateDidChangeToFinishedNotification;

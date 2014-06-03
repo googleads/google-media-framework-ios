@@ -247,8 +247,10 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 
 - (void)videoPlayer:(GMFVideoPlayer *)videoPlayer
     currentTotalTimeDidChangeToTime:(NSTimeInterval)time {
-  [_videoPlayerOverlayViewController setTotalTime:time];
-  [self notifyCurrenTotalTimeDidChange];
+  if([_videoPlayerOverlayViewController.delegate isEqual:self]) {
+    [_videoPlayerOverlayViewController setTotalTime:time];
+    [self notifyCurrenTotalTimeDidChange];
+  }
 }
 
 - (void)videoPlayer:(GMFVideoPlayer *)videoPlayer

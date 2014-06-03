@@ -290,6 +290,7 @@ void GMFAudioRouteChangeListenerCallback(void *inClientData,
 
   // Player observers.
   [_player removeObserver:self forKeyPath:kRateKey];
+  [_player removeObserver:self forKeyPath:kDurationKey];
 
   _player = player;
   if (_player) {

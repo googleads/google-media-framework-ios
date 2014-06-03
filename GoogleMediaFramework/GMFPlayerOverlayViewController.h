@@ -28,12 +28,12 @@
 @interface GMFPlayerOverlayViewController : UIViewController {
  @private
   GMFPlayerOverlayView *_playerOverlayView;
-  __weak NSObject<GMFPlayerControlsViewDelegate> *_delegate;
   GMFPlayerState _playerState;
   BOOL _autoHideEnabled;
   BOOL _playerControlsHidden;
 }
 
+@property(nonatomic, weak) NSObject<GMFPlayerControlsViewDelegate> *delegate;
 @property(nonatomic, weak) id<GMFPlayerOverlayViewControllerDelegate>
     videoPlayerOverlayViewControllerDelegate;
 // Set this to YES when the user is scrubbing. This will cause the spinner to be shown regardless

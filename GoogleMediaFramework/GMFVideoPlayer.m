@@ -22,6 +22,8 @@ static const NSTimeInterval kGMFPollingInterval = 0.2;
 
 static void *kGMFPlayerItemStatusContext = &kGMFPlayerItemStatusContext;
 static void *kGMFPlayerRateContext = &kGMFPlayerRateContext;
+static void *kGMFPlayerDurationContext = &kGMFPlayerDurationContext;
+
 
 static NSString * const kStatusKey = @"status";
 static NSString * const kRateKey = @"rate";
@@ -301,7 +303,7 @@ void GMFAudioRouteChangeListenerCallback(void *inClientData,
     [_player addObserver:self
               forKeyPath:kDurationKey
                  options:0
-                 context:nil];
+                 context:kGMFPlayerDurationContext];
     _renderingView = [[GMFPlayerLayerView alloc] init];
     [[_renderingView playerLayer] setVideoGravity:AVLayerVideoGravityResizeAspect];
     [[_renderingView playerLayer] setBackgroundColor:[[UIColor blackColor] CGColor]];
@@ -378,7 +380,7 @@ void GMFAudioRouteChangeListenerCallback(void *inClientData,
                       ofObject:(id)object
                         change:(NSDictionary *)change
                        context:(void *)context {
-  if ([keyPath isEqualToString:kDurationKey]) {
+  if (context == kGMFPlayerDurationContext) {
     // Update total duration of player
     NSTimeInterval currentTotalTime = [GMFVideoPlayer secondsWithCMTime:_playerItem.duration];
     [_delegate videoPlayer:self currentTotalTimeDidChangeToTime:currentTotalTime];

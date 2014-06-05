@@ -79,6 +79,9 @@
 - (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
   // Loading failed, you probbaly want to log it when this happens.
   NSLog(@"Ad loading error: %@", adErrorData.adError.message);
+
+  // Tell video content to play/resume.
+  [self.videoPlayerController play];
 }
 
 // Ads are loaded, create the AdsManager and set up the ad frame for displaying ads
@@ -128,9 +131,9 @@
       break;
     case kIMAAdEvent_STARTED:
       [self.videoPlayerController.playerOverlayView disableSeekbarInteraction];
-      // break ommitted on purpose
+      // Break ommitted on purpose.
     case kIMAAdEvent_RESUME:
-      // When an ad starts, take over control of the video player until the ad completes
+      // When an ad starts, take over control of the video player until the ad completes.
       [self.videoPlayerController.playerOverlayView showPauseButton];
       break;
     case kIMAAdEvent_PAUSE:

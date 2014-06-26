@@ -128,6 +128,9 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 
   _videoPlayerOverlayViewController = [[GMFPlayerOverlayViewController alloc] init];
   [_playerView setOverlayView:[_videoPlayerOverlayViewController playerOverlayView]];
+  if (_controlColorScheme) {
+    [self.playerOverlayView applyControlColorScheme:_controlColorScheme];
+  }
   [self setDefaultVideoPlayerOverlayDelegate];
 }
 
@@ -157,6 +160,13 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 
 - (NSTimeInterval)currentMediaTime {
   return _player.currentMediaTime;
+}
+
+- (void) setControlColorScheme:(UIColor *)controlColorScheme {
+  _controlColorScheme = controlColorScheme;
+  if (self.playerOverlayView) {
+    [self.playerOverlayView applyControlColorScheme:controlColorScheme];
+  }
 }
 
 #pragma mark Player State Change Handlers

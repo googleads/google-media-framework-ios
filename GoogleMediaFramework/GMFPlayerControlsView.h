@@ -59,5 +59,7 @@
 - (void)disableSeekbarInteraction;
 - (void)enableSeekbarInteraction;
 
+- (void)applyControlColorScheme: (UIColor *) color;
+
 @end
 

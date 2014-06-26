@@ -112,6 +112,7 @@
 
   // Show the video player.
   [self.navigationController pushViewController:videoPlayerViewController animated:YES];
+  videoPlayerViewController.controlColorScheme = [UIColor blueColor];
   // Tell the video player to start playing.
   [videoPlayerViewController play];
 

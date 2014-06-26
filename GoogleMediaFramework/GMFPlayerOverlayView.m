@@ -161,8 +161,8 @@
   [_playerControlsView enableSeekbarInteraction];
 }
 
-- (void)applyControlColorScheme: (UIColor *)color {
-  [_playerControlsView applyControlColorScheme:color];
+- (void)applyControlTintColor: (UIColor *)color {
+  [_playerControlsView applyControlTintColor:color];
 }
 
 // Check if the tap is over the subviews of the overlay, else let it go to handle taps

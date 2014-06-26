@@ -16,7 +16,7 @@
 
 @implementation UIButton (GMFTintableButton)
 
-- (void)applyTintColor:(UIColor *)color {
+- (void)GMF_applyTintColor:(UIColor *)color {
   
   if (!color || !self.imageView.image) {
     return;
@@ -41,7 +41,6 @@
   
   [self setImage:tintedImage forState:UIControlStateNormal];
 }
-
 
 @end
 

@@ -43,7 +43,8 @@ extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 
 @property(nonatomic, readonly, getter=isVideoFinished) BOOL videoFinished;
 
-@property(nonatomic, strong) UIColor *controlColorScheme;
+// Default: No tint color.
+@property(nonatomic, strong) UIColor *controlTintColor;
 
 - (id)init;
 

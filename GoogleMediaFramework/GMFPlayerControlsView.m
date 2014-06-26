@@ -277,12 +277,12 @@ static const CGFloat kGMFBarPaddingX = 4;
   }
 }
 
-- (void)applyControlColorScheme: (UIColor *) color {
+- (void)applyControlTintColor: (UIColor *) color {
   [_scrubber setMinimumTrackTintColor:color];
   [_scrubber setThumbTintColor:color];
-  [_playButton applyTintColor:color];
-  [_pauseButton applyTintColor:color];
-  [_minimizeButton applyTintColor:color];
+  [_playButton GMF_applyTintColor:color];
+  [_pauseButton GMF_applyTintColor:color];
+  [_minimizeButton GMF_applyTintColor:color];
 }
 
 #pragma mark Private Methods

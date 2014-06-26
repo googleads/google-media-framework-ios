@@ -128,8 +128,8 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 
   _videoPlayerOverlayViewController = [[GMFPlayerOverlayViewController alloc] init];
   [_playerView setOverlayView:[_videoPlayerOverlayViewController playerOverlayView]];
-  if (_controlColorScheme) {
-    [self.playerOverlayView applyControlColorScheme:_controlColorScheme];
+  if (_controlTintColor) {
+    [self.playerOverlayView applyControlTintColor:_controlTintColor];
   }
   [self setDefaultVideoPlayerOverlayDelegate];
 }
@@ -162,10 +162,10 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
   return _player.currentMediaTime;
 }
 
-- (void) setControlColorScheme:(UIColor *)controlColorScheme {
-  _controlColorScheme = controlColorScheme;
+- (void) setControlTintColor:(UIColor *)controlTintColor {
+  _controlTintColor = controlTintColor;
   if (self.playerOverlayView) {
-    [self.playerOverlayView applyControlColorScheme:controlColorScheme];
+    [self.playerOverlayView applyControlTintColor:controlTintColor];
   }
 }
 

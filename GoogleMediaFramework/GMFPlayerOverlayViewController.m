@@ -42,8 +42,8 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
 - (void)loadView {
   CGRect frameRect = CGRectMake(0,
                                 kPaddingTop,
-                                _playerOverlayView.frame.size.width,
-                                _playerOverlayView.frame.size.height);
+                                [UIScreen mainScreen].applicationFrame.size.height - kPaddingTop,
+                                [UIScreen mainScreen].applicationFrame.size.width);
   _playerOverlayView = [[GMFPlayerOverlayView alloc] initWithFrame:frameRect];
   [self setView:_playerOverlayView];
 }

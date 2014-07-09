@@ -43,6 +43,9 @@ extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 
 @property(nonatomic, readonly, getter=isVideoFinished) BOOL videoFinished;
 
+// Default: No tint color.
+@property(nonatomic, strong) UIColor *controlTintColor;
+
 - (id)init;
 
 - (void)loadStreamWithURL:(NSURL *)URL;
@@ -54,6 +57,7 @@ extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 - (GMFPlayerState)playbackState;
 
 - (NSTimeInterval)currentMediaTime;
+
 
 #pragma mark Advanced controls
 

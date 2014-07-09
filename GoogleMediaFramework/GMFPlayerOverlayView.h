@@ -34,5 +34,7 @@
 - (void)setSeekbarTrackColor:(UIColor *)color;
 - (void)setSeekbarTrackColorDefault;
 
+- (void)applyControlTintColor: (UIColor *)color;
+
 @end
 

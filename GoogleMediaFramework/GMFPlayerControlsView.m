@@ -19,6 +19,7 @@
 #import "GMFPlayerControlsView.h"
 #import "GMFResources.h"
 #import "UILabel+GMFLabels.h"
+#import "UIButton+GMFTintableButton.h"
 
 static const CGFloat kGMFBarPaddingX = 4;
 
@@ -274,6 +275,14 @@ static const CGFloat kGMFBarPaddingX = 4;
     BOOL animated = _mediaTime <= 0.5;
     [_scrubber setValue:_mediaTime animated:animated];
   }
+}
+
+- (void)applyControlTintColor: (UIColor *) color {
+  [_scrubber setMinimumTrackTintColor:color];
+  [_scrubber setThumbTintColor:color];
+  [_playButton GMF_applyTintColor:color];
+  [_pauseButton GMF_applyTintColor:color];
+  [_minimizeButton GMF_applyTintColor:color];
 }
 
 #pragma mark Private Methods

@@ -112,6 +112,10 @@
 
   // Show the video player.
   [self.navigationController pushViewController:videoPlayerViewController animated:YES];
+  
+  // (Optional): Customize the UI by giving the buttons and seekbar a blue tint.
+  videoPlayerViewController.controlTintColor = [UIColor blueColor];
+  
   // Tell the video player to start playing.
   [videoPlayerViewController play];
 

@@ -110,15 +110,7 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
-    [self prefersStatusBarHidden];
-    [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
-  } else {
-    // iOS 6
-    [[UIApplication sharedApplication]
-        setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
-  }
-
+  
   // Listen to tap events that fall through the overlay views
   _tapRecognizer = [[UITapGestureRecognizer alloc]
       initWithTarget:self
@@ -137,11 +129,6 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 - (void)didTapGestureCapturingView:(UITapGestureRecognizer *)recognizer {
   [_videoPlayerOverlayViewController togglePlayerControlsVisibility];
 }
-
-- (BOOL)prefersStatusBarHidden {
-  return YES;
-}
-
 - (void)restartPlayback {
   [_player replay];
 }

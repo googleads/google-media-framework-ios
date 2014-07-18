@@ -17,6 +17,8 @@
 
 #import <GoogleMediaFramework/GoogleMediaFramework.h>
 
+#define kAnimationDuration 0.2f
+
 @interface VideoListViewController ()
 
 @end
@@ -25,14 +27,139 @@
 
 - (void)loadView {
   self.title = @"Example Videos";
-
-  self.tableView = [[UITableView alloc] initWithFrame:CGRectZero];
+  
+  // Determine the size of the screen.
+  CGRect screenBounds = [[UIScreen mainScreen] bounds];
+  
+  // Create a container view which will hold the table view and the video player.
+  UIView *containerView = [[UIView alloc] initWithFrame:screenBounds];
+  
+  // Create the table view.
+  self.tableView = [[UITableView alloc] initWithFrame:containerView.bounds];
   self.tableView.dataSource = self;
   self.tableView.delegate = self;
-
+  
+  // Put the elements into the table view.
   [self populateVideosArray];
 
-  self.view = self.tableView;
+  // Add the table view to the container.
+  [containerView addSubview:self.tableView];
+  
+  // Display the container view which currently contains the table view.
+  self.view = containerView;
+}
+
+// Display the video player on the screen.
+- (void) showVideoPlayer {
+  self.isVideoPlayerDisplayed = YES;
+  
+  // Add the video player's view controller as a child of this view controller.
+  [self addChildViewController:self.videoPlayerViewController];
+  [self.videoPlayerViewController didMoveToParentViewController:self];
+  
+  // Add the video player to the view.
+  [self.view addSubview:self.videoPlayerViewController.view];
+  
+  // Resize the table video and video player.
+  [self resizeTableViewAndVideoPlayer];
+}
+
+// Remove the video player from the screen.
+- (void) hideVideoPlayer {
+  self.isVideoPlayerDisplayed = NO;
+  
+  // Remove the video player.
+  [self.videoPlayerViewController.view removeFromSuperview];
+  
+  // Remove the video player's view controller.
+  [self.videoPlayerViewController removeFromParentViewController];
+  
+  // Resize the table view and view player.
+  [self resizeTableViewAndVideoPlayer];
+}
+
+// Adjust the sizes of the video player and table view based on
+// the device orientation and whether a video is playing.
+- (void) resizeTableViewAndVideoPlayer {
+  
+  // Determine whether the status bar is shown or hidden.
+  if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
+    [self performSelector:@selector(setNeedsStatusBarAppearanceUpdate)];
+  } else {
+    // iOS 6
+    [[UIApplication sharedApplication] setStatusBarHidden:YES
+                                            withAnimation:UIStatusBarAnimationSlide];
+  }
+  
+  
+  // Since the status bar is at the top, we need to offset the vertical position of our views.
+  // The status bar is a long, thin rectangle.
+  // When the device is in portrait mode, the length of the thin  side of the status bar is
+  // statusBarFrame.height.
+  //
+  // When the device is in landscape mdoe, the length of the thin side of the status bar is
+  // statusBarFrame.width.
+  //
+  // In either case, the length of the thin side will be the smaller of statusBarFrame.height
+  // and statusBarFrame.height.
+  CGSize statusBarFrame = [[UIApplication sharedApplication] statusBarFrame].size;
+  float statusBarOffset = MIN(statusBarFrame.height, statusBarFrame.width);
+  
+  // Get the dimensions of the view which contains the table view and video player.
+  CGFloat containerWidth = self.view.bounds.size.width;
+  CGFloat containerHeight = self.view.bounds.size.height - statusBarOffset;
+
+  if (self.isVideoPlayerDisplayed) {
+    if (UIInterfaceOrientationIsLandscape(self.interfaceOrientation)) {
+      // If the video player is showing and we are in landscape mode, make the table view hidden
+      // and make the video player occupy the full screen.
+      [UIView animateWithDuration:kAnimationDuration animations:^{
+          self.tableView.frame = CGRectMake(0, containerHeight, 0, 0);
+          self.videoPlayerViewController.view.frame = CGRectMake(0,
+                                                                 statusBarOffset,
+                                                                 containerWidth,
+                                                                 containerHeight);
+      }];
+    } else {
+      // If the video player is showing and we are in portrait mode,
+      // make the video player occupy the top half of the screen
+      // and make the table view occupy the bottom half of the screen.
+      [UIView animateWithDuration:kAnimationDuration animations:^{
+          self.tableView.frame = CGRectMake(0,
+                                            containerHeight/2,
+                                            containerWidth,
+                                            containerHeight/2 + statusBarOffset);
+          self.videoPlayerViewController.view.frame = CGRectMake(0,
+                                                                 statusBarOffset,
+                                                                 containerWidth,
+                                                                 containerHeight/2);
+      }];
+    }
+  } else {
+    // If there is no video player, make the table view occupy the full screen.
+    [UIView animateWithDuration:kAnimationDuration animations:^{
+        self.tableView.frame = self.view.bounds;
+    }];
+  }
+  
+  // Redraw the view.
+  [self.view setNeedsDisplay];
+}
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+  [self resizeTableViewAndVideoPlayer];
+}
+
+// If the video is playing and we are in landscape mode, hide the status bar.
+- (BOOL) prefersStatusBarHidden {
+  return (UIInterfaceOrientationIsLandscape(self.interfaceOrientation) &&
+          self.isVideoPlayerDisplayed);
+}
+
+// If the video player is playing and status bar is displayed, the color of the status bar should
+// be light.
+- (UIStatusBarStyle)preferredStatusBarStyle{
+  return self.isVideoPlayerDisplayed ? UIStatusBarStyleLightContent : UIStatusBarStyleDefault;
 }
 
 #pragma mark GMFVideoPlayer notifications
@@ -41,16 +168,10 @@
   int exitReason =
       [[[notification userInfo]
           objectForKey:kGMFPlayerPlaybackDidFinishReasonUserInfoKey] intValue];
-  switch (exitReason) {
-    case GMFPlayerFinishReasonPlaybackEnded:
-      // Playback finished, you may wish to show an end screen here or return to the video selection
-      // screen.
-      break;
-    case GMFPlayerFinishReasonUserExited:
-      // User clicked minimize, go back to the prev screen and remove observers
-      [self removeVideoPlayerObservers];
-      [self.navigationController popViewControllerAnimated:YES];
-      break;
+  if (exitReason == GMFPlayerFinishReasonPlaybackEnded ||
+      exitReason == GMFPlayerFinishReasonUserExited) {
+    [self removeVideoPlayerObservers];
+    [self hideVideoPlayer];
   }
 }
 
@@ -89,35 +210,39 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   VideoData *video = [_videos objectAtIndex:indexPath.row];
 
-  // Init the video player view controller.
-  GMFPlayerViewController *videoPlayerViewController = [[GMFPlayerViewController alloc] init];
+  // If a video player already exists, remove it.
+  if (self.videoPlayerViewController) {
+    [self.videoPlayerViewController.view removeFromSuperview];
+  }
+  
+  self.videoPlayerViewController = [[GMFPlayerViewController alloc] init];
 
   // Listen for playback finished event. See GMFPlayerFinishReason.
   [[NSNotificationCenter defaultCenter] addObserver:self
                                            selector:@selector(playbackDidFinish:)
                                                name:kGMFPlayerStateDidChangeToFinishedNotification
-                                             object:videoPlayerViewController];
+                                             object:self.videoPlayerViewController];
   // Set the content URL in the player.
-  [videoPlayerViewController loadStreamWithURL:[NSURL URLWithString:video.videoURL]];
+  [self.videoPlayerViewController loadStreamWithURL:[NSURL URLWithString:video.videoURL]];
 
   // If there's an ad associated with the player, initialize the AdService using the video player
   // and request the ads.
   if (video.adTagURL != nil) {
-    _adService = [[GMFIMASDKAdService alloc] initWithGMFVideoPlayer:videoPlayerViewController];
+    _adService = [[GMFIMASDKAdService alloc] initWithGMFVideoPlayer:self.videoPlayerViewController];
 
-    [videoPlayerViewController registerAdService:_adService];
+    [self.videoPlayerViewController registerAdService:_adService];
 
     [_adService requestAdsWithRequest:video.adTagURL];
   }
 
   // Show the video player.
-  [self.navigationController pushViewController:videoPlayerViewController animated:YES];
+  [self showVideoPlayer];
   
   // (Optional): Customize the UI by giving the buttons and seekbar a blue tint.
   //  videoPlayerViewController.controlTintColor = [UIColor blueColor];
   
   // Tell the video player to start playing.
-  [videoPlayerViewController play];
+  [self.videoPlayerViewController play];
 
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

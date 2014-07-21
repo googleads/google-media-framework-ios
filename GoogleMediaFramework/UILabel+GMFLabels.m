@@ -22,6 +22,8 @@
 
 + (UILabel *)GMF_clearLabelForPlayerControls {
   UILabel *label = [[UILabel alloc] init];
+  label.backgroundColor = [UIColor clearColor];
+  
   UIFont *labelFont = [UIFont fontWithName:@"Helvetica" size:12.0];
   [label GMF_setFont:labelFont andColor:[UIColor whiteColor]];
   return label;

@@ -253,19 +253,19 @@
 - (void)populateVideosArray {
   if ([_videos count] == 0) {
     _videos = @[
-      [[VideoData alloc] initWithVideoURL:@"https://devimages.apple.com.edgekey.net/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8"
+      [[VideoData alloc] initWithVideoURL:@"http://googleimadev-vh.akamaihd.net/i/big_buck_bunny/bbb-,480p,720p,1080p,.mov.csmil/master.m3u8"
                                     title:@"Video with no ads"
                               description:@""
                                  adTagURL:nil],
-      [[VideoData alloc] initWithVideoURL:@"https://devimages.apple.com.edgekey.net/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8"
+      [[VideoData alloc] initWithVideoURL:@"http://googleimadev-vh.akamaihd.net/i/big_buck_bunny/bbb-,480p,720p,1080p,.mov.csmil/master.m3u8"
                                     title:@"Skippable preroll"
                               description:@""
                                  adTagURL:@"http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=%2F6062%2Fgmf_demo&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]&cust_params=gmf_format%3Dskip"],
-      [[VideoData alloc] initWithVideoURL:@"https://devimages.apple.com.edgekey.net/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8"
+      [[VideoData alloc] initWithVideoURL:@"http://googleimadev-vh.akamaihd.net/i/big_buck_bunny/bbb-,480p,720p,1080p,.mov.csmil/master.m3u8"
                                     title:@"Unskippable preroll"
                               description:@""
                                  adTagURL:@"http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=%2F6062%2Fgmf_demo&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]&cust_params=gmf_format%3Dstd"],
-      [[VideoData alloc] initWithVideoURL:@"https://devimages.apple.com.edgekey.net/streaming/examples/bipbop_16x9/bipbop_16x9_variant.m3u8"
+      [[VideoData alloc] initWithVideoURL:@"http://googleimadev-vh.akamaihd.net/i/big_buck_bunny/bbb-,480p,720p,1080p,.mov.csmil/master.m3u8"
                                     title:@"Adrules (Preroll and ad breaks at 5s, 10s, 15s)"
                               description:@""
                                  adTagURL:@"http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=%2F6062%2Fgmf_demo&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]&ad_rule=1&cmsid=11924&vid=cWCkSYdFlU0&cust_params=gmf_format%3Dstd%2Cskip"],

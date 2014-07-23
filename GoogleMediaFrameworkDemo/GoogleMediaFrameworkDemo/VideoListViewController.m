@@ -212,7 +212,7 @@
 
   // If a video player already exists, remove it.
   if (self.videoPlayerViewController) {
-    [self.videoPlayerViewController.view removeFromSuperview];
+    [self.videoPlayerViewController didPressMinimize];
   }
   
   self.videoPlayerViewController = [[GMFPlayerViewController alloc] init];
@@ -239,8 +239,11 @@
   [self showVideoPlayer];
   
   // (Optional): Customize the UI by giving the buttons and seekbar a blue tint.
-  //  videoPlayerViewController.controlTintColor = [UIColor blueColor];
+  //  self.videoPlayerViewController.controlTintColor = [UIColor blueColor];
   
+
+  self.videoPlayerViewController.videoTitle = video.title;
+  self.videoPlayerViewController.logoImage = [UIImage imageNamed:@"Gmf-Icon"];
   // Tell the video player to start playing.
   [self.videoPlayerViewController play];
 

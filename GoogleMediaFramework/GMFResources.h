@@ -18,12 +18,16 @@
 @interface GMFResources : NSObject
 
 + (UIImage *)playerBarPlayButtonImage;
++ (UIImage *)playerBarPlayLargeButtonImage;
 + (UIImage *)playerBarPauseButtonImage;
++ (UIImage *)playerBarPauseLargeButtonImage;
 + (UIImage *)playerBarReplayButtonImage;
++ (UIImage *)playerBarReplayLargeButtonImage;
 + (UIImage *)playerBarMinimizeButtonImage;
 + (UIImage *)playerBarMaximizeButtonImage;
 + (UIImage *)playerBarScrubberThumbImage;
 + (UIImage *)playerBarBackgroundImage;
++ (UIImage *)playerTitleBarBackgroundImage;
 
 @end
 

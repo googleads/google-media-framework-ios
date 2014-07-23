@@ -15,6 +15,7 @@
 #import <UIKit/UIKit.h>
 #import "GMFPlayerControlsProtocol.h"
 #import "GMFPlayerControlsView.h"
+#import "GMFTopBarView.h"
 
 @interface GMFPlayerOverlayView : UIView<GMFPlayerControlsProtocol> {
  @private
@@ -24,6 +25,9 @@
 @property(nonatomic, weak) id<GMFPlayerControlsViewDelegate> delegate;
 
 @property(nonatomic, readonly) GMFPlayerControlsView *playerControlsView;
+@property(nonatomic, readonly) GMFTopBarView *topBarView;
+@property(nonatomic, strong) UIColor *tintedBackgroundColor;
+@property(nonatomic, strong) UIColor *playPauseResetButtonBackgroundColor;
 
 // Show/hide the loading spinner
 - (void)showSpinner;
@@ -35,6 +39,11 @@
 - (void)setSeekbarTrackColorDefault;
 
 - (void)applyControlTintColor: (UIColor *)color;
+- (void)setVideoTitle: (NSString *) videoTitle;
+- (void)setLogoImage: (UIImage *) logoImage;
+
+- (void) disableTopBar;
+- (void) enableTopBar;
 
 @end
 

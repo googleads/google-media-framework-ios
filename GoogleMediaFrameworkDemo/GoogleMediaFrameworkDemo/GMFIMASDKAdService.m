@@ -18,7 +18,8 @@
 @class GMFPlayerOverlayView;
 
 @interface GMFIMASDKAdService ()
-
+@property (nonatomic, strong) UIColor *originalBackgroundTintColor;
+@property (nonatomic, strong) UIColor *originalPlayPauseResetBackgroundColor;
 @end
 
 @implementation GMFIMASDKAdService {
@@ -163,15 +164,46 @@
 }
 
 - (void)takeControlOfVideoPlayer {
+  GMFPlayerOverlayView *overlayView = self.videoPlayerController.playerOverlayView;
+  [overlayView hideSpinner];
+  
+  // Store the current background colors of the overlay view and the play/pause/reset button.
+  self.originalBackgroundTintColor = [overlayView.tintedBackgroundColor copy];
+  self.originalPlayPauseResetBackgroundColor = [overlayView.playPauseResetButtonBackgroundColor
+                                                copy];
+  
+  // Make the background of the overlay view clear so that it does not obstruct the ad UI.
+  [overlayView setTintedBackgroundColor:[UIColor clearColor]];
+  
+  // Hide the top bar of the video player.
+  [overlayView disableTopBar];
+  
+  // Give the play/pause/reset button a slightly transparent black background so that the contrast
+  // makes it easily visible.
+  [overlayView setPlayPauseResetButtonBackgroundColor:[UIColor colorWithRed:0
+                                                                      green:0
+                                                                       blue:0
+                                                                      alpha:0.5f]];
   _hasVideoPlayerControl = YES;
   [self.videoPlayerController pause];
   [self.videoPlayerController setVideoPlayerOverlayDelegate:self];
 }
 
 - (void)relinquishControlToVideoPlayer {
-  [self.videoPlayerController.playerOverlayView enableSeekbarInteraction];
+  GMFPlayerOverlayView *overlayView = self.videoPlayerController.playerOverlayView;
+  [overlayView enableSeekbarInteraction];
+  
+  // Restore the background color of the overlay view and the play/pause/reset button to their
+  // original values.
+  [overlayView setTintedBackgroundColor:self.originalBackgroundTintColor];
+  [overlayView setPlayPauseResetButtonBackgroundColor:self.originalPlayPauseResetBackgroundColor];
+  
   [self.videoPlayerController setDefaultVideoPlayerOverlayDelegate];
-  [self.videoPlayerController.playerOverlayView setSeekbarTrackColorDefault];
+  [overlayView setSeekbarTrackColorDefault];
+  
+  // Show the top bar again.
+  [overlayView enableTopBar];
+  
   _hasVideoPlayerControl = NO;
 }
 

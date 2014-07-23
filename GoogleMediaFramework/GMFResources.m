@@ -25,12 +25,24 @@
   return [self imageNamed:@"player_control_play"];
 }
 
++ (UIImage *)playerBarPlayLargeButtonImage {
+  return [self imageNamed:@"player_control_play_large"];
+}
+
 + (UIImage *)playerBarPauseButtonImage {
   return [self imageNamed:@"player_control_pause"];
 }
 
++ (UIImage *)playerBarPauseLargeButtonImage {
+  return [self imageNamed:@"player_control_pause_large"];  
+}
+
 + (UIImage *)playerBarReplayButtonImage {
   return [self imageNamed:@"player_control_replay"];
+}
+
++ (UIImage *)playerBarReplayLargeButtonImage {
+  return [self imageNamed:@"player_control_replay_large"];  
 }
 
 + (UIImage *)playerBarMaximizeButtonImage {
@@ -47,6 +59,10 @@
 
 + (UIImage *)playerBarBackgroundImage {
   return [self imageNamed:@"player_controls_background"];
+}
+
++ (UIImage *)playerTitleBarBackgroundImage {
+  return [self imageNamed:@"player_controls_title_bar_background"];
 }
 
 #pragma mark Private Methods

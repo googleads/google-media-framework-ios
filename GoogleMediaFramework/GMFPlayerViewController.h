@@ -46,6 +46,12 @@ extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 // Default: No tint color.
 @property(nonatomic, strong) UIColor *controlTintColor;
 
+// Default: No title.
+@property(nonatomic, strong) NSString *videoTitle;
+
+// Default: No logo.
+@property(nonatomic, strong) UIImage *logoImage;
+
 - (id)init;
 
 - (void)loadStreamWithURL:(NSURL *)URL;

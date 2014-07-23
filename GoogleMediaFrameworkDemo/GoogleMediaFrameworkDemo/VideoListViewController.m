@@ -212,7 +212,7 @@
 
   // If a video player already exists, remove it.
   if (self.videoPlayerViewController) {
-    [self.videoPlayerViewController.view removeFromSuperview];
+    [self.videoPlayerViewController didPressMinimize];
   }
   
   self.videoPlayerViewController = [[GMFPlayerViewController alloc] init];

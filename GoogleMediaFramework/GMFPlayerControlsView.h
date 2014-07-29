@@ -31,11 +31,6 @@
 
 @interface GMFPlayerControlsView : UIView
 
-// Toggle visibility among play, pause, and replay buttons.
-- (void)showPlayButton;
-- (void)showPauseButton;
-- (void)showReplayButton;
-
 // Set the total duration of the video. May be NaN or Infinity if the
 // total time is unknown. Call updateScrubberAndTime to make the change visible.
 - (void)setTotalTime:(NSTimeInterval)totalTime;

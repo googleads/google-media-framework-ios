@@ -85,6 +85,9 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 
 - (void)setABoveRenderingView:(UIView *)view {
   [_playerView setAboveRenderingView:view];
+  [view addGestureRecognizer:[[UITapGestureRecognizer alloc]
+                              initWithTarget:self
+                              action:@selector(didTapGestureCapturingView:)]];
 }
 
 - (void)registerAdService:(GMFAdService *)adService {
@@ -153,6 +156,20 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
   _controlTintColor = controlTintColor;
   if (self.playerOverlayView) {
     [self.playerOverlayView applyControlTintColor:controlTintColor];
+  }
+}
+
+- (void) setVideoTitle:(NSString *)videoTitle {
+  _videoTitle = videoTitle;
+  if (self.playerOverlayView) {
+    [self.playerOverlayView setVideoTitle:videoTitle];
+  }
+}
+
+- (void) setLogoImage:(UIImage *)logoImage {
+  _logoImage = logoImage;
+  if (self.playerOverlayView) {
+    [self.playerOverlayView setLogoImage:logoImage];
   }
 }
 

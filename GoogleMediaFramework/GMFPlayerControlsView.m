@@ -25,9 +25,6 @@ static const CGFloat kGMFBarPaddingX = 4;
 
 @implementation GMFPlayerControlsView {
   UIImageView *_backgroundView;
-  UIButton *_playButton;
-  UIButton *_pauseButton;
-  UIButton *_replayButton;
   UIButton *_minimizeButton;
   UILabel *_secondsPlayedLabel;
   UILabel *_totalSecondsLabel;
@@ -55,27 +52,6 @@ static const CGFloat kGMFBarPaddingX = 4;
     _totalSecondsLabel = [UILabel GMF_clearLabelForPlayerControls];
     [_totalSecondsLabel setIsAccessibilityElement:NO];
     [self addSubview:_totalSecondsLabel];
-
-    _playButton = [self playerButtonWithImage:[GMFResources playerBarPlayButtonImage]
-                                       action:@selector(didPressPlay:)
-                           accessibilityLabel:NSLocalizedStringFromTable(@"Play",
-                                                                         @"GoogleMediaFramework",
-                                                                         nil)];
-    [self addSubview:_playButton];
-
-    _pauseButton = [self playerButtonWithImage:[GMFResources playerBarPauseButtonImage]
-                                        action:@selector(didPressPause:)
-                            accessibilityLabel:NSLocalizedStringFromTable(@"Pause",
-                                                                          @"GoogleMediaFramework",
-                                                                          nil)];
-    [self addSubview:_pauseButton];
-
-    _replayButton = [self playerButtonWithImage:[GMFResources playerBarReplayButtonImage]
-                                         action:@selector(didPressReplay:)
-                             accessibilityLabel:NSLocalizedStringFromTable(@"Replay",
-                                                                           @"GoogleMediaFramework",
-                                                                           nil)];
-    [self addSubview:_replayButton];
 
     // Seekbar
     _scrubber = [[UISlider alloc] init];
@@ -108,7 +84,6 @@ static const CGFloat kGMFBarPaddingX = 4;
     [self addSubview:_minimizeButton];
 
     [self setupLayoutConstraints];
-    [self showPlayButton];
   }
   return self;
 }
@@ -119,15 +94,6 @@ static const CGFloat kGMFBarPaddingX = 4;
 }
 
 - (void)dealloc {
-  [_playButton removeTarget:self
-                     action:NULL
-           forControlEvents:UIControlEventTouchUpInside];
-  [_pauseButton removeTarget:self
-                      action:NULL
-            forControlEvents:UIControlEventTouchUpInside];
-  [_replayButton removeTarget:self
-                       action:NULL
-             forControlEvents:UIControlEventTouchUpInside];
   [_scrubber removeTarget:self
                    action:NULL
          forControlEvents:UIControlEventAllEvents];
@@ -136,29 +102,9 @@ static const CGFloat kGMFBarPaddingX = 4;
             forControlEvents:UIControlEventTouchUpInside];
 }
 
-- (void)showPlayButton {
-  [_playButton setHidden:NO];
-  [_pauseButton setHidden:YES];
-  [_replayButton setHidden:YES];
-}
-
-- (void)showPauseButton {
-  [_playButton setHidden:YES];
-  [_pauseButton setHidden:NO];
-  [_replayButton setHidden:YES];
-}
-
-- (void)showReplayButton {
-  [_playButton setHidden:YES];
-  [_pauseButton setHidden:YES];
-  [_replayButton setHidden:NO];
-}
 
 - (void)setupLayoutConstraints {
   [_backgroundView setTranslatesAutoresizingMaskIntoConstraints:NO];
-  [_playButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-  [_pauseButton setTranslatesAutoresizingMaskIntoConstraints:NO];
-  [_replayButton setTranslatesAutoresizingMaskIntoConstraints:NO];
   [_secondsPlayedLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
   [_totalSecondsLabel setTranslatesAutoresizingMaskIntoConstraints:NO];
   [_scrubber setTranslatesAutoresizingMaskIntoConstraints:NO];
@@ -169,9 +115,6 @@ static const CGFloat kGMFBarPaddingX = 4;
   };
 
   NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_backgroundView,
-                                                                 _playButton,
-                                                                 _pauseButton,
-                                                                 _replayButton,
                                                                  _secondsPlayedLabel,
                                                                  _scrubber,
                                                                  _totalSecondsLabel,
@@ -179,53 +122,14 @@ static const CGFloat kGMFBarPaddingX = 4;
 
   // Align all to same Y, scrubber stretches in the middle.
   NSString *controlsVisualFormat = [NSString stringWithFormat:@"%@%@",
-      @"|-buttonPadding-[_playButton]-[_secondsPlayedLabel]-[_scrubber]",
+      @"|-buttonPadding-[_secondsPlayedLabel]-[_scrubber]",
       @"-[_totalSecondsLabel]-[_minimizeButton]-buttonPadding-|"];
   NSArray *constraints = [NSLayoutConstraint
       constraintsWithVisualFormat:controlsVisualFormat
                           options:NSLayoutFormatAlignAllCenterY
                           metrics:metrics
                           views:viewsDictionary];
-
-  // Set alignment of pauseButton and replayButton
-  constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint
-      constraintsWithVisualFormat:@"|-buttonPadding-[_pauseButton]"
-                          options:NSLayoutFormatAlignAllCenterY
-                          metrics:metrics
-                          views:viewsDictionary]];
-  constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint
-      constraintsWithVisualFormat:@"|-buttonPadding-[_replayButton]"
-                          options:NSLayoutFormatAlignAllCenterY
-                          metrics:metrics
-                            views:viewsDictionary]];
-
-  // Not sure why using NSLayoutFormatAlignAllCenterY above doesn't center the buttons vertically,
-  // so we need another set of constraints to center them vertically.
-  constraints = [constraints arrayByAddingObject:
-      [NSLayoutConstraint constraintWithItem:_playButton
-                                   attribute:NSLayoutAttributeCenterY
-                                   relatedBy:NSLayoutRelationEqual
-                                      toItem:_playButton.superview
-                                   attribute:NSLayoutAttributeCenterY
-                                  multiplier:1.0f
-                                    constant:0]];
-  constraints = [constraints arrayByAddingObject:
-      [NSLayoutConstraint constraintWithItem:_pauseButton
-                                   attribute:NSLayoutAttributeCenterY
-                                   relatedBy:NSLayoutRelationEqual
-                                      toItem:_pauseButton.superview
-                                   attribute:NSLayoutAttributeCenterY
-                                  multiplier:1.0f
-                                    constant:0]];
-  constraints = [constraints arrayByAddingObject:
-      [NSLayoutConstraint constraintWithItem:_replayButton
-                                   attribute:NSLayoutAttributeCenterY
-                                   relatedBy:NSLayoutRelationEqual
-                                      toItem:_replayButton.superview
-                                   attribute:NSLayoutAttributeCenterY
-                                  multiplier:1.0f
-                                    constant:0]];
-
+  
   // Make background fill the controlbar.
   constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint
       constraintsWithVisualFormat:@"V:|[_backgroundView]|"
@@ -280,8 +184,6 @@ static const CGFloat kGMFBarPaddingX = 4;
 - (void)applyControlTintColor: (UIColor *) color {
   [_scrubber setMinimumTrackTintColor:color];
   [_scrubber setThumbTintColor:color];
-  [_playButton GMF_applyTintColor:color];
-  [_pauseButton GMF_applyTintColor:color];
   [_minimizeButton GMF_applyTintColor:color];
 }
 
@@ -343,8 +245,27 @@ static const CGFloat kGMFBarPaddingX = 4;
 }
 
 - (void)disableSeekbarInteraction {
-  [_scrubber setThumbImage:[[UIImage alloc] init] forState:UIControlStateNormal];
+  
+  // Hide the seek bar thumb by replacing it with a transparent image.
+  // Note: We cannot simply set the image to be a zero-size image (ex. [[UIImage alloc] init])
+  // because this will cause the seekbar's height, and therefore its layout, to change.
+  UIImage *currentThumbImage = [_scrubber currentThumbImage];
+  [_scrubber setThumbImage:[self transparentImageWithSize:currentThumbImage.size]
+                  forState:UIControlStateNormal];
+  
   [_scrubber setUserInteractionEnabled:NO];
+}
+
+// Create a transparent image with the given size.
+- (UIImage *)transparentImageWithSize:(CGSize)size {
+  CGRect rect = CGRectMake(0, 0, size.width, size.height);
+  UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+  [[UIColor clearColor] setFill];
+  UIRectFill(rect);
+  UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+  UIGraphicsEndImageContext();
+  
+  return image;
 }
 
 - (void)enableSeekbarInteraction {

@@ -17,14 +17,61 @@
 #endif
 
 #import "GMFPlayerOverlayView.h"
+#import "GMFResources.h"
+#import "UIButton+GMFTintableButton.h"
+#import "GMFTopBarView.h"
+
 
 @implementation GMFPlayerOverlayView {
   UIActivityIndicatorView *_spinner;
+  UIImage *_playImage;
+  UIImage *_pauseImage;
+  UIImage *_replayImage;
+  NSString *_playLabel;
+  NSString *_pauseLabel;
+  NSString *_replayLabel;
+  UIButton *_playPauseReplayButton;
+  BOOL isTopBarEnabled;
 }
 
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
+    isTopBarEnabled = YES;
+    // The tint color of the background when the player controls are visible.
+    // The color is a translucent black.
+    _tintedBackgroundColor = [UIColor colorWithRed:0.2f
+                                             green:0.2f
+                                              blue:0.2f
+                                             alpha:0.5f];
+    
+    // Set the images.
+    _playImage = [GMFResources playerBarPlayLargeButtonImage];
+    _pauseImage = [GMFResources playerBarPauseLargeButtonImage];
+    _replayImage = [GMFResources playerBarReplayLargeButtonImage];
+    
+    // Set the button label strings (for accessibility).
+    _playLabel = NSLocalizedStringFromTable(@"Play",
+                                            @"GoogleMediaFramework",
+                                            nil);
+    _pauseLabel = NSLocalizedStringFromTable(@"Pause",
+                                             @"GoogleMediaFramework",
+                                             nil);
+    _replayLabel = NSLocalizedStringFromTable(@"Replay",
+                                              @"GoogleMediaFramework",
+                                              nil);
+    
+    // Create the play/pause/replay button.
+    _playPauseReplayButton = [[UIButton alloc] init];
+    [self showPlayButton];
+    [_playPauseReplayButton sizeToFit];
+    [_playPauseReplayButton setShowsTouchWhenHighlighted:YES];
+    [_playPauseReplayButton addTarget:self
+                               action:@selector(didPressPlayPauseReplay:)
+                     forControlEvents:UIControlEventTouchUpInside];
+
+    [self addSubview:_playPauseReplayButton];
+    
     _spinner = [[UIActivityIndicatorView alloc]
         initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
     [_spinner setUserInteractionEnabled:NO];
@@ -36,6 +83,12 @@
     _playerControlsView = [[GMFPlayerControlsView alloc] init];
     [self setSeekbarTrackColorDefault];
     [self addSubview:_playerControlsView];
+    
+    _topBarView = [[GMFTopBarView alloc] init];
+    [_topBarView setLogoImage:[GMFResources playerBarPlayButtonImage]];
+
+
+    [self addSubview:_topBarView];
 
     [self setupLayoutConstraints];
   }
@@ -46,8 +99,12 @@
   //[self setTranslatesAutoresizingMaskIntoConstraints:NO];
   [_spinner setTranslatesAutoresizingMaskIntoConstraints:NO];
   [_playerControlsView setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [_playPauseReplayButton setTranslatesAutoresizingMaskIntoConstraints:NO];
+  [_topBarView setTranslatesAutoresizingMaskIntoConstraints:NO];
 
-  NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_spinner, _playerControlsView);
+  NSDictionary *viewsDictionary = NSDictionaryOfVariableBindings(_spinner,
+                                                                 _playerControlsView,
+                                                                 _topBarView);
 
   // Align spinner to the center X and Y.
   NSArray *constraints =
@@ -55,6 +112,25 @@
                                              options:NSLayoutFormatAlignAllCenterX
                                              metrics:nil
                                                views:viewsDictionary];
+  
+  constraints = [constraints arrayByAddingObject:
+                 [NSLayoutConstraint constraintWithItem:_playPauseReplayButton
+                                              attribute:NSLayoutAttributeCenterY
+                                              relatedBy:NSLayoutRelationEqual
+                                                 toItem:_playPauseReplayButton.superview
+                                              attribute:NSLayoutAttributeCenterY
+                                             multiplier:1.0f
+                                               constant:0]];
+  
+  constraints = [constraints arrayByAddingObject:
+                 [NSLayoutConstraint constraintWithItem:_playPauseReplayButton
+                                              attribute:NSLayoutAttributeCenterX
+                                              relatedBy:NSLayoutRelationEqual
+                                                 toItem:_playPauseReplayButton.superview
+                                              attribute:NSLayoutAttributeCenterX
+                                             multiplier:1.0f
+                                               constant:0]];
+  
   // Technically this works with just the Y alignment, but xcode will complain about missing
   // constraints, so we add the X as well.
   constraints = [constraints arrayByAddingObject:
@@ -89,41 +165,84 @@
                                               options:NSLayoutFormatAlignAllBottom
                                               metrics:nil
                                                 views:viewsDictionary]];
-
+  
+  constraints = [constraints arrayByAddingObjectsFromArray:
+                 [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topBarView(controlsHeight)]"
+                                                         options:NSLayoutFormatAlignAllTop
+                                                         metrics:metrics
+                                                           views:viewsDictionary]];
+  constraints = [constraints arrayByAddingObjectsFromArray:
+                 [NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_topBarView]|"
+                                                         options:NSLayoutFormatAlignAllTop
+                                                         metrics:nil
+                                                           views:viewsDictionary]];
+  
+  
   [self addConstraints:constraints];
 }
 
 - (void)setDelegate:(id<GMFPlayerControlsViewDelegate>)delegate {
+  _delegate = delegate;
   [_playerControlsView setDelegate:delegate];
 }
 
 - (void)showSpinner {
+  [_playPauseReplayButton setHidden:YES];
   [_spinner startAnimating];
   [_spinner setHidden:NO];
 }
 
 - (void)hideSpinner {
+  [_playPauseReplayButton setHidden:NO];
   [_spinner stopAnimating];
   [_spinner setHidden:YES];
 }
 
 - (void)setPlayerBarVisible:(BOOL)visible {
+  [_topBarView setAlpha:(isTopBarEnabled && visible) ? 1 : 0];
   [_playerControlsView setAlpha:visible ? 1 : 0];
-
+  [_playPauseReplayButton setAlpha:visible ? 1 : 0];
+  [self setBackgroundColor:(visible ? _tintedBackgroundColor : [UIColor clearColor])];
+  
   [self setNeedsLayout];
   [self layoutIfNeeded];
 }
 
+- (void) disableTopBar {
+  isTopBarEnabled = NO;
+  [_topBarView setAlpha:0];
+}
+- (void) enableTopBar {
+  isTopBarEnabled = YES;
+  [_topBarView setAlpha:1];
+}
+
+- (void) setPlayPauseResetButtonBackgroundColor:(UIColor *)playPauseResetButtonBackgroundColor {
+  _playPauseResetButtonBackgroundColor = playPauseResetButtonBackgroundColor;
+  [_playPauseReplayButton setBackgroundColor:playPauseResetButtonBackgroundColor];
+}
+
+- (void)setVideoTitle: (NSString *) videoTitle {
+  [_topBarView setVideoTitle:videoTitle];
+}
+
+- (void)setLogoImage: (UIImage *) logoImage {
+  [_topBarView setLogoImage:logoImage];
+}
+
 - (void)showPlayButton {
-  [_playerControlsView showPlayButton];
+  [_playPauseReplayButton setImage:_playImage forState:UIControlStateNormal];
+  [_playPauseReplayButton setAccessibilityLabel:_playLabel];
 }
 
 - (void)showPauseButton {
-  [_playerControlsView showPauseButton];
+  [_playPauseReplayButton setImage:_pauseImage forState:UIControlStateNormal];
+  [_playPauseReplayButton setAccessibilityLabel:_pauseLabel];
 }
 
 - (void)showReplayButton {
-  [_playerControlsView showReplayButton];
+  [_playPauseReplayButton setImage:_replayImage forState:UIControlStateNormal];
+  [_playPauseReplayButton setAccessibilityLabel:_replayLabel];
 }
 
 - (void)setTotalTime:(NSTimeInterval)totalTime {
@@ -162,7 +281,19 @@
 }
 
 - (void)applyControlTintColor: (UIColor *)color {
+  [_playPauseReplayButton GMF_applyTintColor:color];
   [_playerControlsView applyControlTintColor:color];
+}
+
+- (void)didPressPlayPauseReplay:(id) sender {
+  UIImage *currentImage = _playPauseReplayButton.imageView.image;
+  if ([currentImage isEqual:_playImage]) {
+    [_delegate didPressPlay];
+  } else if ([currentImage isEqual:_pauseImage]) {
+    [_delegate didPressPause];
+  } else if ([currentImage isEqual:_replayLabel]) {
+    [_delegate didPressReplay];
+  }
 }
 
 // Check if the tap is over the subviews of the overlay, else let it go to handle taps
@@ -173,6 +304,12 @@
     return nil;
   }
   return hitView;
+}
+
+- (void)dealloc {
+  [_playPauseReplayButton removeTarget:self
+                                action:NULL
+                      forControlEvents:UIControlEventTouchUpInside];
 }
 
 @end

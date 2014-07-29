@@ -20,6 +20,7 @@
 #import "GMFResources.h"
 #import "UIButton+GMFTintableButton.h"
 #import "GMFTopBarView.h"
+#import "UIImage+GMFTintableImage.h"
 
 
 @implementation GMFPlayerOverlayView {
@@ -31,13 +32,14 @@
   NSString *_pauseLabel;
   NSString *_replayLabel;
   UIButton *_playPauseReplayButton;
-  BOOL isTopBarEnabled;
+  BOOL _isTopBarEnabled;
+  CurrentPlayPauseReplayIcon _currentPlayPauseReplayIcon;
 }
 
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
-    isTopBarEnabled = YES;
+    _isTopBarEnabled = YES;
     // The tint color of the background when the player controls are visible.
     // The color is a translucent black.
     _tintedBackgroundColor = [UIColor colorWithRed:0.2f
@@ -199,7 +201,7 @@
 }
 
 - (void)setPlayerBarVisible:(BOOL)visible {
-  [_topBarView setAlpha:(isTopBarEnabled && visible) ? 1 : 0];
+  [_topBarView setAlpha:(_isTopBarEnabled && visible) ? 1 : 0];
   [_playerControlsView setAlpha:visible ? 1 : 0];
   [_playPauseReplayButton setAlpha:visible ? 1 : 0];
   [self setBackgroundColor:(visible ? _tintedBackgroundColor : [UIColor clearColor])];
@@ -209,11 +211,11 @@
 }
 
 - (void) disableTopBar {
-  isTopBarEnabled = NO;
+  _isTopBarEnabled = NO;
   [_topBarView setAlpha:0];
 }
 - (void) enableTopBar {
-  isTopBarEnabled = YES;
+  _isTopBarEnabled = YES;
   [_topBarView setAlpha:1];
 }
 
@@ -231,16 +233,19 @@
 }
 
 - (void)showPlayButton {
+  _currentPlayPauseReplayIcon = PLAY;
   [_playPauseReplayButton setImage:_playImage forState:UIControlStateNormal];
   [_playPauseReplayButton setAccessibilityLabel:_playLabel];
 }
 
 - (void)showPauseButton {
+  _currentPlayPauseReplayIcon = PAUSE;
   [_playPauseReplayButton setImage:_pauseImage forState:UIControlStateNormal];
   [_playPauseReplayButton setAccessibilityLabel:_pauseLabel];
 }
 
 - (void)showReplayButton {
+  _currentPlayPauseReplayIcon = REPLAY;
   [_playPauseReplayButton setImage:_replayImage forState:UIControlStateNormal];
   [_playPauseReplayButton setAccessibilityLabel:_replayLabel];
 }
@@ -281,18 +286,30 @@
 }
 
 - (void)applyControlTintColor: (UIColor *)color {
+  // Tint the images for play, pause, and replay.
+  _playImage = [_playImage GMF_createTintedImage:color];
+  _pauseImage = [_pauseImage GMF_createTintedImage:color];
+  _replayImage = [_replayImage GMF_createTintedImage:color];
+  
+  // Tint the play/pause/replay button and the controls view.
   [_playPauseReplayButton GMF_applyTintColor:color];
   [_playerControlsView applyControlTintColor:color];
 }
 
 - (void)didPressPlayPauseReplay:(id) sender {
-  UIImage *currentImage = _playPauseReplayButton.imageView.image;
-  if ([currentImage isEqual:_playImage]) {
-    [_delegate didPressPlay];
-  } else if ([currentImage isEqual:_pauseImage]) {
-    [_delegate didPressPause];
-  } else if ([currentImage isEqual:_replayLabel]) {
-    [_delegate didPressReplay];
+  // Determine which icon the play/pause/replay button is showing and respond appropriately.
+  switch (_currentPlayPauseReplayIcon) {
+    case PLAY:
+      [_delegate didPressPlay];
+      break;
+    case REPLAY:
+      [_delegate didPressReplay];
+      break;
+    case PAUSE:
+      [_delegate didPressPause];
+      break;
+    default:
+      break;
   }
 }
 

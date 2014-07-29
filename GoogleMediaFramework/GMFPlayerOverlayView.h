@@ -22,6 +22,14 @@
   GMFPlayerControlsView *_playerControlsView;
 }
 
+// The play/pause/replay button can display either a play, pause, or replay icon.
+// We represent the current image being displayed by using this enum.
+typedef enum CurrentPlayPauseReplayIcon {
+  PLAY,
+  PAUSE,
+  REPLAY
+} CurrentPlayPauseReplayIcon;
+
 @property(nonatomic, weak) id<GMFPlayerControlsViewDelegate> delegate;
 
 @property(nonatomic, readonly) GMFPlayerControlsView *playerControlsView;

@@ -12,20 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#import "UIButton+GMFTintableButton.h"
-#import "UIImage+GMFTintableImage.h"
+#import <UIKit/UIKit.h>
 
-@implementation UIButton (GMFTintableButton)
+@interface UIImage (GMFTintableImage)
 
-- (void)GMF_applyTintColor:(UIColor *)color {
-  
-  if (!color || !self.imageView.image) {
-    return;
-  }
-  
-  UIImage *tintedImage = [self.imageView.image GMF_createTintedImage:color];
-  [self setImage:tintedImage forState:UIControlStateNormal];
-}
+- (UIImage *)GMF_createTintedImage:(UIColor *)color;
 
 @end
-

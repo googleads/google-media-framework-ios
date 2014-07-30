@@ -20,10 +20,16 @@
 // Sets the logo image displayed in the left of the top bar.
 // The logo's aspect ratio will be preserved, but it will be resized so that it will fit in the bar.
 // Default width is the height of the top bar.
-- (void) setLogoImage: (UIImage *) logoImage;
+- (void)setLogoImage:(UIImage *)logoImage;
 
 // Set the video title displayed in the left of the top bar.
 // It is displayed to the right of the logo.
-- (void) setVideoTitle: (NSString *) videoTitle;
+- (void)setVideoTitle:(NSString *)videoTitle;
+
+// Adds an action button to the right of the top bar.
+- (void)addActionButtonWithImage:(UIImage *)image
+                            name:(NSString *)name
+                          target:(id)target
+                        selector:(SEL)selector;
 
 @end

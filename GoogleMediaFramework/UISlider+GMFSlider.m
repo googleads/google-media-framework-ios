@@ -17,7 +17,7 @@
 @implementation UISlider (GMFSlider)
 
 // Modify UISlider so that when the bar is tapped, the thumb jumps to the tapped location.
-- (BOOL) beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
+- (BOOL)beginTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event {
   [super beginTrackingWithTouch:touch withEvent:event];
   
   // We do the math to compute where the center of the thumb should be placed.

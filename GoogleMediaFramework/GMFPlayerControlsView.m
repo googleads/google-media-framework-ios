@@ -181,7 +181,7 @@ static const CGFloat kGMFBarPaddingX = 4;
   }
 }
 
-- (void)applyControlTintColor: (UIColor *) color {
+- (void)applyControlTintColor:(UIColor *)color {
   [_scrubber setMinimumTrackTintColor:color];
   [_scrubber setThumbTintColor:color];
   [_minimizeButton GMF_applyTintColor:color];

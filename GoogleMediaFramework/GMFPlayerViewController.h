@@ -64,6 +64,11 @@ extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 
 - (NSTimeInterval)currentMediaTime;
 
+- (void)addActionButtonWithImage:(UIImage *)image
+                            name:(NSString *)name
+                          target:(id)target
+                        selector:(SEL)selector;
+
 
 #pragma mark Advanced controls
 

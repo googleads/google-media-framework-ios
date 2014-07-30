@@ -29,6 +29,9 @@
 		4CD0246E185CCE5300793419 /* GMFContentPlayhead.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD0246D185CCE5300793419 /* GMFContentPlayhead.m */; };
 		4CD7815217EC9E9B00930F92 /* VideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7815117EC9E9B00930F92 /* VideoListViewController.m */; };
 		4CF77DEA18567DAD00F98F76 /* VideoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF77DE918567DAD00F98F76 /* VideoData.m */; };
+		8758392E1989716200DDD0D2 /* Delete-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8758392B1989716200DDD0D2 /* Delete-Icon.png */; };
+		8758392F1989716200DDD0D2 /* Favorite-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8758392C1989716200DDD0D2 /* Favorite-Icon.png */; };
+		875839301989716200DDD0D2 /* Share-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8758392D1989716200DDD0D2 /* Share-Icon.png */; };
 		A8A054BA17E270A50035D08D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A054B517E270A50035D08D /* AdSupport.framework */; };
 		A8A054BB17E270A50035D08D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A054B617E270A50035D08D /* CoreFoundation.framework */; };
 		A8A054BC17E270A50035D08D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A054B717E270A50035D08D /* MessageUI.framework */; };
@@ -90,6 +93,9 @@
 		4CD7815117EC9E9B00930F92 /* VideoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoListViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4CF77DE818567DAD00F98F76 /* VideoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoData.h; sourceTree = "<group>"; };
 		4CF77DE918567DAD00F98F76 /* VideoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoData.m; sourceTree = "<group>"; };
+		8758392B1989716200DDD0D2 /* Delete-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Delete-Icon.png"; sourceTree = "<group>"; };
+		8758392C1989716200DDD0D2 /* Favorite-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorite-Icon.png"; sourceTree = "<group>"; };
+		8758392D1989716200DDD0D2 /* Share-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Share-Icon.png"; sourceTree = "<group>"; };
 		A8A054B517E270A50035D08D /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		A8A054B617E270A50035D08D /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		A8A054B717E270A50035D08D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -192,6 +198,9 @@
 		4CAD3F7117BD4703008C6D28 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8758392B1989716200DDD0D2 /* Delete-Icon.png */,
+				8758392C1989716200DDD0D2 /* Favorite-Icon.png */,
+				8758392D1989716200DDD0D2 /* Share-Icon.png */,
 				4CAD3F8017BD4703008C6D28 /* Default-568h@2x.png */,
 				4CAD3F7C17BD4703008C6D28 /* Default.png */,
 				4CAD3F7E17BD4703008C6D28 /* Default@2x.png */,
@@ -300,6 +309,9 @@
 			files = (
 				4CAD3F7517BD4703008C6D28 /* InfoPlist.strings in Resources */,
 				4CAD3F7D17BD4703008C6D28 /* Default.png in Resources */,
+				8758392F1989716200DDD0D2 /* Favorite-Icon.png in Resources */,
+				8758392E1989716200DDD0D2 /* Delete-Icon.png in Resources */,
+				875839301989716200DDD0D2 /* Share-Icon.png in Resources */,
 				4CAD3F7F17BD4703008C6D28 /* Default@2x.png in Resources */,
 				4CAD3F8117BD4703008C6D28 /* Default-568h@2x.png in Resources */,
 			);

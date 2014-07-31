@@ -210,25 +210,32 @@
   [self layoutIfNeeded];
 }
 
-- (void) disableTopBar {
+- (void)disableTopBar {
   _isTopBarEnabled = NO;
   [_topBarView setAlpha:0];
 }
-- (void) enableTopBar {
+- (void)enableTopBar {
   _isTopBarEnabled = YES;
   [_topBarView setAlpha:1];
 }
 
-- (void) setPlayPauseResetButtonBackgroundColor:(UIColor *)playPauseResetButtonBackgroundColor {
+- (void)setPlayPauseResetButtonBackgroundColor:(UIColor *)playPauseResetButtonBackgroundColor {
   _playPauseResetButtonBackgroundColor = playPauseResetButtonBackgroundColor;
   [_playPauseReplayButton setBackgroundColor:playPauseResetButtonBackgroundColor];
 }
 
-- (void)setVideoTitle: (NSString *) videoTitle {
+- (void)addActionButtonWithImage:(UIImage *)image
+                            name:(NSString *)name
+                          target:(id)target
+                        selector:(SEL)selector {
+  [_topBarView addActionButtonWithImage:image name:name target:target selector:selector];
+}
+
+- (void)setVideoTitle:(NSString *)videoTitle {
   [_topBarView setVideoTitle:videoTitle];
 }
 
-- (void)setLogoImage: (UIImage *) logoImage {
+- (void)setLogoImage:(UIImage *)logoImage {
   [_topBarView setLogoImage:logoImage];
 }
 
@@ -285,7 +292,7 @@
   [_playerControlsView enableSeekbarInteraction];
 }
 
-- (void)applyControlTintColor: (UIColor *)color {
+- (void)applyControlTintColor:(UIColor *)color {
   // Tint the images for play, pause, and replay.
   _playImage = [_playImage GMF_createTintedImage:color];
   _pauseImage = [_pauseImage GMF_createTintedImage:color];
@@ -296,7 +303,7 @@
   [_playerControlsView applyControlTintColor:color];
 }
 
-- (void)didPressPlayPauseReplay:(id) sender {
+- (void)didPressPlayPauseReplay:(id)sender {
   // Determine which icon the play/pause/replay button is showing and respond appropriately.
   switch (_currentPlayPauseReplayIcon) {
     case PLAY:

@@ -36,6 +36,15 @@ NSString * const kGMFPlayerPlaybackDidFinishReasonUserInfoKey =
 NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
     @"kGMFPlayerPlaybackWillFinishReasonUserInfoKey";
 
+// If there is no overlay view created yet, but we receive a request to create action button,
+// we store the request in a mutable array of dictionaries which we use to construct the the
+// action buttons when the overlay view is created.
+// The constant below are the keys of the dictionaries.
+NSString *const kActionButtonImageKey = @"kActionButtonImageKey";
+NSString *const kActionButtonNameKey = @"kActionButtonNameKey";
+NSString *const kActionButtonTargetKey = @"kActionButtonTargetKey";
+NSString *const kActionButtonSelectorKey = @"kActionButtonSelectorKey";
+
 @interface GMFPlayerViewController ()
 
 @property(nonatomic, strong) GMFVideoPlayer *player;
@@ -49,12 +58,19 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
 
   BOOL _isUserScrubbing;
   BOOL _wasPlayingBeforeSeeking;
+  
+  // If there is no overlay view created yet, but we receive a request to create action button,
+  // we store the request in a mutable array of dictionaries which we use to construct the the
+  // action buttons when the overlay view is created.
+  // This mutable array stores the dictionaries.
+  NSMutableArray *_actionButtonDictionaries;
 }
 
 // Perhaps you'd like to init a player with no content?
 - (id)init {
   self = [super init];
   if (self) {
+    _actionButtonDictionaries = [[NSMutableArray alloc] init];
     if (!_player) {
       _player = [[GMFVideoPlayer alloc] init];
       [_player setDelegate:self];
@@ -88,6 +104,32 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
   [view addGestureRecognizer:[[UITapGestureRecognizer alloc]
                               initWithTarget:self
                               action:@selector(didTapGestureCapturingView:)]];
+}
+
+- (void)addActionButtonWithImage:(UIImage *)image
+                            name:(NSString *)name
+                          target:(id)target
+                        selector:(SEL)selector{
+  
+  // If the overlay view exists, create the action button.
+  if (self.playerOverlayView) {
+    [self.playerOverlayView addActionButtonWithImage:image
+                                                name:name
+                                              target:target
+                                            selector:selector];
+  } else {
+    // If the overlay view does not exist, create a dictionary of the arguments.
+    // Add this dictionary to the list of dictionaries we have so far.
+    // This way, when the overlay view is created, we can iterate through the dictionaries
+    // and construct the action buttons.
+    NSDictionary *actionButtonRequest = @{
+      kActionButtonImageKey : image,
+      kActionButtonNameKey : name,
+      kActionButtonTargetKey : target,
+      kActionButtonSelectorKey : [NSValue valueWithPointer:selector]
+    };
+    [_actionButtonDictionaries addObject:actionButtonRequest];
+  }
 }
 
 - (void)registerAdService:(GMFAdService *)adService {
@@ -125,6 +167,21 @@ NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey =
   [_playerView setOverlayView:[_videoPlayerOverlayViewController playerOverlayView]];
   if (_controlTintColor) {
     [self.playerOverlayView applyControlTintColor:_controlTintColor];
+  }
+  
+  // If we have received requests to create action buttons, iterate through each request (encoded
+  // as a dictionary) and create the action buttons.
+  if ([_actionButtonDictionaries count] > 0) {
+    for (NSDictionary *dict in _actionButtonDictionaries) {
+      UIImage *image = [dict objectForKey:kActionButtonImageKey];
+      NSString *name = [dict objectForKey:kActionButtonNameKey];
+      id target = [dict objectForKey:kActionButtonTargetKey];
+      SEL selector = [((NSValue *)[dict objectForKey:kActionButtonSelectorKey]) pointerValue];
+      [self.playerOverlayView addActionButtonWithImage:image
+                                                  name:name
+                                                target:target
+                                              selector:selector];
+    }
   }
   [self setDefaultVideoPlayerOverlayDelegate];
 }

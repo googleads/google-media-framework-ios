@@ -46,12 +46,17 @@ typedef enum CurrentPlayPauseReplayIcon {
 - (void)setSeekbarTrackColor:(UIColor *)color;
 - (void)setSeekbarTrackColorDefault;
 
-- (void)applyControlTintColor: (UIColor *)color;
-- (void)setVideoTitle: (NSString *) videoTitle;
-- (void)setLogoImage: (UIImage *) logoImage;
+- (void)addActionButtonWithImage:(UIImage *)image
+                            name:(NSString *)name
+                          target:(id)target
+                        selector:(SEL)selector;
 
-- (void) disableTopBar;
-- (void) enableTopBar;
+- (void)applyControlTintColor:(UIColor *)color;
+- (void)setVideoTitle:(NSString *)videoTitle;
+- (void)setLogoImage:(UIImage *)logoImage;
+
+- (void)disableTopBar;
+- (void)enableTopBar;
 
 @end
 

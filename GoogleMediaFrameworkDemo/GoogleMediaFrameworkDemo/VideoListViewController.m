@@ -241,6 +241,19 @@
   // (Optional): Customize the UI by giving the buttons and seekbar a blue tint.
   //  self.videoPlayerViewController.controlTintColor = [UIColor blueColor];
   
+  // (Optional): Create a set of action buttons which will be displayed in the right of the top bar.
+  [self.videoPlayerViewController addActionButtonWithImage:[UIImage imageNamed:@"Favorite-Icon"]
+                                                      name:@"Button"
+                                                    target:self
+                                                  selector:@selector(clickedFavoriteButton)];
+  [self.videoPlayerViewController addActionButtonWithImage:[UIImage imageNamed:@"Delete-Icon"]
+                                                      name:@"Button"
+                                                    target:self
+                                                  selector:@selector(clickedDeleteButton)];
+  [self.videoPlayerViewController addActionButtonWithImage:[UIImage imageNamed:@"Share-Icon"]
+                                                      name:@"Button"
+                                                    target:self
+                                                  selector:@selector(clickedShareButton)];
 
   self.videoPlayerViewController.videoTitle = video.title;
   self.videoPlayerViewController.logoImage = [UIImage imageNamed:@"Gmf-Icon"];
@@ -248,6 +261,36 @@
   [self.videoPlayerViewController play];
 
   [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (void) clickedShareButton {
+  [self.videoPlayerViewController pause];
+  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Share button clicked"
+                                                  message:@"You clicked the share button."
+                                                 delegate:nil
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil];
+  [alert show];
+}
+
+- (void) clickedFavoriteButton {
+  [self.videoPlayerViewController pause];
+  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Favorite button clicked"
+                                                  message:@"You clicked the favorite button."
+                                                 delegate:nil
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil];
+  [alert show];
+}
+
+- (void) clickedDeleteButton {
+  [self.videoPlayerViewController pause];
+  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Delete button clicked"
+                                                  message:@"You clicked the delete button."
+                                                 delegate:nil
+                                        cancelButtonTitle:@"OK"
+                                        otherButtonTitles:nil];
+  [alert show];
 }
 
 #pragma mark Videos Data array

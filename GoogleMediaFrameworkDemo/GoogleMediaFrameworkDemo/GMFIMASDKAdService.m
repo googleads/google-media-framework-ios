@@ -57,12 +57,7 @@
 // Listen to playbackWill finish in order to play postrolls if needed before the player ends.
 // The GMFVideoPlayerSDK subscribes to this notification automatically.
 - (void)playbackWillFinish:(NSNotification *)notification {
-  int finishReason = [[[notification userInfo]
-      objectForKey:kGMFPlayerPlaybackWillFinishReasonUserInfoKey] intValue];
-  if (finishReason == GMFPlayerFinishReasonPlaybackEnded) {
-    // Playback reached the end of the video, notify AdsManager in case there are postrolls.
-    [self.adsLoader contentComplete];
-  }
+  [self.adsLoader contentComplete];
 }
 
 // Destroy adsManager when user exits the player

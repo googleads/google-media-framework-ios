@@ -181,4 +181,8 @@
   [_videoTitle setText:videoTitle];
 }
 
+- (CGFloat)preferredHeight {
+  return [[GMFResources playerTitleBarBackgroundImage] size].height;
+}
+
 @end

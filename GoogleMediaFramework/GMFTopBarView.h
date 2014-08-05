@@ -32,4 +32,6 @@
                           target:(id)target
                         selector:(SEL)selector;
 
+- (CGFloat)preferredHeight;
+
 @end

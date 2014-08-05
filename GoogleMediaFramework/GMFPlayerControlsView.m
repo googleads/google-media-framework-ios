@@ -45,11 +45,13 @@ static const CGFloat kGMFBarPaddingX = 8;
     [self addSubview:_backgroundView];
 
     _secondsPlayedLabel = [UILabel GMF_clearLabelForPlayerControls];
+    [_secondsPlayedLabel setFont:[UIFont fontWithName:@"Helvetica" size:16.0]];
     [_secondsPlayedLabel setTextAlignment:NSTextAlignmentCenter];
     [_secondsPlayedLabel setIsAccessibilityElement:NO];
     [self addSubview:_secondsPlayedLabel];
 
     _totalSecondsLabel = [UILabel GMF_clearLabelForPlayerControls];
+    [_totalSecondsLabel setFont:[UIFont fontWithName:@"Helvetica" size:16.0]];
     [_totalSecondsLabel setIsAccessibilityElement:NO];
     [self addSubview:_totalSecondsLabel];
 

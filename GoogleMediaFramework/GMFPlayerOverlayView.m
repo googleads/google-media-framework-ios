@@ -155,10 +155,11 @@
 
   // Align controlbar to the center bottom.
   NSDictionary *metrics = @{
-      @"controlsHeight": @([_playerControlsView preferredHeight])
+      @"controlsBarHeight": @([_playerControlsView preferredHeight]),
+      @"titleBarheight": @([_topBarView preferredHeight])
   };
   constraints = [constraints arrayByAddingObjectsFromArray:
-      [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_playerControlsView(controlsHeight)]|"
+      [NSLayoutConstraint constraintsWithVisualFormat:@"V:[_playerControlsView(controlsBarHeight)]|"
                                               options:NSLayoutFormatAlignAllBottom
                                               metrics:metrics
                                                 views:viewsDictionary]];
@@ -169,7 +170,7 @@
                                                 views:viewsDictionary]];
   
   constraints = [constraints arrayByAddingObjectsFromArray:
-                 [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topBarView(controlsHeight)]"
+                 [NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topBarView(titleBarheight)]"
                                                          options:NSLayoutFormatAlignAllTop
                                                          metrics:metrics
                                                            views:viewsDictionary]];

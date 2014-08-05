@@ -18,13 +18,13 @@
 
 - (instancetype)initWithVideoURL:(NSString *)videoURL
                  title:(NSString *)title
-           description:(NSString *)description
+               summary:(NSString *)summary
               adTagURL:(NSString *)adTagURL {
   self = [super init];
   if (self) {
     _videoURL = videoURL;
     _title = title;
-    _description = description;
+    _summary = summary;
     _adTagURL = adTagURL;
   }
   return self;

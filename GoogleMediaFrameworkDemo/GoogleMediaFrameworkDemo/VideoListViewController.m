@@ -197,7 +197,7 @@
   // TODO(tensafefrogs): Add thumbnails to the sample videos.
   // cell.imageView.image = video.thumbnail;
   cell.textLabel.text = video.title;
-  cell.detailTextLabel.text = video.description;
+  cell.detailTextLabel.text = video.summary;
   return cell;
 }
 
@@ -301,19 +301,19 @@
     _videos = @[
       [[VideoData alloc] initWithVideoURL:@"http://googleimadev-vh.akamaihd.net/i/big_buck_bunny/bbb-,480p,720p,1080p,.mov.csmil/master.m3u8"
                                     title:@"Video with no ads"
-                              description:@""
+                                  summary:@""
                                  adTagURL:nil],
       [[VideoData alloc] initWithVideoURL:@"http://googleimadev-vh.akamaihd.net/i/big_buck_bunny/bbb-,480p,720p,1080p,.mov.csmil/master.m3u8"
                                     title:@"Skippable preroll"
-                              description:@""
+                                  summary:@""
                                  adTagURL:@"http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=%2F6062%2Fgmf_demo&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]&cust_params=gmf_format%3Dskip"],
       [[VideoData alloc] initWithVideoURL:@"http://googleimadev-vh.akamaihd.net/i/big_buck_bunny/bbb-,480p,720p,1080p,.mov.csmil/master.m3u8"
                                     title:@"Unskippable preroll"
-                              description:@""
+                                  summary:@""
                                  adTagURL:@"http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=%2F6062%2Fgmf_demo&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]&cust_params=gmf_format%3Dstd"],
       [[VideoData alloc] initWithVideoURL:@"http://googleimadev-vh.akamaihd.net/i/big_buck_bunny/bbb-,480p,720p,1080p,.mov.csmil/master.m3u8"
                                     title:@"Adrules (Preroll and ad breaks at 5s, 10s, 15s)"
-                              description:@""
+                                  summary:@""
                                  adTagURL:@"http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=%2F6062%2Fgmf_demo&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]&ad_rule=1&cmsid=11924&vid=cWCkSYdFlU0&cust_params=gmf_format%3Dstd%2Cskip"],
     ];
   }

@@ -18,12 +18,12 @@
 
 @property(nonatomic, copy) NSString *videoURL;
 @property(nonatomic, copy) NSString *title;
-@property(nonatomic, copy) NSString *description;
+@property(nonatomic, copy) NSString *summary;
 @property(nonatomic, copy) NSString *adTagURL;
 
 - (id)initWithVideoURL:(NSString *)videoURL
                  title:(NSString *)title
-           description:(NSString *)description
+               summary:(NSString *)summary
               adTagURL:(NSString *)adTagURL;
 
 @end

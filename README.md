@@ -75,7 +75,7 @@ Please report issues on the [issues page](../../issues).
 If you have questions about the framework, you can ask them at http://groups.google.com/d/forum/google-media-framework
 
 ##How do I contribute?
-See [this wiki article](../../wiki/Becoming-a-contributor) for details.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
 ##Requirements
   - iOS 6.1+

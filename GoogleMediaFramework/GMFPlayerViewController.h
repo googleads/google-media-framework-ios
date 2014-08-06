@@ -29,6 +29,7 @@ extern NSString * const kGMFPlayerStateWillChangeToFinishedNotification;
 extern NSString * const kGMFPlayerPlaybackDidFinishReasonUserInfoKey;
 extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 
+
 @interface GMFPlayerViewController : UIViewController<GMFVideoPlayerDelegate,
                                                       GMFPlayerOverlayViewControllerDelegate,
                                                       GMFPlayerControlsViewDelegate,
@@ -38,6 +39,7 @@ extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 }
 
 @property(nonatomic, readonly) GMFPlayerView *playerView;
+@property(nonatomic, strong) UIViewController <GMFPlayerOverlayViewControllerProtocol> *videoPlayerOverlayViewController;
 
 @property(nonatomic, weak) GMFAdService *adService;
 
@@ -82,7 +84,7 @@ extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 
 - (void)setDefaultVideoPlayerOverlayDelegate;
 
-- (GMFPlayerOverlayView *)playerOverlayView;
+- (UIView<GMFPlayerControlsProtocol> *)playerOverlayView;
 
 @end
 

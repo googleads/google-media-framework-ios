@@ -50,12 +50,12 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
 
 - (void)viewDidLoad {
   [super viewDidLoad];
-  [_playerOverlayView setDelegate:_delegate];
+  [self.playerOverlayView setDelegate:self.delegate];
   [_playerOverlayView showSpinner];
   [self playerStateDidChangeToState:_playerState];
 }
 
-- (void)setDelegate:(NSObject<GMFPlayerControlsViewDelegate> *)delegate {
+- (void)setDelegate:(id <GMFPlayerOverlayViewControllerDelegate>) delegate {
   // Store delegate in case the view isn't loaded yet.
   _delegate = delegate;
   [_playerOverlayView setDelegate:delegate];
@@ -68,7 +68,7 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
 - (void)setUserScrubbing:(BOOL)userScrubbing {
   _userScrubbing = userScrubbing;
   [self updateAutoHideEnabled];
-  if (_userScrubbing) {
+  if (self.userScrubbing) {
     [_playerOverlayView showSpinner];
   } else {
     // Refresh the state so the correct button is shown.
@@ -79,7 +79,7 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
 - (void)playerStateDidChangeToState:(GMFPlayerState)toState {
   _playerState = toState;
   [self updatePlayerBarViewButtonWithState:toState];
-  if (_userScrubbing) {
+  if (self.userScrubbing) {
     return;
   }
   [self updateAutoHideEnabled];
@@ -186,7 +186,7 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
 }
 
 - (void)updateAutoHideEnabled {
-  BOOL enabled = (_playerState == kGMFPlayerStatePlaying) && ![self isUserScrubbing];
+  BOOL enabled = (_playerState == kGMFPlayerStatePlaying) && !self.userScrubbing;
   if (_autoHideEnabled != enabled) {
     _autoHideEnabled = enabled;
     if (!enabled) {

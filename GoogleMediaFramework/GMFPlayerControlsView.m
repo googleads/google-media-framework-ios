@@ -265,9 +265,9 @@ static const CGFloat kGMFBarPaddingX = 8;
   NSInteger minutes = (durationSecondsRounded / 60) % 60;
   NSInteger hours = durationSecondsRounded / 3600;
   if (hours) {
-    return [NSString stringWithFormat:@"%d:%02d:%02d", hours, minutes, seconds];
+    return [NSString stringWithFormat:@"%ld:%02ld:%02ld", (long) hours, (long) minutes, (long) seconds];
   } else {
-    return [NSString stringWithFormat:@"%d:%02d", minutes, seconds];
+    return [NSString stringWithFormat:@"%ld:%02ld", (long) minutes, (long) seconds];
   }
 }
 

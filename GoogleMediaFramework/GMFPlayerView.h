@@ -18,7 +18,7 @@
 
 @interface GMFPlayerView : UIView {
  @private
-  GMFPlayerOverlayView *_overlayView;
+  UIView<GMFPlayerControlsProtocol> *_overlayView;
 }
 
 @property(nonatomic, weak) UIView *aboveRenderingView;
@@ -37,7 +37,7 @@
 
 - (void)setAboveRenderingView:(UIView *)aboveRenderingView;
 
-- (void)setOverlayView:(GMFPlayerOverlayView *)overlayView;
+- (void)setOverlayView:(UIView<GMFPlayerControlsProtocol> *)overlayView;
 
 @end
 

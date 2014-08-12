@@ -61,7 +61,7 @@
   [self setNeedsLayout];
 }
 
-- (void)setOverlayView:(GMFPlayerOverlayView *)overlayView {
+- (void)setOverlayView:(UIView<GMFPlayerControlsProtocol> *)overlayView {
   [_overlayView removeFromSuperview];
   _overlayView = overlayView;
   if (_overlayView) {

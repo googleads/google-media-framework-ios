@@ -25,7 +25,26 @@
 - (void)playerControlsDidHide;
 @end
 
-@interface GMFPlayerOverlayViewController : UIViewController {
+
+@protocol GMFPlayerOverlayViewControllerProtocol <NSObject>
+
+@property (nonatomic, weak) id<GMFPlayerOverlayViewControllerDelegate> delegate;
+@property (nonatomic, strong) UIView<GMFPlayerControlsProtocol> *playerOverlayView;
+// Set this to YES when the user is scrubbing. This will cause the spinner to be shown regardless
+// of state.
+@property (nonatomic) BOOL userScrubbing;
+
+- (void) showPlayerControlsAnimated:(BOOL) animated;
+- (void) hidePlayerControlsAnimated:(BOOL) animated;
+- (void) setTotalTime:(NSTimeInterval) totalTime;
+- (void) setMediaTime:(NSTimeInterval) mediaTime;
+- (void) togglePlayerControlsVisibility;
+- (void) playerStateDidChangeToState:(GMFPlayerState) toState;
+- (void) reset;
+
+@end
+
+@interface GMFPlayerOverlayViewController : UIViewController <GMFPlayerOverlayViewControllerProtocol> {
  @private
   GMFPlayerOverlayView *_playerOverlayView;
   GMFPlayerState _playerState;
@@ -33,35 +52,20 @@
   BOOL _playerControlsHidden;
 }
 
-@property(nonatomic, weak) NSObject<GMFPlayerControlsViewDelegate> *delegate;
+@property (nonatomic, weak) id<GMFPlayerOverlayViewControllerDelegate> delegate;
+@property (nonatomic, strong) UIView<GMFPlayerControlsProtocol> *playerOverlayView;
+@property (nonatomic) BOOL userScrubbing;
 @property(nonatomic, weak) id<GMFPlayerOverlayViewControllerDelegate>
     videoPlayerOverlayViewControllerDelegate;
-// Set this to YES when the user is scrubbing. This will cause the spinner to be shown regardless
-// of state.
-@property(nonatomic, assign, getter=isUserScrubbing) BOOL userScrubbing;
-
-- (void)setDelegate:(NSObject<GMFPlayerControlsViewDelegate> *)delegate;
 
 - (void)playerStateDidChangeToState:(GMFPlayerState)toState;
-
-- (void)showPlayerControlsAnimated:(BOOL)animated;
-- (void)hidePlayerControlsAnimated:(BOOL)animated;
 
 - (void)playerControlsDidHide;
 - (void)playerControlsWillHide;
 - (void)playerControlsDidShow;
 - (void)playerControlsWillShow;
 
-- (void)setTotalTime:(NSTimeInterval)totalTime;
-- (void)setMediaTime:(NSTimeInterval)mediaTime;
-
-- (GMFPlayerOverlayView *)playerOverlayView;
-
 - (GMFPlayerControlsView *)playerControlsView;
-
-- (void)togglePlayerControlsVisibility;
-
-- (void)reset;
 
 - (void)resetAutoHideTimer;
 

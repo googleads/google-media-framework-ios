@@ -308,13 +308,13 @@
   // Determine which icon the play/pause/replay button is showing and respond appropriately.
   switch (_currentPlayPauseReplayIcon) {
     case PLAY:
-      [_delegate didPressPlay];
+      [self.delegate didPressPlay];
       break;
     case REPLAY:
-      [_delegate didPressReplay];
+      [self.delegate didPressReplay];
       break;
     case PAUSE:
-      [_delegate didPressPause];
+      [self.delegate didPressPause];
       break;
     default:
       break;

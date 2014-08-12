@@ -33,10 +33,19 @@
 
 - (void)requestAdsWithRequest:(NSString *)request {
   [self createAdsLoader];
-  IMAAdsRequest *adsRequest =
-      [[IMAAdsRequest alloc] initWithAdTagUrl:request
-                               companionSlots:nil
-                                  userContext:nil];
+  
+  // If there is no view above the rendering view, then there is no ads display container.
+  // Thus, we create one and add it to the video player.
+  if (self.videoPlayerController.playerView.aboveRenderingView == nil) {
+    UIView *view = [[UIView alloc] initWithFrame:self.videoPlayerController.view.bounds];
+    [self.videoPlayerController setABoveRenderingView:view];
+    self.adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:view
+                                                                  companionSlots:nil];
+  }
+  
+  IMAAdsRequest *adsRequest = [[IMAAdsRequest alloc] initWithAdTagUrl:request
+                                                   adDisplayContainer:self.adDisplayContainer
+                                                          userContext:nil];
 
   [_adsLoader requestAdsWithRequest:adsRequest];
 }
@@ -92,11 +101,7 @@
 
   [self.adsManager initializeWithContentPlayhead:contentPlayhead adsRenderingSettings:nil];
 
-  self.adsManager.adView.frame = _adView.bounds;
   self.adsManager.delegate = self;
-
-  // Set the adView to just above the player rendering view, but below the controls.
-  [self.videoPlayerController setABoveRenderingView:self.adsManager.adView];
 
   [self.adsManager start];
 }
@@ -131,9 +136,11 @@
     case kIMAAdEvent_RESUME:
       // When an ad starts, take over control of the video player until the ad completes.
       [self.videoPlayerController.playerOverlayView showPauseButton];
+      [self showPlayerControls];
       break;
     case kIMAAdEvent_PAUSE:
       [self.videoPlayerController.playerOverlayView showPlayButton];
+      [self showPlayerControls];
       break;
     case kIMAAdEvent_ALL_ADS_COMPLETED:
       // When all ads are done, give control back to the video player.
@@ -145,6 +152,12 @@
     default:
       break;
   }
+}
+
+- (void)showPlayerControls {
+  GMFPlayerOverlayViewController *overlayVc =
+      (GMFPlayerOverlayViewController *)self.videoPlayerController.videoPlayerOverlayViewController;
+  [overlayVc showPlayerControlsAnimated:YES];
 }
 
 // Process ad playing errors.
@@ -159,7 +172,12 @@
 }
 
 - (void)takeControlOfVideoPlayer {
-  GMFPlayerOverlayView *overlayView = self.videoPlayerController.playerOverlayView;
+  GMFPlayerViewController *playerVc = self.videoPlayerController;
+  GMFPlayerOverlayView *overlayView = (GMFPlayerOverlayView *) playerVc.playerOverlayView;
+  GMFPlayerOverlayViewController *overlayVc =
+      (GMFPlayerOverlayViewController *)self.videoPlayerController.videoPlayerOverlayViewController;
+
+  [overlayVc setIsAdDisplayed:YES];
   [overlayView hideSpinner];
   
   // Store the current background colors of the overlay view and the play/pause/reset button.
@@ -179,13 +197,19 @@
                                                                       green:0
                                                                        blue:0
                                                                       alpha:0.5f]];
+  
   _hasVideoPlayerControl = YES;
   [self.videoPlayerController pause];
   [self.videoPlayerController setVideoPlayerOverlayDelegate:self];
 }
 
 - (void)relinquishControlToVideoPlayer {
-  GMFPlayerOverlayView *overlayView = self.videoPlayerController.playerOverlayView;
+  GMFPlayerViewController *playerVc = self.videoPlayerController;
+  GMFPlayerOverlayView *overlayView = (GMFPlayerOverlayView *) playerVc.playerOverlayView;
+  GMFPlayerOverlayViewController *overlayVc =
+      (GMFPlayerOverlayViewController *)self.videoPlayerController.videoPlayerOverlayViewController;
+  
+  [overlayVc setIsAdDisplayed:NO];
   [overlayView enableSeekbarInteraction];
   
   // Restore the background color of the overlay view and the play/pause/reset button to their

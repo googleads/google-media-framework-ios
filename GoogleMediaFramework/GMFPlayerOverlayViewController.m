@@ -34,6 +34,7 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
 - (id)init {
   self = [super init];
   if (self) {
+    _isAdDisplayed = NO;
     _autoHideEnabled = YES;
   }
   return self;
@@ -62,6 +63,11 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
   // Store delegate in case the view isn't loaded yet.
   _delegate = delegate;
   [_playerOverlayView setDelegate:delegate];
+}
+
+- (void)setIsAdDisplayed:(BOOL)isAdDisplayed {
+  _isAdDisplayed = isAdDisplayed;
+  [self updateAutoHideEnabled];
 }
 
 - (GMFPlayerControlsView *)playerControlsView {
@@ -189,7 +195,8 @@ static const NSTimeInterval kAutoHideAnimationDelay = 4.0;
 }
 
 - (void)updateAutoHideEnabled {
-  BOOL enabled = (_playerState == kGMFPlayerStatePlaying) && !self.userScrubbing;
+  BOOL enabled = _isAdDisplayed || ((_playerState == kGMFPlayerStatePlaying) &&
+                                    !self.userScrubbing);
   if (_autoHideEnabled != enabled) {
     _autoHideEnabled = enabled;
     if (!enabled) {

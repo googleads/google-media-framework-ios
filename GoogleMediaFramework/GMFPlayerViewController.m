@@ -223,6 +223,10 @@ NSString *const kActionButtonSelectorKey = @"kActionButtonSelectorKey";
   return _player.currentMediaTime;
 }
 
+- (NSTimeInterval)totalMediaTime {
+    return _player.totalMediaTime;
+}
+
 - (void) setControlTintColor:(UIColor *)controlTintColor {
   _controlTintColor = controlTintColor;
   if (self.playerOverlayView && [self.playerOverlayView respondsToSelector:@selector(applyControlTintColor:)]) {

@@ -2,8 +2,13 @@
 
 #import "GMFContentPlayhead.h"
 
+@interface GMFContentPlayhead ()
+
+@property (nonatomic, weak) GMFPlayerViewController * playerViewController;
+
+@end
+
 @implementation GMFContentPlayhead {
-  GMFPlayerViewController *_playerViewController;
 }
 
 - (instancetype)init {

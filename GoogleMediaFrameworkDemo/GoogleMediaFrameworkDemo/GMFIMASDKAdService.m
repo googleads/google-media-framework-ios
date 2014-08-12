@@ -19,7 +19,6 @@
 
 @interface GMFIMASDKAdService ()
 @property (nonatomic, strong) UIColor *originalBackgroundTintColor;
-@property (nonatomic, strong) UIColor *originalPlayPauseResetBackgroundColor;
 @end
 
 @implementation GMFIMASDKAdService {
@@ -33,10 +32,19 @@
 
 - (void)requestAdsWithRequest:(NSString *)request {
   [self createAdsLoader];
-  IMAAdsRequest *adsRequest =
-      [[IMAAdsRequest alloc] initWithAdTagUrl:request
-                               companionSlots:nil
-                                  userContext:nil];
+  
+  // If there is no view above the rendering view, then there is no ads display container.
+  // Thus, we create one and add it to the video player.
+  if (self.videoPlayerController.playerView.aboveRenderingView == nil) {
+    UIView *view = [[UIView alloc] initWithFrame:self.videoPlayerController.view.bounds];
+    [self.videoPlayerController setABoveRenderingView:view];
+    self.adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:view
+                                                                  companionSlots:nil];
+  }
+  
+  IMAAdsRequest *adsRequest = [[IMAAdsRequest alloc] initWithAdTagUrl:request
+                                                   adDisplayContainer:self.adDisplayContainer
+                                                          userContext:nil];
 
   [_adsLoader requestAdsWithRequest:adsRequest];
 }
@@ -97,11 +105,7 @@
 
   [self.adsManager initializeWithContentPlayhead:contentPlayhead adsRenderingSettings:nil];
 
-  self.adsManager.adView.frame = _adView.bounds;
   self.adsManager.delegate = self;
-
-  // Set the adView to just above the player rendering view, but below the controls.
-  [self.videoPlayerController setABoveRenderingView:self.adsManager.adView];
 
   [self.adsManager start];
 }
@@ -169,8 +173,6 @@
   
   // Store the current background colors of the overlay view and the play/pause/reset button.
   self.originalBackgroundTintColor = [overlayView.tintedBackgroundColor copy];
-  self.originalPlayPauseResetBackgroundColor = [overlayView.playPauseResetButtonBackgroundColor
-                                                copy];
   
   // Make the background of the overlay view clear so that it does not obstruct the ad UI.
   [overlayView setTintedBackgroundColor:[UIColor clearColor]];
@@ -178,12 +180,10 @@
   // Hide the top bar of the video player.
   [overlayView disableTopBar];
   
-  // Give the play/pause/reset button a slightly transparent black background so that the contrast
-  // makes it easily visible.
-  [overlayView setPlayPauseResetButtonBackgroundColor:[UIColor colorWithRed:0
-                                                                      green:0
-                                                                       blue:0
-                                                                      alpha:0.5f]];
+  // When an ad plays, tapping anywhere on the screen will pause/play, so we don't need to show
+  // the play/pause/replay button.
+  [overlayView hidePlayPauseReplayButton];
+  
   _hasVideoPlayerControl = YES;
   [self.videoPlayerController pause];
   [self.videoPlayerController setVideoPlayerOverlayDelegate:self];
@@ -196,7 +196,8 @@
   // Restore the background color of the overlay view and the play/pause/reset button to their
   // original values.
   [overlayView setTintedBackgroundColor:self.originalBackgroundTintColor];
-  [overlayView setPlayPauseResetButtonBackgroundColor:self.originalPlayPauseResetBackgroundColor];
+  
+  [overlayView showPlayPauseReplayButton];
   
   [self.videoPlayerController setDefaultVideoPlayerOverlayDelegate];
   [overlayView setSeekbarTrackColorDefault];

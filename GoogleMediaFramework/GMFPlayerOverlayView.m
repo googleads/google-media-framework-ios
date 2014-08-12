@@ -33,12 +33,14 @@
   NSString *_replayLabel;
   UIButton *_playPauseReplayButton;
   BOOL _isTopBarEnabled;
+  BOOL _shouldHidePlayPauseResetButton;
   CurrentPlayPauseReplayIcon _currentPlayPauseReplayIcon;
 }
 
 - (id)initWithFrame:(CGRect)frame {
   self = [super initWithFrame:frame];
   if (self) {
+    _shouldHidePlayPauseResetButton = NO;
     _isTopBarEnabled = YES;
     // The tint color of the background when the player controls are visible.
     // The color is a translucent black.
@@ -196,7 +198,9 @@
 }
 
 - (void)hideSpinner {
-  [_playPauseReplayButton setHidden:NO];
+  if (!_shouldHidePlayPauseResetButton) {
+      [_playPauseReplayButton setHidden:NO];
+  }
   [_spinner stopAnimating];
   [_spinner setHidden:YES];
 }
@@ -218,11 +222,6 @@
 - (void)enableTopBar {
   _isTopBarEnabled = YES;
   [_topBarView setAlpha:1];
-}
-
-- (void)setPlayPauseResetButtonBackgroundColor:(UIColor *)playPauseResetButtonBackgroundColor {
-  _playPauseResetButtonBackgroundColor = playPauseResetButtonBackgroundColor;
-  [_playPauseReplayButton setBackgroundColor:playPauseResetButtonBackgroundColor];
 }
 
 - (void)addActionButtonWithImage:(UIImage *)image
@@ -256,6 +255,16 @@
   _currentPlayPauseReplayIcon = REPLAY;
   [_playPauseReplayButton setImage:_replayImage forState:UIControlStateNormal];
   [_playPauseReplayButton setAccessibilityLabel:_replayLabel];
+}
+
+- (void)showPlayPauseReplayButton {
+  _shouldHidePlayPauseResetButton = NO;
+  [_playPauseReplayButton setHidden:NO];
+}
+
+- (void)hidePlayPauseReplayButton {
+  _shouldHidePlayPauseResetButton = YES;
+  [_playPauseReplayButton setHidden:YES];
 }
 
 - (void)setTotalTime:(NSTimeInterval)totalTime {

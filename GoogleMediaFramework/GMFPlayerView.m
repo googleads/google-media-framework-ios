@@ -41,7 +41,14 @@
   CGRect bounds = [self bounds];
   [_gestureCapturingView setFrame:bounds];
   [_renderingView setFrame:bounds];
-  [_aboveRenderingView setFrame:bounds];
+  
+  // The rendering view should not obscure the bottom bar, so we need to ensure that its height
+  // is bounds.size.height - playerControlsViewHeight
+  CGFloat playerControlsViewHeight = _overlayView.playerControlsView.preferredHeight;
+  [_aboveRenderingView setFrame:CGRectMake(0,
+                                           0,
+                                           bounds.size.width,
+                                           bounds.size.height - playerControlsViewHeight)];
   [_overlayView setFrame:bounds];
 }
 

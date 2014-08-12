@@ -54,7 +54,6 @@ NSString *const kActionButtonSelectorKey = @"kActionButtonSelectorKey";
 @implementation GMFPlayerViewController {
   GMFPlayerView *_playerView;
   NSURL *_currentMediaURL;
-  GMFPlayerOverlayViewController *_videoPlayerOverlayViewController;
 
   BOOL _isUserScrubbing;
   BOOL _wasPlayingBeforeSeeking;
@@ -112,7 +111,7 @@ NSString *const kActionButtonSelectorKey = @"kActionButtonSelectorKey";
                         selector:(SEL)selector{
   
   // If the overlay view exists, create the action button.
-  if (self.playerOverlayView) {
+  if (self.playerOverlayView && [self.playerOverlayView respondsToSelector:@selector(addActionButtonWithImage:name:target:selector:)]) {
     [self.playerOverlayView addActionButtonWithImage:image
                                                 name:name
                                               target:target
@@ -148,6 +147,15 @@ NSString *const kActionButtonSelectorKey = @"kActionButtonSelectorKey";
   [_videoPlayerOverlayViewController setDelegate:self];
 }
 
+- (void)setVideoPlayerOverlayViewController:(UIViewController <GMFPlayerOverlayViewControllerProtocol> *)videoPlayerOverlayViewController {
+    [self.videoPlayerOverlayViewController removeFromParentViewController];
+    _videoPlayerOverlayViewController = videoPlayerOverlayViewController;
+    [self addChildViewController:self.videoPlayerOverlayViewController];
+    if (self.playerView){
+        [self.playerView setOverlayView:[videoPlayerOverlayViewController playerOverlayView]];
+    }
+}
+
 - (void)loadView {
   _playerView = [[GMFPlayerView alloc] init];
   [self setView:_playerView];
@@ -163,26 +171,32 @@ NSString *const kActionButtonSelectorKey = @"kActionButtonSelectorKey";
   [_tapRecognizer setDelegate:self];
   [_playerView.gestureCapturingView addGestureRecognizer:_tapRecognizer];
 
-  _videoPlayerOverlayViewController = [[GMFPlayerOverlayViewController alloc] init];
+  if (!_videoPlayerOverlayViewController){
+      _videoPlayerOverlayViewController = [[GMFPlayerOverlayViewController alloc] init];
+      [self addChildViewController:self.videoPlayerOverlayViewController];
+  }
+  
   [_playerView setOverlayView:[_videoPlayerOverlayViewController playerOverlayView]];
-  if (_controlTintColor) {
+  if (_controlTintColor && [self.playerOverlayView respondsToSelector:@selector(applyControlTintColor:)]) {
     [self.playerOverlayView applyControlTintColor:_controlTintColor];
   }
   
   // If we have received requests to create action buttons, iterate through each request (encoded
   // as a dictionary) and create the action buttons.
-  if ([_actionButtonDictionaries count] > 0) {
-    for (NSDictionary *dict in _actionButtonDictionaries) {
-      UIImage *image = [dict objectForKey:kActionButtonImageKey];
-      NSString *name = [dict objectForKey:kActionButtonNameKey];
-      id target = [dict objectForKey:kActionButtonTargetKey];
-      SEL selector = [((NSValue *)[dict objectForKey:kActionButtonSelectorKey]) pointerValue];
-      [self.playerOverlayView addActionButtonWithImage:image
-                                                  name:name
-                                                target:target
-                                              selector:selector];
+    if ([self.playerOverlayView respondsToSelector:@selector(addActionButtonWithImage:name:target:selector:)]){
+        if ([_actionButtonDictionaries count] > 0) {
+            for (NSDictionary *dict in _actionButtonDictionaries) {
+                UIImage *image = [dict objectForKey:kActionButtonImageKey];
+                NSString *name = [dict objectForKey:kActionButtonNameKey];
+                id target = [dict objectForKey:kActionButtonTargetKey];
+                SEL selector = [((NSValue *)[dict objectForKey:kActionButtonSelectorKey]) pointerValue];
+                [self.playerOverlayView addActionButtonWithImage:image
+                                                            name:name
+                                                          target:target
+                                                        selector:selector];
+            }
+        }
     }
-  }
   [self setDefaultVideoPlayerOverlayDelegate];
 }
 
@@ -197,7 +211,7 @@ NSString *const kActionButtonSelectorKey = @"kActionButtonSelectorKey";
   return _player;
 }
 
-- (GMFPlayerOverlayView *)playerOverlayView {
+- (UIView<GMFPlayerControlsProtocol> *)playerOverlayView {
   return [_videoPlayerOverlayViewController playerOverlayView];
 }
 
@@ -211,21 +225,21 @@ NSString *const kActionButtonSelectorKey = @"kActionButtonSelectorKey";
 
 - (void) setControlTintColor:(UIColor *)controlTintColor {
   _controlTintColor = controlTintColor;
-  if (self.playerOverlayView) {
+  if (self.playerOverlayView && [self.playerOverlayView respondsToSelector:@selector(applyControlTintColor:)]) {
     [self.playerOverlayView applyControlTintColor:controlTintColor];
   }
 }
 
 - (void) setVideoTitle:(NSString *)videoTitle {
   _videoTitle = videoTitle;
-  if (self.playerOverlayView) {
+  if (self.playerOverlayView && [self.playerOverlayView respondsToSelector:@selector(setVideoTitle:)]) {
     [self.playerOverlayView setVideoTitle:videoTitle];
   }
 }
 
 - (void) setLogoImage:(UIImage *)logoImage {
   _logoImage = logoImage;
-  if (self.playerOverlayView) {
+  if (self.playerOverlayView && [self.playerOverlayView respondsToSelector:@selector(setLogoImage:)]) {
     [self.playerOverlayView setLogoImage:logoImage];
   }
 }

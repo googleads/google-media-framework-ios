@@ -19,6 +19,7 @@
 
 @interface GMFIMASDKAdService ()
 @property (nonatomic, strong) UIColor *originalBackgroundTintColor;
+@property (nonatomic, strong) UIColor *originalPlayPauseResetBackgroundColor;
 @end
 
 @implementation GMFIMASDKAdService {
@@ -65,12 +66,7 @@
 // Listen to playbackWill finish in order to play postrolls if needed before the player ends.
 // The GMFVideoPlayerSDK subscribes to this notification automatically.
 - (void)playbackWillFinish:(NSNotification *)notification {
-  int finishReason = [[[notification userInfo]
-      objectForKey:kGMFPlayerPlaybackWillFinishReasonUserInfoKey] intValue];
-  if (finishReason == GMFPlayerFinishReasonPlaybackEnded) {
-    // Playback reached the end of the video, notify AdsManager in case there are postrolls.
-    [self.adsLoader contentComplete];
-  }
+  [self.adsLoader contentComplete];
 }
 
 // Destroy adsManager when user exits the player
@@ -140,9 +136,11 @@
     case kIMAAdEvent_RESUME:
       // When an ad starts, take over control of the video player until the ad completes.
       [self.videoPlayerController.playerOverlayView showPauseButton];
+      [self showPlayerControls];
       break;
     case kIMAAdEvent_PAUSE:
       [self.videoPlayerController.playerOverlayView showPlayButton];
+      [self showPlayerControls];
       break;
     case kIMAAdEvent_ALL_ADS_COMPLETED:
       // When all ads are done, give control back to the video player.
@@ -154,6 +152,12 @@
     default:
       break;
   }
+}
+
+- (void)showPlayerControls {
+  GMFPlayerOverlayViewController *overlayVc =
+      (GMFPlayerOverlayViewController *)self.videoPlayerController.videoPlayerOverlayViewController;
+  [overlayVc showPlayerControlsAnimated:YES];
 }
 
 // Process ad playing errors.
@@ -168,11 +172,18 @@
 }
 
 - (void)takeControlOfVideoPlayer {
-  GMFPlayerOverlayView *overlayView = self.videoPlayerController.playerOverlayView;
+  GMFPlayerViewController *playerVc = self.videoPlayerController;
+  GMFPlayerOverlayView *overlayView = (GMFPlayerOverlayView *) playerVc.playerOverlayView;
+  GMFPlayerOverlayViewController *overlayVc =
+      (GMFPlayerOverlayViewController *)self.videoPlayerController.videoPlayerOverlayViewController;
+
+  [overlayVc setIsAdDisplayed:YES];
   [overlayView hideSpinner];
   
   // Store the current background colors of the overlay view and the play/pause/reset button.
   self.originalBackgroundTintColor = [overlayView.tintedBackgroundColor copy];
+  self.originalPlayPauseResetBackgroundColor = [overlayView.playPauseResetButtonBackgroundColor
+                                                copy];
   
   // Make the background of the overlay view clear so that it does not obstruct the ad UI.
   [overlayView setTintedBackgroundColor:[UIColor clearColor]];
@@ -180,9 +191,12 @@
   // Hide the top bar of the video player.
   [overlayView disableTopBar];
   
-  // When an ad plays, tapping anywhere on the screen will pause/play, so we don't need to show
-  // the play/pause/replay button.
-  [overlayView hidePlayPauseReplayButton];
+  // Give the play/pause/reset button a slightly transparent black background so that the contrast
+  // makes it easily visible.
+  [overlayView setPlayPauseResetButtonBackgroundColor:[UIColor colorWithRed:0
+                                                                      green:0
+                                                                       blue:0
+                                                                      alpha:0.5f]];
   
   _hasVideoPlayerControl = YES;
   [self.videoPlayerController pause];
@@ -190,14 +204,18 @@
 }
 
 - (void)relinquishControlToVideoPlayer {
-  GMFPlayerOverlayView *overlayView = self.videoPlayerController.playerOverlayView;
+  GMFPlayerViewController *playerVc = self.videoPlayerController;
+  GMFPlayerOverlayView *overlayView = (GMFPlayerOverlayView *) playerVc.playerOverlayView;
+  GMFPlayerOverlayViewController *overlayVc =
+      (GMFPlayerOverlayViewController *)self.videoPlayerController.videoPlayerOverlayViewController;
+  
+  [overlayVc setIsAdDisplayed:NO];
   [overlayView enableSeekbarInteraction];
   
   // Restore the background color of the overlay view and the play/pause/reset button to their
   // original values.
   [overlayView setTintedBackgroundColor:self.originalBackgroundTintColor];
-  
-  [overlayView showPlayPauseReplayButton];
+  [overlayView setPlayPauseResetButtonBackgroundColor:self.originalPlayPauseResetBackgroundColor];
   
   [self.videoPlayerController setDefaultVideoPlayerOverlayDelegate];
   [overlayView setSeekbarTrackColorDefault];

@@ -5,6 +5,9 @@
 ##Introduction
 The Google Media Framework (GMF) is a lightweight media player designed to make video playback and integration with the Google IMA SDK on iOS easier.
 
+![Google Media Framework iOS Demo](http://googleads.github.io/google-media-framework-ios/gmf_ios_portrait.png)
+
+
 The framework is currently in beta, allowing interested developers to try it out and send feedback before we finalize the APIs and features.
 
 ##Features
@@ -75,7 +78,7 @@ Please report issues on the [issues page](../../issues).
 If you have questions about the framework, you can ask them at http://groups.google.com/d/forum/google-media-framework
 
 ##How do I contribute?
-See [this wiki article](../../wiki/Becoming-a-contributor) for details.
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
 ##Requirements
   - iOS 6.1+

@@ -13,11 +13,15 @@
 // limitations under the License.
 
 #import <Foundation/Foundation.h>
+#import "GMFPlayerControlsView.h"
 
 @protocol GMFPlayerControlsProtocol<NSObject>
 
+@property(nonatomic, weak) id<GMFPlayerControlsViewDelegate> delegate;
+
 // These are all mutually exclusive. E.g. calling showPlayButton hides all the
 // other views and shows the play button. Only one can be shown at a time.
+
 - (void)showPlayButton;
 - (void)showPauseButton;
 - (void)showReplayButton;
@@ -28,5 +32,16 @@
 
 - (void)setTotalTime:(NSTimeInterval)totalTime;
 - (void)setMediaTime:(NSTimeInterval)mediaTime;
+
+
+@optional
+
+- (void)addActionButtonWithImage:(UIImage *)image
+                            name:(NSString *)name
+                          target:(id)target
+                        selector:(SEL)selector;
+- (void)applyControlTintColor:(UIColor *)color;
+- (void)setVideoTitle:(NSString *)videoTitle;
+- (void)setLogoImage:(UIImage *)logoImage;
 
 @end

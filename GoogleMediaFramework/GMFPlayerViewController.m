@@ -98,7 +98,7 @@ NSString *const kActionButtonSelectorKey = @"kActionButtonSelectorKey";
   [_player pause];
 }
 
-- (void)setABoveRenderingView:(UIView *)view {
+- (void)setAboveRenderingView:(UIView *)view {
   [_playerView setAboveRenderingView:view];
   [view addGestureRecognizer:[[UITapGestureRecognizer alloc]
                               initWithTarget:self

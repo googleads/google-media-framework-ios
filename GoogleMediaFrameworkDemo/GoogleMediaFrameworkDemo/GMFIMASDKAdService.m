@@ -18,7 +18,6 @@
 @class GMFPlayerOverlayView;
 
 @interface GMFIMASDKAdService ()
-@property (nonatomic, strong) UIColor *originalBackgroundTintColor;
 @property (nonatomic, strong) UIColor *originalPlayPauseResetBackgroundColor;
 @end
 
@@ -180,13 +179,9 @@
   [overlayVc setIsAdDisplayed:YES];
   [overlayView hideSpinner];
   
-  // Store the current background colors of the overlay view and the play/pause/reset button.
-  self.originalBackgroundTintColor = [overlayView.tintedBackgroundColor copy];
+  // Store the current background color of the play/pause/reset button.
   self.originalPlayPauseResetBackgroundColor = [overlayView.playPauseResetButtonBackgroundColor
                                                 copy];
-  
-  // Make the background of the overlay view clear so that it does not obstruct the ad UI.
-  [overlayView setTintedBackgroundColor:[UIColor clearColor]];
   
   // Hide the top bar of the video player.
   [overlayView disableTopBar];
@@ -212,9 +207,7 @@
   [overlayVc setIsAdDisplayed:NO];
   [overlayView enableSeekbarInteraction];
   
-  // Restore the background color of the overlay view and the play/pause/reset button to their
-  // original values.
-  [overlayView setTintedBackgroundColor:self.originalBackgroundTintColor];
+  // Restore the background color of the play/pause/reset button to its original value.
   [overlayView setPlayPauseResetButtonBackgroundColor:self.originalPlayPauseResetBackgroundColor];
   
   [self.videoPlayerController setDefaultVideoPlayerOverlayDelegate];

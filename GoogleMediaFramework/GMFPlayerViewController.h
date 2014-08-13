@@ -66,6 +66,8 @@ extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 
 - (NSTimeInterval)currentMediaTime;
 
+- (NSTimeInterval)totalMediaTime;
+
 - (void)addActionButtonWithImage:(UIImage *)image
                             name:(NSString *)name
                           target:(id)target

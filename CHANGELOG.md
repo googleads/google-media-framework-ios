@@ -1,5 +1,12 @@
 # GoogleMediaFramework CHANGELOG
 
+## 1.0.0
+
+- New sample video
+- Upgraded to latest IMA SDK
+- UI changes
+- Works on iOS 8
+
 ## 0.1.2
 
 - Add current and total time display to controlbar

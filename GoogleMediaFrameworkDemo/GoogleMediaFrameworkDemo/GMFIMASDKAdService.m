@@ -37,7 +37,7 @@
   // Thus, we create one and add it to the video player.
   if (self.videoPlayerController.playerView.aboveRenderingView == nil) {
     UIView *view = [[UIView alloc] initWithFrame:self.videoPlayerController.view.bounds];
-    [self.videoPlayerController setABoveRenderingView:view];
+    [self.videoPlayerController setAboveRenderingView:view];
     self.adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:view
                                                                   companionSlots:nil];
   }

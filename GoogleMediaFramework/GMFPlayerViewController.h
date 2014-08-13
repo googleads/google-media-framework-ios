@@ -78,7 +78,7 @@ extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 
 - (void)registerAdService:(GMFAdService *)adService;
 
-- (void)setABoveRenderingView:(UIView *)view;
+- (void)setAboveRenderingView:(UIView *)view;
 
 - (void)setControlsVisibility:(BOOL)visible animated:(BOOL)animated;
 

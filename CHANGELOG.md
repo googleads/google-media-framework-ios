@@ -7,6 +7,11 @@
 - UI changes
 - Works on iOS 8
 
+## 0.1.3
+
+- UI Customization
+- Inline video player
+
 ## 0.1.2
 
 - Add current and total time display to controlbar

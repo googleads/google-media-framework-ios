@@ -29,6 +29,7 @@
 		4CD0246E185CCE5300793419 /* GMFContentPlayhead.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD0246D185CCE5300793419 /* GMFContentPlayhead.m */; };
 		4CD7815217EC9E9B00930F92 /* VideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7815117EC9E9B00930F92 /* VideoListViewController.m */; };
 		4CF77DEA18567DAD00F98F76 /* VideoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF77DE918567DAD00F98F76 /* VideoData.m */; };
+		73BCC5BB199BE2E200B65504 /* Gmf-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 73BCC5B9199BE2E200B65504 /* Gmf-Icon.png */; };
 		8758392E1989716200DDD0D2 /* Delete-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8758392B1989716200DDD0D2 /* Delete-Icon.png */; };
 		8758392F1989716200DDD0D2 /* Favorite-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8758392C1989716200DDD0D2 /* Favorite-Icon.png */; };
 		875839301989716200DDD0D2 /* Share-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 8758392D1989716200DDD0D2 /* Share-Icon.png */; };
@@ -93,6 +94,7 @@
 		4CD7815117EC9E9B00930F92 /* VideoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoListViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4CF77DE818567DAD00F98F76 /* VideoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoData.h; sourceTree = "<group>"; };
 		4CF77DE918567DAD00F98F76 /* VideoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoData.m; sourceTree = "<group>"; };
+		73BCC5B9199BE2E200B65504 /* Gmf-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gmf-Icon.png"; sourceTree = "<group>"; };
 		8758392B1989716200DDD0D2 /* Delete-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Delete-Icon.png"; sourceTree = "<group>"; };
 		8758392C1989716200DDD0D2 /* Favorite-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorite-Icon.png"; sourceTree = "<group>"; };
 		8758392D1989716200DDD0D2 /* Share-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Share-Icon.png"; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 		4CAD3F7117BD4703008C6D28 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				73BCC5B9199BE2E200B65504 /* Gmf-Icon.png */,
 				8758392B1989716200DDD0D2 /* Delete-Icon.png */,
 				8758392C1989716200DDD0D2 /* Favorite-Icon.png */,
 				8758392D1989716200DDD0D2 /* Share-Icon.png */,
@@ -314,6 +317,7 @@
 				875839301989716200DDD0D2 /* Share-Icon.png in Resources */,
 				4CAD3F7F17BD4703008C6D28 /* Default@2x.png in Resources */,
 				4CAD3F8117BD4703008C6D28 /* Default-568h@2x.png in Resources */,
+				73BCC5BB199BE2E200B65504 /* Gmf-Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

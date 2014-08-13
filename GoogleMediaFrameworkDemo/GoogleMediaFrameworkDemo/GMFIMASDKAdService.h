@@ -27,6 +27,8 @@
 
 @property(nonatomic, strong) IMAAdsManager *adsManager;
 
+@property(nonatomic, strong) IMAAdDisplayContainer *adDisplayContainer;
+
 // Initiate a request to the ads server for ads associated with the given adtag.
 - (void)requestAdsWithRequest:(NSString *)request;
 

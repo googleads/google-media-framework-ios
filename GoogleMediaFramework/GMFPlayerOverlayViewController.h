@@ -57,6 +57,7 @@
 @property (nonatomic) BOOL userScrubbing;
 @property(nonatomic, weak) id<GMFPlayerOverlayViewControllerDelegate>
     videoPlayerOverlayViewControllerDelegate;
+@property (nonatomic) BOOL isAdDisplayed;
 
 - (void)playerStateDidChangeToState:(GMFPlayerState)toState;
 

@@ -40,12 +40,6 @@
   self = [super initWithFrame:frame];
   if (self) {
     _isTopBarEnabled = YES;
-    // The tint color of the background when the player controls are visible.
-    // The color is a translucent black.
-    _tintedBackgroundColor = [UIColor colorWithRed:0.2f
-                                             green:0.2f
-                                              blue:0.2f
-                                             alpha:0.5f];
     
     // Set the images.
     _playImage = [GMFResources playerBarPlayLargeButtonImage];
@@ -205,7 +199,6 @@
   [_topBarView setAlpha:(_isTopBarEnabled && visible) ? 1 : 0];
   [_playerControlsView setAlpha:visible ? 1 : 0];
   [_playPauseReplayButton setAlpha:visible ? 1 : 0];
-  [self setBackgroundColor:(visible ? _tintedBackgroundColor : [UIColor clearColor])];
   
   [self setNeedsLayout];
   [self layoutIfNeeded];

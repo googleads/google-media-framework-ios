@@ -79,6 +79,3 @@ See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
 ##Requirements
   - iOS 6.1+
-
-##Authors
-  - gms@google.com (Geoff Stearns) Please direct questions or bug reports to the Github issues page.

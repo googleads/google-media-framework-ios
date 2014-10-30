@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #import "GMFVideoPlayer.h"
 
-@interface GoogleMediaFrameworkDemoTests : SenTestCase<GMFVideoPlayerDelegate>
+@interface GoogleMediaFrameworkDemoTests : XCTestCase<GMFVideoPlayerDelegate>
 
 + (NSString *)stringWithState:(GMFPlayerState)state;
 

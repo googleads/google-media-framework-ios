@@ -79,7 +79,7 @@ int DEFAULT_TIMEOUT = 10;
   [_player replay];
   [self waitForState:kGMFPlayerStateSeeking];
   [self waitForState:kGMFPlayerStatePlaying];
-  STAssertTrue([_player currentMediaTime] < 0.25,
+  XCTAssertTrue([_player currentMediaTime] < 0.25,
                @"Player media time should be near the beginning of the movie, but it is %f.",
                [_player currentMediaTime]);
   [self assertPlaybackDoesProgress];
@@ -112,7 +112,7 @@ int DEFAULT_TIMEOUT = 10;
   [_player seekToTime:-totalMediaTime];
   [self waitForState:kGMFPlayerStateSeeking];
   [self waitForState:kGMFPlayerStatePaused];
-  STAssertTrue([_player currentMediaTime] == 0,
+  XCTAssertTrue([_player currentMediaTime] == 0,
                @"Current media time should be 0 for seeks before the beginning.");
   
   // Seek after the end.
@@ -160,7 +160,7 @@ int DEFAULT_TIMEOUT = 10;
 }
 
 - (void)assertNoOtherStateChange {
-  STAssertFalse(_eventList.count, @"Unexpected events %@", _eventList);
+  XCTAssertFalse(_eventList.count, @"Unexpected events %@", _eventList);
 }
 
 - (void) waitForState:(GMFPlayerState)state {
@@ -168,7 +168,7 @@ int DEFAULT_TIMEOUT = 10;
 }
 
 - (void) waitForState:(GMFPlayerState)state withTimeout:(NSInteger)timeout {
-  STAssertTrue(
+  XCTAssertTrue(
     WaitFor(
       ^BOOL {
           return ([_eventList count] > 0 && _eventList[0] == [NSNumber numberWithInt:state]);
@@ -202,7 +202,7 @@ BOOL WaitFor(BOOL (^block)(void), NSTimeInterval seconds) {
   NSTimeInterval startMediaTime = [_player currentMediaTime];
   [self waitForTimeInterval:1];
   NSTimeInterval endMediaTime = [_player currentMediaTime];
-  STAssertTrue(startMediaTime != endMediaTime,
+  XCTAssertTrue(startMediaTime != endMediaTime,
                @"Playback progressed when it was not expected to");
 }
 
@@ -210,7 +210,7 @@ BOOL WaitFor(BOOL (^block)(void), NSTimeInterval seconds) {
   NSTimeInterval startMediaTime = [_player currentMediaTime];
   [self waitForTimeInterval:1];
   NSTimeInterval endMediaTime = [_player currentMediaTime];
-  STAssertTrue(startMediaTime == endMediaTime,
+  XCTAssertTrue(startMediaTime == endMediaTime,
                @"Playback progressed when it was not expected to");
 }
 
@@ -235,6 +235,11 @@ BOOL WaitFor(BOOL (^block)(void), NSTimeInterval seconds) {
 
 - (void)videoPlayer:(GMFVideoPlayer *)videoPlayer
     bufferedMediaTimeDidChangeToTime:(NSTimeInterval)time {
+  // no-op
+}
+
+- (void)videoPlayer:(GMFVideoPlayer *)videoPlayer
+    currentTotalTimeDidChangeToTime:(NSTimeInterval)time {
   // no-op
 }
 

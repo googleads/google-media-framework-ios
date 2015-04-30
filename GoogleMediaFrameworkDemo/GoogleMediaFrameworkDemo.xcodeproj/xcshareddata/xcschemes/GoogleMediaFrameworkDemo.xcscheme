@@ -47,7 +47,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4CAD3F8F17BD4703008C6D28"
-               BuildableName = "GoogleMediaFrameworkDemoTests.octest"
+               BuildableName = "GoogleMediaFrameworkDemoTests.xctest"
                BlueprintName = "GoogleMediaFrameworkDemoTests"
                ReferencedContainer = "container:GoogleMediaFrameworkDemo.xcodeproj">
             </BuildableReference>
@@ -72,7 +72,8 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4CAD3F6617BD4703008C6D28"
@@ -90,7 +91,8 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4CAD3F6617BD4703008C6D28"

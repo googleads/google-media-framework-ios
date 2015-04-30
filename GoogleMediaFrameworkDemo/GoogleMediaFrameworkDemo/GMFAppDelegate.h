@@ -15,11 +15,12 @@
 #import <GoogleMediaFramework/GoogleMediaFramework.h>
 #import <UIKit/UIKit.h>
 
-#import "GMFIMASDKAdService.h"
+@class GMFPlayerViewController;
+@class GMFIMASDKAdService;
 
 @interface GMFAppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property(strong, nonatomic) UIWindow *window;
 @property(strong, nonatomic) GMFPlayerViewController *videoPlayerViewController;
 @property(strong, nonatomic) GMFIMASDKAdService *adService;
 

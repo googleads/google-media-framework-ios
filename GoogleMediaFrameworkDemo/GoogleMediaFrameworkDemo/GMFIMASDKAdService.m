@@ -81,7 +81,7 @@
 #pragma mark IMAAdsLoaderDelegate
 
 - (void)adsLoader:(IMAAdsLoader *)loader failedWithErrorData:(IMAAdLoadingErrorData *)adErrorData {
-  // Loading failed, you probbaly want to log it when this happens.
+  // Loading failed, you probably want to log it when this happens.
   NSLog(@"Ad loading error: %@", adErrorData.adError.message);
 
   // Tell video content to play/resume.

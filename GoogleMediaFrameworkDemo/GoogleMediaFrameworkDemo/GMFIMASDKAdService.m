@@ -27,12 +27,15 @@
 
 // Designated initializer
 - (instancetype)initWithGMFVideoPlayer:(GMFPlayerViewController *)videoPlayerController {
-  return [super initWithGMFVideoPlayer:videoPlayerController];
+  self = [super initWithGMFVideoPlayer:videoPlayerController];
+  if (self) {
+    self.adsLoader = [[IMAAdsLoader alloc] initWithSettings:[self createIMASettings]];
+    self.adsLoader.delegate = self;
+  }
+  return self;
 }
 
 - (void)requestAdsWithRequest:(NSString *)request {
-  [self createAdsLoader];
-  
   // If there is no view above the rendering view, then there is no ads display container.
   // Thus, we create one and add it to the video player.
   if (self.videoPlayerController.playerView.aboveRenderingView == nil) {
@@ -46,18 +49,13 @@
                                                    adDisplayContainer:self.adDisplayContainer
                                                           userContext:nil];
 
-  [_adsLoader requestAdsWithRequest:adsRequest];
+  [self.adsLoader requestAdsWithRequest:adsRequest];
 }
 
 - (IMASettings *)createIMASettings {
   IMASettings *settings = [[IMASettings alloc] init];
   settings.language = @"en";
   return settings;
-}
-
-- (void)createAdsLoader {
-  self.adsLoader = [[IMAAdsLoader alloc] initWithSettings:[self createIMASettings]];
-  self.adsLoader.delegate = self;
 }
 
 #pragma mark GMFVideoPlayerViewController notification handlers
@@ -279,6 +277,9 @@
     case kIMAAdEvent_RESUME:
       // Ad resumed.
       return @"Ad Resumed";
+    case kIMAAdEvent_TAPPED:
+      // Ad Tapped.
+      return @"Ad Tapped";
     case kIMAAdEvent_THIRD_QUARTILE:
       // Third quartile of a linear ad was reached.
       return @"Third quartile reached";
@@ -286,7 +287,7 @@
       // Ad has started.
       return @"Ad Started";
     default:
-      return @"Invalid Error type";
+      return @"Invalid Event type";
   }
 }
 

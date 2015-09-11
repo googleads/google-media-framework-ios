@@ -297,24 +297,33 @@
 
 // Populates the videos array with our sample content..
 - (void)populateVideosArray {
+  NSString *contentURL = @"https://s0.2mdn.net/instream/videoplayer/media/android.mp4";
   if ([_videos count] == 0) {
     _videos = @[
-      [[VideoData alloc] initWithVideoURL:@"http://googleimadev-vh.akamaihd.net/i/big_buck_bunny/bbb-,480p,720p,1080p,.mov.csmil/master.m3u8"
+      [[VideoData alloc] initWithVideoURL:contentURL
                                     title:@"Video with no ads"
                                   summary:@""
                                  adTagURL:nil],
-      [[VideoData alloc] initWithVideoURL:@"http://googleimadev-vh.akamaihd.net/i/big_buck_bunny/bbb-,480p,720p,1080p,.mov.csmil/master.m3u8"
+      [[VideoData alloc] initWithVideoURL:contentURL
                                     title:@"Skippable preroll"
                                   summary:@""
-                                 adTagURL:@"http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=%2F6062%2Fgmf_demo&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast3&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]&cust_params=gmf_format%3Dskip"],
-      [[VideoData alloc] initWithVideoURL:@"http://googleimadev-vh.akamaihd.net/i/big_buck_bunny/bbb-,480p,720p,1080p,.mov.csmil/master.m3u8"
+                                 adTagURL:@"http://pubads.g.doubleclick.net/gampad/ads?sz=640x360&iu=/6062/iab_vast_samples/skippable&"
+       @"ciu_szs=300x250,728x90&impl=s&gdfp_req=1&env=vp&output=xml_vast2&unviewed_position_start=1&"
+       @"url=[referrer_url]&correlator=[timestamp]"],
+      [[VideoData alloc] initWithVideoURL:contentURL
                                     title:@"Unskippable preroll"
                                   summary:@""
-                                 adTagURL:@"http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=%2F6062%2Fgmf_demo&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast3&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]&cust_params=gmf_format%3Dstd"],
-      [[VideoData alloc] initWithVideoURL:@"http://googleimadev-vh.akamaihd.net/i/big_buck_bunny/bbb-,480p,720p,1080p,.mov.csmil/master.m3u8"
+                                 adTagURL:@"http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&"
+       @"iu=%2F6062%2Fhanna_MA_group%2Fvideo_comp_app&ciu_szs=&impl=s&gdfp_req=1&env=vp&"
+       @"output=xml_vast2&unviewed_position_start=1&m_ast=vast&url=[referrer_url]&"
+       @"correlator=[timestamp]"],
+      [[VideoData alloc] initWithVideoURL:contentURL
                                     title:@"Adrules (Preroll and ad breaks at 5s, 10s, 15s)"
                                   summary:@""
-                                 adTagURL:@"http://pubads.g.doubleclick.net/gampad/ads?sz=400x300&iu=%2F6062%2Fgmf_demo&ciu_szs&impl=s&gdfp_req=1&env=vp&output=xml_vast3&unviewed_position_start=1&url=[referrer_url]&correlator=[timestamp]&ad_rule=1&cmsid=11924&vid=cWCkSYdFlU0&cust_params=gmf_format%3Dstd%2Cskip"],
+                                 adTagURL:@"http://pubads.g.doubleclick.net/gampad/ads?sz=640x480&iu=%2F15018773%2Feverything2&"
+       @"ciu_szs=300x250%2C468x60%2C728x90&impl=s&gdfp_req=1&env=vp&output=xml_vmap1&"
+       @"unviewed_position_start=1url=[referrer_url]&correlator=[timestamp]&cmsid=133&"
+       @"vid=10XWSh7W4so&ad_rule=1"],
     ];
   }
 }

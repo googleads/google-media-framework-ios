@@ -19,6 +19,7 @@
 
 @interface GMFIMASDKAdService ()
 @property (nonatomic, strong) UIColor *originalPlayPauseResetBackgroundColor;
+@property (nonatomic, strong) GMFContentPlayhead *contentPlayhead;
 @end
 
 @implementation GMFIMASDKAdService {
@@ -93,10 +94,10 @@
 
   // GMFContentPlayhead handles listening for time updates from the video player and passing those
   // to the AdsManager.
-  GMFContentPlayhead *contentPlayhead =
+  self.contentPlayhead =
       [[GMFContentPlayhead alloc] initWithGMFPlayerViewController:self.videoPlayerController];
 
-  [self.adsManager initializeWithContentPlayhead:contentPlayhead adsRenderingSettings:nil];
+  [self.adsManager initializeWithContentPlayhead:self.contentPlayhead adsRenderingSettings:nil];
 
   self.adsManager.delegate = self;
 

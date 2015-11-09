@@ -81,7 +81,7 @@
 		4CAD3F7C17BD4703008C6D28 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4CAD3F7E17BD4703008C6D28 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4CAD3F8017BD4703008C6D28 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		4CAD3F9017BD4703008C6D28 /* GoogleMediaFrameworkDemoTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoogleMediaFrameworkDemoTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CAD3F9017BD4703008C6D28 /* GoogleMediaFrameworkDemoTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = GoogleMediaFrameworkDemoTests.octest; path = GoogleMediaFrameworkDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CAD3F9917BD4704008C6D28 /* GoogleMediaFrameworkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleMediaFrameworkTests-Info.plist"; sourceTree = "<group>"; };
 		4CAD3F9B17BD4704008C6D28 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4CAD3F9D17BD4704008C6D28 /* GoogleMediaFrameworkDemoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoogleMediaFrameworkDemoTests.h; sourceTree = "<group>"; };
@@ -256,6 +256,7 @@
 				4CAD3F6517BD4703008C6D28 /* Resources */,
 				4CAD3FEB17C2B99A008C6D28 /* CopyFiles */,
 				771FE8B597914A5BB20F7EA9 /* Copy Pods Resources */,
+				A47DA6648390546C207B9DD2 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -400,6 +401,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A47DA6648390546C207B9DD2 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		B43CA9D051C344D89EAEDD1C /* Check Pods Manifest.lock */ = {

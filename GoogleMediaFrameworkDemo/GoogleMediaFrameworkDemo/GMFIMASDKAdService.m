@@ -56,6 +56,8 @@
 - (IMASettings *)createIMASettings {
   IMASettings *settings = [[IMASettings alloc] init];
   settings.language = @"en";
+  settings.playerType = @"google/gmf-ios";
+  settings.playerVersion = @"1.0.0";
   return settings;
 }
 

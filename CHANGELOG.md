@@ -1,5 +1,17 @@
 # GoogleMediaFramework CHANGELOG
 
+## 1.1.0
+
+- Refactored setAboveRenderingView to fix typo
+- Update podspec to 6.1
+- Migrated to XCTest
+- Fixed project config for new Cocoapods version
+- Updated examples to VAST 3
+- Updated to IMA SDK beta16
+- Updated for iOS 9 ATS - all network requests now use https
+- Fixed mid-roll display issue
+- Added playerType and playerVersion
+
 ## 1.0.0
 
 - New sample video

@@ -41,7 +41,7 @@ extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 @property(nonatomic, readonly) GMFPlayerView *playerView;
 @property(nonatomic, strong) UIViewController <GMFPlayerOverlayViewControllerProtocol> *videoPlayerOverlayViewController;
 
-@property(nonatomic, weak) GMFAdService *adService;
+@property(nonatomic, strong) GMFAdService *adService;
 
 @property(nonatomic, readonly, getter=isVideoFinished) BOOL videoFinished;
 
@@ -57,6 +57,8 @@ extern NSString * const kGMFPlayerPlaybackWillFinishReasonUserInfoKey;
 - (id)init;
 
 - (void)loadStreamWithURL:(NSURL *)URL;
+
+- (void)loadStreamWithURL:(NSURL *)URL imaTag:(NSString *)tag;
 
 - (void)play;
 

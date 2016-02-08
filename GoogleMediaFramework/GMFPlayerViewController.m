@@ -16,6 +16,7 @@
 #error "This file requires ARC support."
 #endif
 
+#import "GMFIMASDKAdService.h"
 #import "GMFPlayerFinishReason.h"
 #import "GMFPlayerViewController.h"
 #import "GMFPlayerOverlayViewController.h"
@@ -88,6 +89,18 @@ NSString *const kActionButtonSelectorKey = @"kActionButtonSelectorKey";
 
 - (void)loadStreamWithURL:(NSURL *)URL {
   [_player loadStreamWithURL:URL];
+}
+
+// Loads a video stream with the provided URL and requests ads via the IMA SDK with the provided
+// ad tag.
+- (void)loadStreamWithURL:(NSURL *)URL imaTag:(NSString *)tag {
+  [_player loadStreamWithURL:URL];
+  if (_adService && [_adService class] == [GMFIMASDKAdService class]) {
+    [(GMFIMASDKAdService *)_adService reset];
+  } else {
+    _adService = [[GMFIMASDKAdService alloc] initWithGMFVideoPlayer:self];
+  }
+  [(GMFIMASDKAdService*)_adService requestAdsWithRequest:tag];
 }
 
 - (void)play {

@@ -31,6 +31,8 @@
 // Initiate a request to the ads server for ads associated with the given adtag.
 - (void)requestAdsWithRequest:(NSString *)request;
 
+- (void)reset;
+
 #pragma mark GMFPlayerOverlayViewDelegate
 
 - (void)didPressPlay;

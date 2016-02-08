@@ -15,8 +15,6 @@
 #import "VideoData.h"
 #import "VideoListViewController.h"
 
-#import <GoogleMediaFramework/GoogleMediaFramework.h>
-
 #define kAnimationDuration 0.2f
 
 @interface VideoListViewController ()
@@ -222,17 +220,16 @@
                                            selector:@selector(playbackDidFinish:)
                                                name:kGMFPlayerStateDidChangeToFinishedNotification
                                              object:self.videoPlayerViewController];
-  // Set the content URL in the player.
-  [self.videoPlayerViewController loadStreamWithURL:[NSURL URLWithString:video.videoURL]];
 
   // If there's an ad associated with the player, initialize the AdService using the video player
   // and request the ads.
   if (video.adTagURL != nil) {
-    _adService = [[GMFIMASDKAdService alloc] initWithGMFVideoPlayer:self.videoPlayerViewController];
-
-    [self.videoPlayerViewController registerAdService:_adService];
-
-    [_adService requestAdsWithRequest:video.adTagURL];
+    // Set the content URL and ad tag in the player.
+    [self.videoPlayerViewController loadStreamWithURL:[NSURL URLWithString:video.videoURL]
+                                               imaTag:video.adTagURL];
+  } else {
+    // Set the content URL in the player.
+    [self.videoPlayerViewController loadStreamWithURL:[NSURL URLWithString:video.videoURL]];
   }
 
   // Show the video player.

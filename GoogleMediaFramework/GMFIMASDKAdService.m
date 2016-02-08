@@ -45,9 +45,15 @@
     self.adDisplayContainer = [[IMAAdDisplayContainer alloc] initWithAdContainer:view
                                                                   companionSlots:nil];
   }
-  
+
+  // GMFContentPlayhead handles listening for time updates from the video player and passing those
+  // to the AdsManager.
+  self.contentPlayhead =
+  [[GMFContentPlayhead alloc] initWithGMFPlayerViewController:self.videoPlayerController];
+
   IMAAdsRequest *adsRequest = [[IMAAdsRequest alloc] initWithAdTagUrl:request
                                                    adDisplayContainer:self.adDisplayContainer
+                                                      contentPlayhead:self.contentPlayhead
                                                           userContext:nil];
 
   [self.adsLoader requestAdsWithRequest:adsRequest];
@@ -59,6 +65,15 @@
   settings.playerType = @"google/gmf-ios";
   settings.playerVersion = @"1.0.0";
   return settings;
+}
+
+- (void)reset {
+  if (self.adsManager) {
+    [self.adsManager destroy];
+  }
+  if (self.adsLoader) {
+    [self.adsLoader contentComplete];
+  }
 }
 
 #pragma mark GMFVideoPlayerViewController notification handlers
@@ -94,12 +109,7 @@
   // Get the ads manager from ads loaded data.
   self.adsManager = adsLoadedData.adsManager;
 
-  // GMFContentPlayhead handles listening for time updates from the video player and passing those
-  // to the AdsManager.
-  self.contentPlayhead =
-      [[GMFContentPlayhead alloc] initWithGMFPlayerViewController:self.videoPlayerController];
-
-  [self.adsManager initializeWithContentPlayhead:self.contentPlayhead adsRenderingSettings:nil];
+  [self.adsManager initializeWithAdsRenderingSettings:nil];
 
   self.adsManager.delegate = self;
 

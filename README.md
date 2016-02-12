@@ -12,7 +12,7 @@ The Google Media Framework (GMF) is a lightweight media player designed to make 
 - Easily integrate the Google IMA SDK to enable advertising on your video content.
 
 ##Getting started
-The easiest way to get started is by using [Cocoapods](http://cocoapods.org).
+The easiest way to get started is by using [CocoaPods](http://cocoapods.org).
 
 Create a new single view xcode project, then add the following line to your ```Podfile```:
 ```
@@ -66,7 +66,7 @@ You can now build the demo project and select a video to play.
 
 The demo app includes the [Google Interactive Media Ads (IMA) SDK](https://developers.google.com/interactive-media-ads/docs/sdks/ios/v3/), which allows you to monetize your video content using [Doubleclick for Publishers](https://www.google.com/doubleclick/publishers/welcome/).
 
-If you don't want to use Cocoapods, you should be able to integrate the framework by cloning the project and manually adding the classes and image resources to your project.
+If you don't want to use CocoaPods, you should be able to integrate the framework by cloning the project and manually adding the classes and image resources to your project.
 
 ##Where do I report issues?
 Please report issues on the [issues page](../../issues).

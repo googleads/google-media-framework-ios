@@ -10,7 +10,6 @@
 		4C5BB61017D13D86003D9E20 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5BB60F17D13D86003D9E20 /* AVFoundation.framework */; };
 		4C5BB61217D13DAC003D9E20 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5BB61117D13DAC003D9E20 /* AudioToolbox.framework */; };
 		4C5BB61417D13DC8003D9E20 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5BB61317D13DC8003D9E20 /* CoreMedia.framework */; };
-		4C87C1D41814423B0010D32D /* GMFIMASDKAdService.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C00AF3517F2081700167389 /* GMFIMASDKAdService.m */; };
 		4CAD3F6B17BD4703008C6D28 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD3F6A17BD4703008C6D28 /* UIKit.framework */; };
 		4CAD3F6D17BD4703008C6D28 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD3F6C17BD4703008C6D28 /* Foundation.framework */; };
 		4CAD3F6F17BD4703008C6D28 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CAD3F6E17BD4703008C6D28 /* CoreGraphics.framework */; };
@@ -25,7 +24,6 @@
 		4CAD3F9C17BD4704008C6D28 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4CAD3F9A17BD4704008C6D28 /* InfoPlist.strings */; };
 		4CAD3F9F17BD4704008C6D28 /* GoogleMediaFrameworkDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CAD3F9E17BD4704008C6D28 /* GoogleMediaFrameworkDemoTests.m */; };
 		4CCC637817E7CC0E00D8F767 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A054B917E270A50035D08D /* SystemConfiguration.framework */; };
-		4CD0246E185CCE5300793419 /* GMFContentPlayhead.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD0246D185CCE5300793419 /* GMFContentPlayhead.m */; };
 		4CD7815217EC9E9B00930F92 /* VideoListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CD7815117EC9E9B00930F92 /* VideoListViewController.m */; };
 		4CF77DEA18567DAD00F98F76 /* VideoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CF77DE918567DAD00F98F76 /* VideoData.m */; };
 		73BCC5BB199BE2E200B65504 /* Gmf-Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 73BCC5B9199BE2E200B65504 /* Gmf-Icon.png */; };
@@ -63,8 +61,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		4C00AF3417F2081700167389 /* GMFIMASDKAdService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GMFIMASDKAdService.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		4C00AF3517F2081700167389 /* GMFIMASDKAdService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GMFIMASDKAdService.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4C5BB60F17D13D86003D9E20 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4C5BB61117D13DAC003D9E20 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4C5BB61317D13DC8003D9E20 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -81,13 +77,11 @@
 		4CAD3F7C17BD4703008C6D28 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		4CAD3F7E17BD4703008C6D28 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		4CAD3F8017BD4703008C6D28 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		4CAD3F9017BD4703008C6D28 /* GoogleMediaFrameworkDemoTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = GoogleMediaFrameworkDemoTests.octest; path = GoogleMediaFrameworkDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CAD3F9017BD4703008C6D28 /* GoogleMediaFrameworkDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GoogleMediaFrameworkDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CAD3F9917BD4704008C6D28 /* GoogleMediaFrameworkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleMediaFrameworkTests-Info.plist"; sourceTree = "<group>"; };
 		4CAD3F9B17BD4704008C6D28 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4CAD3F9D17BD4704008C6D28 /* GoogleMediaFrameworkDemoTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoogleMediaFrameworkDemoTests.h; sourceTree = "<group>"; };
 		4CAD3F9E17BD4704008C6D28 /* GoogleMediaFrameworkDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GoogleMediaFrameworkDemoTests.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		4CD0246C185CCE5300793419 /* GMFContentPlayhead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = GMFContentPlayhead.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		4CD0246D185CCE5300793419 /* GMFContentPlayhead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GMFContentPlayhead.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4CD7815017EC9E9B00930F92 /* VideoListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = VideoListViewController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		4CD7815117EC9E9B00930F92 /* VideoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoListViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4CF77DE818567DAD00F98F76 /* VideoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoData.h; sourceTree = "<group>"; };
@@ -163,7 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				4CAD3F6717BD4703008C6D28 /* GoogleMediaFrameworkDemo.app */,
-				4CAD3F9017BD4703008C6D28 /* GoogleMediaFrameworkDemoTests.octest */,
+				4CAD3F9017BD4703008C6D28 /* GoogleMediaFrameworkDemoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -193,10 +187,6 @@
 				4CAD3F7117BD4703008C6D28 /* Supporting Files */,
 				4CAD3F7917BD4703008C6D28 /* GMFAppDelegate.h */,
 				4CAD3F7A17BD4703008C6D28 /* GMFAppDelegate.m */,
-				4CD0246C185CCE5300793419 /* GMFContentPlayhead.h */,
-				4CD0246D185CCE5300793419 /* GMFContentPlayhead.m */,
-				4C00AF3417F2081700167389 /* GMFIMASDKAdService.h */,
-				4C00AF3517F2081700167389 /* GMFIMASDKAdService.m */,
 				4CF77DE818567DAD00F98F76 /* VideoData.h */,
 				4CF77DE918567DAD00F98F76 /* VideoData.m */,
 				4CD7815017EC9E9B00930F92 /* VideoListViewController.h */,
@@ -285,7 +275,7 @@
 			);
 			name = GoogleMediaFrameworkDemoTests;
 			productName = GoogleMediaFrameworkDemoTests;
-			productReference = 4CAD3F9017BD4703008C6D28 /* GoogleMediaFrameworkDemoTests.octest */;
+			productReference = 4CAD3F9017BD4703008C6D28 /* GoogleMediaFrameworkDemoTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -440,11 +430,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C87C1D41814423B0010D32D /* GMFIMASDKAdService.m in Sources */,
 				4CAD3F7717BD4703008C6D28 /* main.m in Sources */,
 				4CAD3F7B17BD4703008C6D28 /* GMFAppDelegate.m in Sources */,
 				4CF77DEA18567DAD00F98F76 /* VideoData.m in Sources */,
-				4CD0246E185CCE5300793419 /* GMFContentPlayhead.m in Sources */,
 				4CD7815217EC9E9B00930F92 /* VideoListViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

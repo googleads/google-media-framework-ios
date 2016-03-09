@@ -12,8 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#import "GMFIMASDKAdService.h"
-
+#import <GoogleMediaFramework/GoogleMediaFramework.h>
 #import <UIKit/UIKit.h>
 
 @interface VideoListViewController : UIViewController<UITableViewDataSource,

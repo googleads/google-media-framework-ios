@@ -1,9 +1,6 @@
 language: objective-c
 
 before_install:
-  # Cocoapods isn't currently installed by default on
-  # Travis-CI, but may be in the near future.
-  - gem install cocoapods --no-document
   - cd GoogleMediaFrameworkDemo
 
 script:

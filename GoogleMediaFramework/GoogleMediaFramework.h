@@ -14,6 +14,7 @@
 
 // Public header files for use by apps using this framework
 #import "GMFAdService.h"
+#import "GMFIMASDKAdService.h"
 #import "GMFPlayerFinishReason.h"
 #import "GMFPlayerState.h"
 #import "GMFPlayerViewController.h"

@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '6.1'
   s.requires_arc = true
 
-  s.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.1.0'
+  s.dependency 'GoogleAds-IMA-iOS-SDK', '~> 3.2.1'
 
   s.source_files = 'GoogleMediaFramework'
   s.resources = 'Resources/**'

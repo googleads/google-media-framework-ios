@@ -152,6 +152,9 @@
       [self.videoPlayerController.playerOverlayView showPlayButton];
       [self showPlayerControls];
       break;
+    case kIMAAdEvent_TAPPED:
+      [self showPlayerControls];
+      break;
     case kIMAAdEvent_ALL_ADS_COMPLETED:
       // When all ads are done, give control back to the video player.
       [self relinquishControlToVideoPlayer];

@@ -1,17 +1,17 @@
-#Google Media Framework for iOS
+# Google Media Framework for iOS
 
 [![Build Status](https://travis-ci.org/googleads/google-media-framework-ios.png?branch=master)](https://travis-ci.org/googleads/google-media-framework-ios)
 
-##Introduction
+## Introduction
 The Google Media Framework (GMF) is a lightweight media player designed to make video playback and integration with the Google IMA SDK on iOS easier.
 
 ![Google Media Framework iOS Demo](http://googleads.github.io/google-media-framework-ios/gmf_ios_portrait.png)
 
-##Features
+## Features
 - A simple video player UI for video playback on iOS.
 - Easily integrate the Google IMA SDK to enable advertising on your video content.
 
-##Getting started
+## Getting started
 The easiest way to get started is by using [CocoaPods](http://cocoapods.org).
 
 Create a new single view xcode project, then add the following line to your ```Podfile```:
@@ -68,14 +68,14 @@ The demo app includes the [Google Interactive Media Ads (IMA) SDK](https://devel
 
 If you don't want to use CocoaPods, you should be able to integrate the framework by cloning the project and manually adding the classes and image resources to your project.
 
-##Where do I report issues?
+## Where do I report issues?
 Please report issues on the [issues page](../../issues).
 
-##Support
+## Support
 If you have questions about the framework, you can ask them at http://groups.google.com/d/forum/google-media-framework
 
-##How do I contribute?
+## How do I contribute?
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
 
-##Requirements
+## Requirements
   - iOS 6.1+

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2BFF11CE35D67393BC0B0282 /* Pods_GoogleMediaFrameworkDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1CBF7CB583B6B01736EAE55C /* Pods_GoogleMediaFrameworkDemo.framework */; };
 		4C5BB61017D13D86003D9E20 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5BB60F17D13D86003D9E20 /* AVFoundation.framework */; };
 		4C5BB61217D13DAC003D9E20 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5BB61117D13DAC003D9E20 /* AudioToolbox.framework */; };
 		4C5BB61417D13DC8003D9E20 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C5BB61317D13DC8003D9E20 /* CoreMedia.framework */; };
@@ -34,8 +35,6 @@
 		A8A054BB17E270A50035D08D /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A054B617E270A50035D08D /* CoreFoundation.framework */; };
 		A8A054BC17E270A50035D08D /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A054B717E270A50035D08D /* MessageUI.framework */; };
 		A8A054BD17E270A50035D08D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A8A054B817E270A50035D08D /* QuartzCore.framework */; };
-		C1E0520A22C74461D02DEF62 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D64E0D2ECC1547E581F50A56 /* libPods.a */; };
-		E8E83A6A2D044DFF96AF06E1 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D64E0D2ECC1547E581F50A56 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +60,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		1CBF7CB583B6B01736EAE55C /* Pods_GoogleMediaFrameworkDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GoogleMediaFrameworkDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C5BB60F17D13D86003D9E20 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		4C5BB61117D13DAC003D9E20 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		4C5BB61317D13DC8003D9E20 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -86,7 +86,7 @@
 		4CD7815117EC9E9B00930F92 /* VideoListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VideoListViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		4CF77DE818567DAD00F98F76 /* VideoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoData.h; sourceTree = "<group>"; };
 		4CF77DE918567DAD00F98F76 /* VideoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoData.m; sourceTree = "<group>"; };
-		7344A49C086478D343BFE475 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		665146F9F8186292C81018B1 /* Pods-GoogleMediaFrameworkDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoogleMediaFrameworkDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-GoogleMediaFrameworkDemo/Pods-GoogleMediaFrameworkDemo.release.xcconfig"; sourceTree = "<group>"; };
 		73BCC5B9199BE2E200B65504 /* Gmf-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Gmf-Icon.png"; sourceTree = "<group>"; };
 		8758392B1989716200DDD0D2 /* Delete-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Delete-Icon.png"; sourceTree = "<group>"; };
 		8758392C1989716200DDD0D2 /* Favorite-Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Favorite-Icon.png"; sourceTree = "<group>"; };
@@ -96,8 +96,8 @@
 		A8A054B717E270A50035D08D /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		A8A054B817E270A50035D08D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A8A054B917E270A50035D08D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D620C3D19F93159236BE70DD /* Pods-GoogleMediaFrameworkDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GoogleMediaFrameworkDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GoogleMediaFrameworkDemo/Pods-GoogleMediaFrameworkDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		D64E0D2ECC1547E581F50A56 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6ECCA408889EA03EBBB5A91 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +116,7 @@
 				4CAD3F6B17BD4703008C6D28 /* UIKit.framework in Frameworks */,
 				4CAD3F6D17BD4703008C6D28 /* Foundation.framework in Frameworks */,
 				4CAD3F6F17BD4703008C6D28 /* CoreGraphics.framework in Frameworks */,
-				E8E83A6A2D044DFF96AF06E1 /* libPods.a in Frameworks */,
+				2BFF11CE35D67393BC0B0282 /* Pods_GoogleMediaFrameworkDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +126,6 @@
 			files = (
 				4CAD3F9317BD4704008C6D28 /* UIKit.framework in Frameworks */,
 				4CAD3F9417BD4704008C6D28 /* Foundation.framework in Frameworks */,
-				C1E0520A22C74461D02DEF62 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -136,8 +135,8 @@
 		033BF432EF1BA7820BDDC544 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				7344A49C086478D343BFE475 /* Pods.debug.xcconfig */,
-				D6ECCA408889EA03EBBB5A91 /* Pods.release.xcconfig */,
+				D620C3D19F93159236BE70DD /* Pods-GoogleMediaFrameworkDemo.debug.xcconfig */,
+				665146F9F8186292C81018B1 /* Pods-GoogleMediaFrameworkDemo.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -177,6 +176,7 @@
 				4CAD3F6C17BD4703008C6D28 /* Foundation.framework */,
 				4CAD3F6E17BD4703008C6D28 /* CoreGraphics.framework */,
 				D64E0D2ECC1547E581F50A56 /* libPods.a */,
+				1CBF7CB583B6B01736EAE55C /* Pods_GoogleMediaFrameworkDemo.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -240,13 +240,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4CAD3FA217BD4704008C6D28 /* Build configuration list for PBXNativeTarget "GoogleMediaFrameworkDemo" */;
 			buildPhases = (
-				B43CA9D051C344D89EAEDD1C /* Check Pods Manifest.lock */,
+				B43CA9D051C344D89EAEDD1C /* [CP] Check Pods Manifest.lock */,
 				4CAD3F6317BD4703008C6D28 /* Sources */,
 				4CAD3F6417BD4703008C6D28 /* Frameworks */,
 				4CAD3F6517BD4703008C6D28 /* Resources */,
 				4CAD3FEB17C2B99A008C6D28 /* CopyFiles */,
-				771FE8B597914A5BB20F7EA9 /* Copy Pods Resources */,
-				A47DA6648390546C207B9DD2 /* Embed Pods Frameworks */,
+				771FE8B597914A5BB20F7EA9 /* [CP] Copy Pods Resources */,
+				A47DA6648390546C207B9DD2 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -261,12 +261,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4CAD3FA517BD4704008C6D28 /* Build configuration list for PBXNativeTarget "GoogleMediaFrameworkDemoTests" */;
 			buildPhases = (
-				54F1D64544B905FFAC4BA68C /* Check Pods Manifest.lock */,
 				4CAD3F8B17BD4703008C6D28 /* Sources */,
 				4CAD3F8C17BD4703008C6D28 /* Frameworks */,
 				4CAD3F8D17BD4703008C6D28 /* Resources */,
 				4CAD3F8E17BD4703008C6D28 /* Run Script */,
-				14D8903475E92628C1CE57EC /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -334,21 +332,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		14D8903475E92628C1CE57EC /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		4CAD3F8E17BD4703008C6D28 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -363,64 +346,49 @@
 			shellPath = /bin/sh;
 			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
 		};
-		54F1D64544B905FFAC4BA68C /* Check Pods Manifest.lock */ = {
+		771FE8B597914A5BB20F7EA9 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoogleMediaFrameworkDemo/Pods-GoogleMediaFrameworkDemo-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		771FE8B597914A5BB20F7EA9 /* Copy Pods Resources */ = {
+		A47DA6648390546C207B9DD2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GoogleMediaFrameworkDemo/Pods-GoogleMediaFrameworkDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A47DA6648390546C207B9DD2 /* Embed Pods Frameworks */ = {
+		B43CA9D051C344D89EAEDD1C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B43CA9D051C344D89EAEDD1C /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -540,7 +508,7 @@
 		};
 		4CAD3FA317BD4704008C6D28 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7344A49C086478D343BFE475 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = D620C3D19F93159236BE70DD /* Pods-GoogleMediaFrameworkDemo.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -548,6 +516,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GoogleMediaFrameworkDemo/GoogleMediaFrameworkDemo-Prefix.pch";
 				INFOPLIST_FILE = "GoogleMediaFrameworkDemo/GoogleMediaFrameworkDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "$(inherited)";
@@ -559,7 +528,7 @@
 		};
 		4CAD3FA417BD4704008C6D28 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D6ECCA408889EA03EBBB5A91 /* Pods.release.xcconfig */;
+			baseConfigurationReference = 665146F9F8186292C81018B1 /* Pods-GoogleMediaFrameworkDemo.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -567,6 +536,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GoogleMediaFrameworkDemo/GoogleMediaFrameworkDemo-Prefix.pch";
 				INFOPLIST_FILE = "GoogleMediaFrameworkDemo/GoogleMediaFrameworkDemo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "$(inherited)";
@@ -578,7 +548,6 @@
 		};
 		4CAD3FA617BD4704008C6D28 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7344A49C086478D343BFE475 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GoogleMediaFrameworkDemo.app/GoogleMediaFrameworkDemo";
@@ -599,7 +568,6 @@
 		};
 		4CAD3FA717BD4704008C6D28 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D6ECCA408889EA03EBBB5A91 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GoogleMediaFrameworkDemo.app/GoogleMediaFrameworkDemo";

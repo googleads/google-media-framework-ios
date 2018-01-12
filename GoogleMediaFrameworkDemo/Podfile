@@ -1,5 +1,9 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
-platform :ios, "6.1"
+platform :ios, "8.0"
 
-pod "GoogleMediaFramework", :path => "../"
+use_frameworks!
+
+target "GoogleMediaFrameworkDemo" do
+  pod "GoogleMediaFramework", :path => "../"
+end

@@ -22,54 +22,56 @@
 @implementation GMFResources
 
 + (UIImage *)playerBarPlayButtonImage {
-  return [self imageNamed:@"player_control_play"];
+  return [self imageNamed:@"player_control_play@2x"];
 }
 
 + (UIImage *)playerBarPlayLargeButtonImage {
-  return [self imageNamed:@"player_control_play_large"];
+  return [self imageNamed:@"player_control_play_large@2x"];
 }
 
 + (UIImage *)playerBarPauseButtonImage {
-  return [self imageNamed:@"player_control_pause"];
+  return [self imageNamed:@"player_control_pause@2x"];
 }
 
 + (UIImage *)playerBarPauseLargeButtonImage {
-  return [self imageNamed:@"player_control_pause_large"];  
+  return [self imageNamed:@"player_control_pause_large@2x"];
 }
 
 + (UIImage *)playerBarReplayButtonImage {
-  return [self imageNamed:@"player_control_replay"];
+  return [self imageNamed:@"player_control_replay@2x"];
 }
 
 + (UIImage *)playerBarReplayLargeButtonImage {
-  return [self imageNamed:@"player_control_replay_large"];  
+  return [self imageNamed:@"player_control_replay_large@2x"];
 }
 
 + (UIImage *)playerBarMaximizeButtonImage {
-  return [self imageNamed:@"player_control_maximize"];
+  return [self imageNamed:@"player_control_maximize@2x"];
 }
 
 + (UIImage *)playerBarMinimizeButtonImage {
-  return [self imageNamed:@"player_control_minimize"];
+  return [self imageNamed:@"player_control_minimize@2x"];
 }
 
 + (UIImage *)playerBarScrubberThumbImage {
-  return [self imageNamed:@"player_scrubber_thumb"];
+  return [self imageNamed:@"player_scrubber_thumb@2x"];
 }
 
 + (UIImage *)playerBarBackgroundImage {
-  return [self imageNamed:@"player_controls_background"];
+  return [self imageNamed:@"player_controls_background@2x"];
 }
 
 + (UIImage *)playerTitleBarBackgroundImage {
-  return [self imageNamed:@"player_controls_title_bar_background"];
+  return [self imageNamed:@"player_controls_title_bar_background@2x"];
 }
 
 #pragma mark Private Methods
 
 + (UIImage *)imageNamed:(NSString *)name
             stretchable:(BOOL)stretchable {
-  UIImage *image = [UIImage imageNamed:name];
+  NSBundle *frameworkBundle = [NSBundle bundleForClass:[self class]];
+  NSString *resourcePath = [frameworkBundle pathForResource:name ofType:@"png"];
+  UIImage *image = [UIImage imageWithContentsOfFile:resourcePath];
 
   NSAssert(image, @"There is no image called %@", name);
   if (stretchable) {

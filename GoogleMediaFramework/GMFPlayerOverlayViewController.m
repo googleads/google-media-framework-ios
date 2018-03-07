@@ -48,7 +48,9 @@ static const NSTimeInterval kAutoHideAnimationDelay = 2.0;
                                 kPaddingTop,
                                 screenWidth,
                                 screenHeight);
-  _playerOverlayView = [[GMFPlayerOverlayView alloc] initWithFrame:frameRect];
+  if (!_playerOverlayView) {
+    _playerOverlayView = [[GMFPlayerOverlayView alloc] initWithFrame:frameRect];
+  }
   [self setView:_playerOverlayView];
 }
 

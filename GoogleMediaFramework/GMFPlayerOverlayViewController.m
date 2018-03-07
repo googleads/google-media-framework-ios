@@ -152,9 +152,14 @@ static const NSTimeInterval kAutoHideAnimationDelay = 2.0;
 }
 
 - (void)hidePlayerControlsAnimated:(BOOL)animated {
-  [self animatePlayerControlsToHidden:animated
-                    animationDuration:kAutoHideUserForcedAnimationDuration
-                           afterDelay:0];
+  if (animated) {
+    [self animatePlayerControlsToHidden:YES
+                      animationDuration:kAutoHideUserForcedAnimationDuration
+                             afterDelay:0];
+  } else {
+    [self playerControlsWillHide];
+    [self playerControlsDidHide];
+  }
 }
 
 - (void)playerControlsDidHide {

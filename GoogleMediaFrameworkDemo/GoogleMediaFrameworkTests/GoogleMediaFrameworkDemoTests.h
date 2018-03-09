@@ -14,7 +14,7 @@
 
 #import <XCTest/XCTest.h>
 
-#import "GMFVideoPlayer.h"
+#import <GoogleMediaFramework/GoogleMediaFramework.h>
 
 @interface GoogleMediaFrameworkDemoTests : XCTestCase<GMFVideoPlayerDelegate>
 

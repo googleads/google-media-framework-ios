@@ -418,9 +418,12 @@ void GMFAudioRouteChangeListenerCallback(void *inClientData,
 - (void)playerRateDidChange {
   // TODO(tensafefrogs): Abandon rate observing since it's inconsistent between HLS
   // and non-HLS videos. Rely on the poller.
-  if ([_player rate]) {
+  if ([_player rate] > 0) {
     [self startPlaybackStatusPoller];
     [self setState:kGMFPlayerStatePlaying];
+  } else if ([_player rate] == 0) {
+    // TODO(shawnbuso): Is this right? Could the rate change to 0 for states other than paused (e.g. buffering)?
+    [self setState:kGMFPlayerStatePaused];
   }
 }
 

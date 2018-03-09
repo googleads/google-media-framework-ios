@@ -6,4 +6,8 @@ use_frameworks!
 
 target "GoogleMediaFrameworkDemo" do
   pod "GoogleMediaFramework", :path => "../"
+
+  target 'GoogleMediaFrameworkDemoTests' do
+    inherit! :search_paths
+  end
 end

@@ -4,8 +4,6 @@ before_install:
   # Cocoapods isn't currently installed by default on
   # Travis-CI, but may be in the near future.
   - pod repo update
-  - cd GoogleMediaFrameworkDemo
 
 script:
-  # TODO: Add 'test' flag here once tests work on travis-ci server.
-  - xctool build -workspace GoogleMediaFrameworkDemo.xcworkspace -scheme GoogleMediaFrameworkDemo -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+  - xcodebuild build test -sdk iphonesimulator -workspace GoogleMediaFrameworkDemo/GoogleMediaFrameworkDemo.xcworkspace -scheme GoogleMediaFrameworkDemo -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.2'

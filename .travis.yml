@@ -6,4 +6,4 @@ before_install:
   - pod repo update
 
 script:
-  - xcodebuild build test -sdk iphonesimulator -workspace GoogleMediaFrameworkDemo/GoogleMediaFrameworkDemo.xcworkspace -scheme GoogleMediaFrameworkDemo -destination 'platform=iOS Simulator,name=iPhone 8,OS=11.2'
+  - xcodebuild build test -sdk iphonesimulator -workspace GoogleMediaFrameworkDemo/GoogleMediaFrameworkDemo.xcworkspace -scheme GoogleMediaFrameworkDemo -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.3.1'

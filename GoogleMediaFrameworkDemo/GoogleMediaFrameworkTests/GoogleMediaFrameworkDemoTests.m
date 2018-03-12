@@ -217,7 +217,7 @@ BOOL WaitFor(BOOL (^block)(void), NSTimeInterval seconds) {
 
 - (void)assertPlaybackDoesNotProgress {
   NSTimeInterval startMediaTime = [_player currentMediaTime];
-  [self waitForTimeInterval:10];
+  [self waitForTimeInterval:1];
   NSTimeInterval endMediaTime = [_player currentMediaTime];
   XCTAssertTrue(startMediaTime == endMediaTime,
                @"Playback progressed when it was not expected to");

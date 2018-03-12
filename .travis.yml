@@ -2,7 +2,8 @@ language: objective-c
 
 before_install:
   - cd GoogleMediaFrameworkDemo
+  - export AUDIODEV=null
   - pod install --repo-update
 
 script:
-  - xcodebuild build -sdk iphonesimulator -workspace GoogleMediaFrameworkDemo.xcworkspace -scheme GoogleMediaFrameworkDemo -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.3.1'
+  - xcodebuild build test -sdk iphonesimulator -workspace GoogleMediaFrameworkDemo.xcworkspace -scheme GoogleMediaFrameworkDemo -destination 'platform=iOS Simulator,name=iPhone 7,OS=10.3.1'

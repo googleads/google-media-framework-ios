@@ -1,6 +1,6 @@
 
 #import <Foundation/Foundation.h>
-#import <GoogleMediaFramework/GoogleMediaFramework.h>
+#import <GoogleMediaFramework.h>
 #import <GoogleInteractiveMediaAds/GoogleInteractiveMediaAds.h>
 
 // Provides a KVO observable property for the Google Interactive Media Ads SDK (IMA SDK).

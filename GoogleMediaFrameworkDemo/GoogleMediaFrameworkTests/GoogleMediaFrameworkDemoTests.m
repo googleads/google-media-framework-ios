@@ -273,7 +273,7 @@ BOOL WaitFor(BOOL (^block)(void), NSTimeInterval seconds) {
     case kGMFPlayerStateError:
       return @"Error";
   }
-  return @"IDK";
+  return nil;
 }
 
 @end

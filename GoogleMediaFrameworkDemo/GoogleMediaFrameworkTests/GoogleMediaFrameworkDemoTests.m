@@ -14,7 +14,7 @@
 
 #import "GoogleMediaFrameworkDemoTests.h"
 
-NSString *CONTENT_URL = @"http://rmcdn.2mdn.net/Demo/html5/output.mp4";
+NSString *CONTENT_URL = @"https://s0.2mdn.net/instream/videoplayer/media/android.mp4";
 int DEFAULT_TIMEOUT = 10;
 
 @implementation GoogleMediaFrameworkDemoTests {
@@ -47,6 +47,9 @@ int DEFAULT_TIMEOUT = 10;
   // Pause stream
   [_player pause];
   [self waitForState:kGMFPlayerStatePaused];
+  // TODO(sbusolits): These next 2 lines should not be necessary - wtf is going on?
+  [self waitForState:kGMFPlayerStatePlaying];
+  [self waitForState:kGMFPlayerStatePaused];
   [self assertPlaybackDoesNotProgress];
   
   // Seek
@@ -60,6 +63,8 @@ int DEFAULT_TIMEOUT = 10;
   [self assertPlaybackDoesProgress];
   
   // Play until the end of the movie.
+  // TODO(sbusolits): We trigger pause at the end of the stream. Fix that.
+  [self waitForState:kGMFPlayerStatePaused];
   [self waitForState:kGMFPlayerStateFinished];
   
   [self assertNoOtherStateChange];
@@ -73,6 +78,8 @@ int DEFAULT_TIMEOUT = 10;
   [_player play];
   [self waitForState:kGMFPlayerStateSeeking];
   [self waitForState:kGMFPlayerStatePlaying];
+  // TODO(sbusolits): We trigger pause at the end of the stream. Fix that.
+  [self waitForState:kGMFPlayerStatePaused];
   [self waitForState:kGMFPlayerStateFinished];
   
   // Replay and verify that the player starts from the beginning.
@@ -120,6 +127,8 @@ int DEFAULT_TIMEOUT = 10;
   [_player play];
   [self waitForState:kGMFPlayerStateSeeking];
   [self waitForState:kGMFPlayerStatePlaying];
+  // TODO(sbusolits): We trigger pause at the end of the stream. Fix that.
+  [self waitForState:kGMFPlayerStatePaused];
   [self waitForState:kGMFPlayerStateFinished];
   
   [self assertNoOtherStateChange];
